@@ -1,0 +1,20 @@
+nav.navbar.navbar-expand-lg.bg-dark.sticky-top {
+    background-color: black !important;
+}
+
+@media all and (min-width: 992px) {
+    .navbar .nav-item .dropdown-menu {
+      display: none;
+      transition: opacity 0.3s ease, visibility 0.3s ease, max-height 0.3s ease; 
+    }
+  
+    .navbar .nav-item:hover .dropdown-menu {
+      display: block;
+      max-height: 200px; /* Ajusta la altura máxima según sea necesario */
+    }
+  }
+  
+  
+  
+  
+  

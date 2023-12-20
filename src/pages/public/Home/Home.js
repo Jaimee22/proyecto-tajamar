@@ -4,8 +4,18 @@ import './Home.css'
 export default class Home extends Component {
   render() {
     return (
-      <div>
-        <h1>Home</h1>
+      <div className='container-home'>
+        
+        <h1>Holae</h1>
+        <h1>Homae</h1>
+        <h1>Homae</h1>
+        <h1>Homae</h1>
+        <h1>Homae</h1>
+        <h1>Homae</h1>
+        <h1>Homae</h1>
+        <h1>Homae</h1>
+        <h1>Homae</h1>
+        <h1>Homae</h1>
       </div>
     )
   }

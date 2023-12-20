@@ -1,23 +1,43 @@
 import React from 'react';
 import './Footer.css';
-import { FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { FaTwitter, FaYoutube, FaLinkedin } from 'react-icons/fa';
+import LogoTajamarFooter from '../../assets/img/escudo-negativo-tajamar.png';
 
 const Footer = () => {
   return (
-    <div className="container">
-      <footer className="py-3 my-4">
-        <ul className="nav justify-content-center border-bottom pb-3 mb-3">
-          <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Home</a></li>
-          <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Features</a></li>
-          <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Pricing</a></li>
-          <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">FAQs</a></li>
-          <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">About</a></li>
-        </ul>
-        <p className="text-center text-muted">&copy; 2022 Company, Inc</p>
-      </footer>
-    </div>
+    <footer className="custom-footer position-static">
+      <div className="col-md-5">
+        <a href="/" className="logo">
+          <img src={LogoTajamarFooter} alt='logo_tajamar'/>
+        </a>
+      </div>
+
+      <div className='col-md-3 text-center'>
+        <p className="company-text fw-bold">&copy; 2023 FP + Professional Education</p><br/>
+        <span className='info-footer'><strong className='white'>Dirección:</strong> Calle Pío Felipe 12, 28038,  Madrid </span>
+        <span className='info-footer'><strong className='white'>Teléfonos:</strong> 91 757 18 17 / 91 478 34 98</span>
+      </div>
+
+      <ul className="nav col-md-4 justify-content-center list-unstyled d-flex justify-content-md-end">
+        <li className="ms-3">
+          <a className="icon-link" href="https://twitter.com/TechRiders_es">
+            <FaTwitter size={30} />
+          </a>
+        </li>
+        <li className="ms-3">
+          <a className="icon-link" href="www.youtube.com/@TechRiders_es">
+            <FaYoutube size={30} />
+          </a>
+        </li>
+        <li className="ms-3">
+          <a className="icon-link" href="https://es.linkedin.com/showcase/tech-tajamar-fp-professional-education/?trk=public_post_reshare_feed-actor-name">
+            <FaLinkedin size={30} />
+          </a>
+        </li>
+      </ul>
+    </footer>
   );
 };
 
 export default Footer;
+
