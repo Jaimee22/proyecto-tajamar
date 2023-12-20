@@ -1,37 +1,20 @@
 import React from 'react';
 import './Footer.css';
 import { FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Footer = () => {
   return (
     <div className="container">
-      <footer className="custom-footer">
-        <div className="col-md-4 d-flex align-items-center">
-          <a href="/" className="logo">
-            <svg className="bi" width="30" height="24">
-              <use xlinkHref="#custom-logo" />
-            </svg>
-          </a>
-          <span className="company-text">&copy; 2023 FP + Professional Education</span>
-        </div>
-
-        <ul className="nav col-md-4 justify-content-center list-unstyled d-flex">
-          <li className="ms-3">
-            <a className="icon-link" href="#">
-              <FaTwitter size={30} /> {/* Ajustar el tamaño */}
-            </a>
-          </li>
-          <li className="ms-3">
-            <a className="icon-link" href="#">
-              <FaInstagram size={30} /> {/* Ajustar el tamaño */}
-            </a>
-          </li>
-          <li className="ms-3">
-            <a className="icon-link" href="#">
-              <FaLinkedin size={30} /> {/* Ajustar el tamaño */}
-            </a>
-          </li>
+      <footer className="py-3 my-4">
+        <ul className="nav justify-content-center border-bottom pb-3 mb-3">
+          <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Home</a></li>
+          <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Features</a></li>
+          <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Pricing</a></li>
+          <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">FAQs</a></li>
+          <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">About</a></li>
         </ul>
+        <p className="text-center text-muted">&copy; 2022 Company, Inc</p>
       </footer>
     </div>
   );
