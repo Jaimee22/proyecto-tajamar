@@ -1,0 +1,50 @@
+.custom-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    margin-top: 4rem;
+    border-top: 1px solid #fff;
+    background-color: #343a40;
+    color: #fff;
+  }
+  
+  .logo {
+    margin-right: 1rem;
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  .company-text {
+    margin-bottom: 0;
+    margin-top: 0;
+    color: #adb5bd;
+  }
+  
+  .nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .icon-link {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease; 
+}
+
+.icon-link:hover {
+  /* color: #28a745;  */
+  cursor: pointer;
+}
+
+  
+  .icon-link svg {
+    fill: currentColor;
+    vertical-align: middle;
+    margin-right: 10px; 
+  }
+  

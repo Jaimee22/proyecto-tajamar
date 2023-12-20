@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import './Home.css'
+import './Empresa.css'
 
-export default class Home extends Component {
+export default class Empresa extends Component {
   render() {
     return (
       <div>
-        <h1>Home</h1>
+        <h1>Empresa</h1>
       </div>
     )
   }

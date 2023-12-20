@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import './Home.css'
+import './Registro.css'
 
-export default class Home extends Component {
+export default class Registro extends Component {
   render() {
     return (
       <div>
-        <h1>Home</h1>
+        <h1>Registro</h1>
       </div>
     )
   }
