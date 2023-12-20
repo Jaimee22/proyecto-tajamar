@@ -2,14 +2,18 @@ nav.navbar.navbar-expand-lg.bg-dark.sticky-top {
     background-color: black !important;
 }
 
+.iconos-nav{
+  /* font-size: 2rem; */
+}
+
 @media all and (min-width: 992px) {
     .navbar .nav-item .dropdown-menu {
-      display: none;
-      transition: opacity 0.3s ease, visibility 0.3s ease, max-height 0.3s ease; 
+      visibility: hidden;
+      transition: opacity 1s ease, visibility 0.3s ease, max-height 0.3s ease; 
     }
   
     .navbar .nav-item:hover .dropdown-menu {
-      display: block;
+      visibility: visible;
       max-height: 200px; /* Ajusta la altura máxima según sea necesario */
     }
   }

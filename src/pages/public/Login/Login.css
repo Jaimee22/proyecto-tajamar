@@ -88,6 +88,7 @@
 
 
 .login-form-btn {
+  font-weight: 400;
   outline: none !important;
   border: none;
   background: transparent;
@@ -113,6 +114,8 @@
 }
 
 .container-login-principal {
+  margin-top: -4rem;
+  margin-bottom: -8rem;
   width: 100%;
   min-height: 100vh;
   display: -webkit-box;
@@ -155,16 +158,16 @@
 /*------------------------------------------------------------------
   [  ]*/
 .form-login {
-  width: 290px;
+  width: 330px;
 }
 
 .form-title {
   font-family: Arial, Helvetica, sans-serif,Poppins-Bold;
-  font-size: 24px;
+  font-size: 32px;
   color: #333333;
   line-height: 1.2;
   text-align: center;
-
+  font-weight: bold;
   width: 100%;
   display: block;
   padding-bottom: 54px;
@@ -256,6 +259,10 @@
 }
 
 .container-login-form-btn {
+  /* text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: 75%; */
   width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
