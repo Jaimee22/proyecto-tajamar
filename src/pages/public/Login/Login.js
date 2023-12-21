@@ -1,8 +1,10 @@
+// Login.js
 import React, { useState } from 'react';
 import './Login.css';
 import { FaLock, FaEnvelope } from 'react-icons/fa';
 import LogoTechRiders from '../../../assets/img/escudo-negro1.png';
 import { login } from '../../../api/Metodos';
+import toast, { Toaster } from 'react-hot-toast'; // Importa toast y Toaster
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -68,6 +70,8 @@ const Login = () => {
           </form>
         </div>
       </div>
+
+      <Toaster/>
     </div>
   );
 };

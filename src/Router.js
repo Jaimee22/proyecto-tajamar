@@ -10,6 +10,7 @@ import CentroPrivate from './pages/private/Centro/Centro';
 import EmpresaPrivate from './pages/private/Empresa/Empresa';
 import TechRiderPrivate from './pages/private/TechRider/TechRider';
 import Navbar from './components/Navbar/Navbar';
+import Pagina1 from './components/Pagina1';
 
 export default class Router extends Component {
   render() {
@@ -27,6 +28,8 @@ export default class Router extends Component {
             <Route path='/centros-private' element={<CentroPrivate/>}/>
             <Route path='/empresas-private' element={<EmpresaPrivate/>}/>
             <Route path='/techriders-private' element={<TechRiderPrivate/>}/>
+
+            <Route path='/pagina1' element={<Pagina1/>}/>
         </Routes>
       </BrowserRouter>
       
