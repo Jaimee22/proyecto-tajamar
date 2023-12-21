@@ -7,16 +7,11 @@ nav.navbar.navbar-expand-lg.bg-dark.sticky-top {
 }
 
 @media all and (min-width: 992px) {
-    .navbar .nav-item .dropdown-menu {
-      visibility: hidden;
-      transition: opacity 1s ease, visibility 0.3s ease, max-height 0.3s ease; 
-    }
-  
-    .navbar .nav-item:hover .dropdown-menu {
-      visibility: visible;
-      max-height: 200px; /* Ajusta la altura máxima según sea necesario */
-    }
-  }
+	.navbar .nav-item .dropdown-menu{ display: none; }
+	/* .navbar .nav-item:hover .nav-link{   } */
+	.navbar .nav-item:hover .dropdown-menu{ display: block; }
+	.navbar .nav-item .dropdown-menu{ margin-top:0; }
+}
   
   
   

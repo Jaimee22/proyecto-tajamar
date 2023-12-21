@@ -2,32 +2,14 @@ import React, { useState } from 'react';
 import './Login.css';
 import { FaLock, FaEnvelope } from 'react-icons/fa';
 import LogoTechRiders from '../../../assets/img/escudo-negro1.png';
-import axios from 'axios';
+import { login } from '../../../api/Metodos';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = async () => {
-    try {
-      const response = await axios.post('https://apitechriders.azurewebsites.net/api/auth/login', {
-        email,
-        password,
-      });
-
-      if (response.status === 200) {
-        const token = response.data.response;
-        console.log('Token:', token);
-        localStorage.setItem('token', token);
-        alert('Inicio de sesión exitoso. Token almacenado.');
-
-      } else {
-        
-        alert('Usuario o contraseña incorrectos');
-      }
-    } catch (error) {
-      console.error('Error al realizar la solicitud:', error);
-    }
+  const handleLogin = () => {
+    login(email, password);
   };
 
   return (

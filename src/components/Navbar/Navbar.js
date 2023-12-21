@@ -27,6 +27,10 @@ const Navbar = () => {
       icon: 'success',
       title: 'Sesión cerrada',
       text: 'Se ha cerrado la sesión de forma exitosa.',
+    }).then(() => {
+      // Recarga la página y redirige a la página de inicio
+      window.location.reload();
+      window.location.href = '/';
     });
   }
   
