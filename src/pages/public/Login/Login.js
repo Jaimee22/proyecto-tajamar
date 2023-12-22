@@ -1,17 +1,21 @@
-// Login.js
 import React, { useState } from 'react';
 import './Login.css';
 import { FaLock, FaEnvelope } from 'react-icons/fa';
 import LogoTechRiders from '../../../assets/img/escudo-negro1.png';
-import { login } from '../../../api/Metodos';
-import toast, { Toaster } from 'react-hot-toast'; // Importa toast y Toaster
+import ApiService from '../../../api/ApiService'; // Importa el servicio ApiService
+import toast, { Toaster } from 'react-hot-toast'; 
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    login(email, password);
+  const handleLogin = async () => {
+    try {
+      await ApiService.login(email, password); // Utiliza el método login de ApiService
+    } catch (error) {
+      // Puedes manejar el error aquí si es necesario
+      console.error('Error al iniciar sesión:', error);
+    }
   };
 
   return (
@@ -71,7 +75,7 @@ const Login = () => {
         </div>
       </div>
 
-      <Toaster/>
+      <Toaster />
     </div>
   );
 };

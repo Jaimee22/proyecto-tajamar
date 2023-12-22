@@ -150,18 +150,13 @@
   }
   
   .container-login-mediano {
-    width: auto;
     background: #fff;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 10px 12px 14px 2px rgba(0,0,0,0.47);
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
-    padding: auto;
+    justify-content: center;
+    align-items: center;
   }
   
   /*------------------------------------------------------------------
@@ -210,7 +205,7 @@
     width: 25rem;
     background: #e6e6e6;
     height: 50px;
-    border-radius: 25px;
+    border-radius: 10px;
     padding: 0 30px 0 68px;
   }
   
@@ -436,5 +431,5 @@
   .form-flex{
     display: flex;
     justify-content: space-around;
-    /* align-items: center; */
+    align-items: center;
   }

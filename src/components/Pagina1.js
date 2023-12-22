@@ -1,46 +1,52 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import { getProvincias, getRoles } from '../api/Metodos'; // Ajusta la ruta correcta
+import React, { useState, useEffect } from 'react';
+import ApiService from '../api/ApiService';
 
-export default class Pagina1 extends Component {
-  state = {
-    roles: [],
-  };
+const Pagina1 = () => {
+  const [roles, setRoles] = useState([]);
+  const [provincias, setProvincias] = useState([]);
 
-  // Pagina1.js
-async componentDidMount() {
-  try {
+  useEffect(() => {
     const token = localStorage.getItem('token');
-    console.log('Token:', token); // Agrega esta línea para imprimir el token
-    const roles = await getProvincias(token);
-    this.setState({ roles });
-  } catch (error) {
-    console.error('Error al obtener roles:', error);
-  }
-}
 
+    // Cargar roles
+    ApiService.getRoles(token).then(rolesData => setRoles(rolesData))
 
-  render() {
-    const { roles } = this.state;
+    // Cargar provincias
+    ApiService.getProvincias().then(provinciasData => setProvincias(provinciasData))
+    
+  }, []);
 
-    return (
+  return (
+    <div>
+      <h1>Dropdown Component</h1>
+
+      {/* Dropdown de Roles */}
       <div>
-        <h1>Pagina1</h1>
-        <NavLink to="/">Hola</NavLink>
-
-        {/* Desplegable de roles */}
-        <div>
-          <label htmlFor="roles">Selecciona un rol:</label>
-          <select id="roles">
-            <option value="" disabled>Selecciona un rol</option>
-            {roles.map(role => (
-              <option key={role.idProvincia} value={role.idProvincia}>
-                {role.nombreProvincia}
-              </option>
-            ))}
-          </select>
-        </div>
+        <label htmlFor="roles">Selecciona un rol:</label>
+        <select id="roles">
+          <option value="" disabled>Selecciona un rol</option>
+          {roles.map(role => (
+            <option key={role.idRole} value={role.idRole}>
+              {role.tipoRole}
+            </option>
+          ))}
+        </select>
       </div>
-    );
-  }
-}
+
+      {/* Dropdown de Provincias */}
+      <div>
+        <label htmlFor="provincias">Selecciona una provincia:</label>
+        <select id="provincias">
+          <option value="" disabled>Selecciona una provincia</option>
+          {provincias.map(provincia => (
+            <option key={provincia.idProvincia} value={provincia.idProvincia}>
+              {provincia.nombreProvincia}
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
+  );
+};
+
+export default Pagina1;

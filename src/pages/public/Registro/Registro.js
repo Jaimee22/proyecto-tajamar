@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import "./Registro.css";
-import axios from "axios";
-import { FaRegUser ,FaLock, FaEnvelope, FaPhoneAlt, FaLinkedin } from "react-icons/fa";
-// import {FaLocationDot} from 'react-icons/fa6'
-import {BiSolidRename} from 'react-icons/bi'
-import {MdRealEstateAgent } from 'react-icons/md'
-import { getRoles } from "../../../api/Metodos";
-import { getProvincias } from "../../../api/Metodos";
-
+import { FaRegUser, FaLock, FaEnvelope, FaPhoneAlt, FaLinkedin } from "react-icons/fa";
+import { TiBusinessCard } from "react-icons/ti";
+import { BiSolidRename } from 'react-icons/bi';
+import { MdRealEstateAgent } from 'react-icons/md';
+import { IoBusinessSharp } from "react-icons/io5";
+import { GrMap } from "react-icons/gr";
+import ApiService from '../../../api/ApiService';
 
 export default class Registro extends Component {
   state = {
     status: false,
     roles: [],
-    provincias: []
+    provincias: [],
+    empresasCentros: []
   };
 
   nombre = React.createRef();
@@ -24,26 +24,23 @@ export default class Registro extends Component {
   password = React.createRef();
   idRole_s = React.createRef();
   idProvincia_s = React.createRef();
-  idEmpresaCentro = React.createRef();
+  idEmpresaCentro_s = React.createRef();
   estado = React.createRef();
 
   insertUsuario = (e) => {
     e.preventDefault();
-    //Añadir aqui los valores del form 
-    var idUsu = parseInt(this.idUsuario.current.value);
     var nom = this.nombre.current.value;
     var apell = this.apellidos.current.value;
     var mail = this.email.current.value;
     var telf = this.telefono.current.value;
     var linkdn = this.linkedin.current.value;
     var psswd = this.password.current.value;
-    var idRol = parseInt(this.idRole.current.value);
-    var idProv = parseInt(this.idProvincia.current.value);
-    var idEmpCent = parseInt(this.idEmpresaCentro.current.value);
+    var idRol = parseInt(this.idRole_s.current.value);
+    var idProv = parseInt(this.idProvincia_s.current.value);
+    var idEmpCent = parseInt(this.idEmpresaCentro_s.current.value);
     var stado = parseInt(this.estado.current.value);
 
     var usuario = {
-      idUsuario: idUsu,
       nombre: nom,
       apellidos: apell,
       email: mail,
@@ -56,44 +53,35 @@ export default class Registro extends Component {
       estado: stado,
     };
 
-    var url = "https://apitechriders.azurewebsites.net/api/usuarios";
-    axios.post(url, usuario).then((response) => {
-      this.setState({
-        status: true,
-      });
+    // Aquí deberías llamar al servicio para insertar el usuario
+    // Ejemplo:
+    // ApiService.insertUser(usuario);
+
+    // Código para confirmar la inserción (puedes ajustarlo según tu lógica)
+    this.setState({
+      status: true,
     });
   };
 
-
-  async getProvinciasR(){
-    try{
-      const token = localStorage.getItem('token');
-      console.log(token);
-      const provincias = await getProvincias(token);
-      this.setState({
-        provincias
-      })
-    }catch(error){
-      console.error('Error al obtener roles:', error);
-    }
-  }
-
   async componentDidMount() {
-    getProvincias();
-    try{
-      const token = localStorage.getItem('token');
-      console.log(token);
-      const roles = await getRoles(token);
+    try {
+      // const token = localStorage.getItem('token');
+      // const roles = await ApiService.getRoles();
+      const provincias = await ApiService.getProvincias();
+      const empresasCentros = await ApiService.getEmpresasCentro();
+
       this.setState({
-        roles
-      })
-    }catch(error){
-      console.error('Error al obtener roles:', error);
+        // roles,
+        provincias,
+        empresasCentros
+      });
+    } catch (error) {
+      console.error('Error al obtener datos:', error);
     }
   }
 
   render() {
-    const {roles, provincias} = this.state;
+    const { roles, provincias, empresasCentros } = this.state;
     return (
       <div className="container-principal">
         <div className="container-login-principal">
@@ -110,7 +98,7 @@ export default class Registro extends Component {
                   />
                   <span className="focus-input"></span>
                   <span className="symbol-input">
-                    <FaRegUser size={15} />
+                    <FaRegUser size={20} />
                   </span>
                 </div>
 
@@ -124,7 +112,7 @@ export default class Registro extends Component {
                   />
                   <span className="focus-input"></span>
                   <span className="symbol-input">
-                    <BiSolidRename size={15} />
+                    <BiSolidRename size={23} />
                   </span>
                 </div>
 
@@ -138,7 +126,7 @@ export default class Registro extends Component {
                   />
                   <span className="focus-input"></span>
                   <span className="symbol-input">
-                    <FaEnvelope size={15} />
+                    <FaEnvelope size={20} />
                   </span>
                 </div>
 
@@ -152,7 +140,7 @@ export default class Registro extends Component {
                   />
                   <span className="focus-input"></span>
                   <span className="symbol-input">
-                    <FaPhoneAlt size={15} />
+                    <FaPhoneAlt size={20} />
                   </span>
                 </div>
 
@@ -166,12 +154,13 @@ export default class Registro extends Component {
                   />
                   <span className="focus-input"></span>
                   <span className="symbol-input">
-                    <FaLinkedin size={15} />
+                    <FaLinkedin size={23} />
                   </span>
                 </div>
               </div>
+
               <div className="form-login">
-              <div className="contenedor-login-input">
+                <div className="contenedor-login-input">
                   <input
                     className="login-input"
                     type="password"
@@ -181,75 +170,72 @@ export default class Registro extends Component {
                   />
                   <span className="focus-input"></span>
                   <span className="symbol-input">
-                    <FaLock size={15} />
+                    <FaLock size={20} />
                   </span>
                 </div>
                 <div className="contenedor-login-input">
-                  <select ref={this.idRole_s}>
-                    <option value='' disabled>Selecciona un rol</option>
-                    {roles.map(role => (
-                      <option key={role.idRole} value={role.idRole}>
-                        {role.tipoRole}
-                      </option>
-                    ))}
+                  <select  className="login-input" ref={this.idRole_s}>
+                    <option value='' disabled selected>Selecciona un rol</option>
+                    <option value='2'>PROFESOR / REPRESENTANTE</option>
+                    <option value='3'>TECHRIDERS</option>
                   </select>
+                  <span className="focus-input"></span>
+                  <span className="symbol-input">
+                    <TiBusinessCard size={25} />
+                  </span>
                 </div>
                 <div className="contenedor-login-input">
-                  <select ref={this.idProvincia_s}>
-                    <option value='' disabled>Selecciona un rol</option>
+                  <select  className="login-input" ref={this.idProvincia_s}>
+                    <option value='' disabled selected>Selecciona una provincia</option>
                     {provincias.map(provincia => (
                       <option key={provincia.idProvincia} value={provincia.idProvincia}>
                         {provincia.nombreProvincia}
                       </option>
                     ))}
                   </select>
-                </div>
-                <div className="contenedor-login-input">
-                  <input
-                    className="login-input"
-                    placeholder="Provincia (con select)"
-                    type="number"
-                    name="nombre"
-                  />
                   <span className="focus-input"></span>
                   <span className="symbol-input">
-                    <FaEnvelope size={15} />
+                    <GrMap size={25} />
                   </span>
                 </div>
                 <div className="contenedor-login-input">
-                  <input
-                    className="login-input"
-                    placeholder="IdEmpresaCentro (con select)"
-                    type="number"
-                    name="nombre"
-                  />
+                  <select  className="login-input" ref={this.idEmpresaCentro_s}>
+                    <option value='' disabled selected>Selecciona una empresa centro</option>
+                    {empresasCentros.map(empresaCentro => (
+                      <option key={empresaCentro.idEmpresaCentro} value={empresaCentro.idEmpresaCentro}>
+                        {empresaCentro.nombre}
+                      </option>
+                    ))}
+                  </select>
                   <span className="focus-input"></span>
                   <span className="symbol-input">
-                    <FaEnvelope size={15} />
+                    <IoBusinessSharp size={23} />
                   </span>
                 </div>
-                <div className="contenedor-login-input">
+                {/* <div className="contenedor-login-input">
                   <input
                     className="login-input"
                     placeholder="Estado"
                     type="number"
                     name="nombre"
+                    ref={this.estado}
                   />
                   <span className="focus-input"></span>
                   <span className="symbol-input">
-                    <MdRealEstateAgent size={15} />
+                    <MdRealEstateAgent size={23} />
                   </span>
-                </div>
+                </div> */}
               </div>
             </form>
             <div className="container-login-form-btn">
-                  <button type="button" className="login-form-btn">
-                    Iniciar Sesión
-                  </button>
-                </div>
+              <button type="button" className="login-form-btn" onClick={this.insertUsuario}>
+                Registrarse
+              </button>
+            </div>
           </div>
         </div>
       </div>
     );
   }
 }
+
