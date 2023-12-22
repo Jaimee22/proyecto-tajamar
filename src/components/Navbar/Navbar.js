@@ -126,3 +126,78 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+// import React, { useState } from 'react';
+// import { NavLink } from 'react-router-dom';
+// import LogoTechRidersNavbar from '../../assets/img/logo-navbar-techriders.png';
+// import { FaUserCircle, FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
+// import Swal from 'sweetalert2';
+// import './Navbar.css';
+
+// const Navbar = () => {
+//   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
+
+//   const handleLogout = () => {
+//     localStorage.removeItem('token');
+//     setIsLoggedIn(false);
+
+//     Swal.fire({
+//       icon: 'success',
+//       title: 'Sesión cerrada',
+//       text: 'Se ha cerrado la sesión de forma exitosa.',
+//     }).then(() => {
+//       window.location.reload();
+//       window.location.href = '/';
+//     });
+//   };
+
+//   return (
+//     <nav className="navbar navbar-expand-lg bg-dark sticky-top" data-bs-theme="dark">
+//       <div className="container">
+//         <a className="navbar-brand" href="/">
+//           <img src={LogoTechRidersNavbar} alt="Logo" style={{ height: '5rem', paddingTop: '1rem' }} />
+//         </a>
+//         <button
+//           className="navbar-toggler"
+//           type="button"
+//           data-bs-toggle="collapse"
+//           data-bs-target="#navbarSupportedContent"
+//           aria-controls="navbarSupportedContent"
+//           aria-expanded="false"
+//           aria-label="Toggle navigation"
+//         >
+//           <span className="navbar-toggler-icon"></span>
+//         </button>
+//         <div className="collapse navbar-collapse" id="navbarSupportedContent">
+//           <ul className="navbar-nav ms-auto">
+//             {/* ... (resto del código del menú) */}
+//           </ul>
+//           <ul className="navbar-nav ms-auto">
+//             <li className="nav-item iconos-nav">
+//               {isLoggedIn ? (
+//                 // Si hay un usuario logueado, mostrar el icono de cierre de sesión
+//                 <NavLink className="nav-link" onClick={handleLogout}>
+//                   <FaSignOutAlt size={35} /> Cerrar Sesión
+//                 </NavLink>
+//               ) : (
+//                 // Si no hay un usuario logueado, mostrar el icono de inicio de sesión
+//                 <NavLink className="nav-link" to="/login">
+//                   <FaSignInAlt size={35} />
+//                 </NavLink>
+//               )}
+//             </li>
+//             {isLoggedIn && (
+//               <li className="nav-item iconos-nav">
+//                 {/* Agrega el código para la sección del usuario logueado */}
+//                 <NavLink className="nav-link" to="/perfil-usuario">
+//                   <FaUserCircle size={35} /> Perfil
+//                 </NavLink>
+//               </li>
+//             )}
+//           </ul>
+//         </div>
+//       </div>
+//     </nav>
+//   );
+// };
