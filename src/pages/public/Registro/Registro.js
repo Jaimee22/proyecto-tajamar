@@ -186,7 +186,7 @@ export default class Registro extends Component {
                 </div>
                 <div className="contenedor-login-input">
                   <select  className="login-input" ref={this.idEmpresaCentro_s}>
-                    <option value='' disabled selected>Selecciona una empresa centro</option>
+                    <option value='' disabled selected>Selecciona una empresa o centro</option>
                     {empresasCentros.map(empresaCentro => (
                       <option key={empresaCentro.idEmpresaCentro} value={empresaCentro.idEmpresaCentro}>
                         {empresaCentro.nombre}

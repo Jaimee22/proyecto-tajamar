@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import ApiService from '../api/ApiService';
 
 const Pagina1 = () => {
@@ -18,6 +19,8 @@ const Pagina1 = () => {
   });
   const [userId, setUserId] = useState('');
   const [userById, setUserById] = useState(null);
+  const [perfilUsuario, setPerfilUsuario] = useState(null);
+  const [redirect, setRedirect] = useState(null);
 
   useEffect(() => {
     ApiService.getProvincias().then(provinciasData => setProvincias(provinciasData));
@@ -58,6 +61,32 @@ const Pagina1 = () => {
     }
   };
 
+  const handleGetPerfilUsuario = async () => {
+    try {
+      const perfil = await ApiService.getPerfilUsuario();
+      setPerfilUsuario(perfil);
+
+      // Redirigir según el idRole del usuario
+      switch (perfil.idRole) {
+        case 1:
+          setRedirect('/pagina-admin');
+          break;
+        case 2:
+          setRedirect('/pagina-profesor-responsable');
+          break;
+        case 3:
+          setRedirect('/pagina-techriders');
+          break;
+        default:
+          // Manejar otros roles o situaciones según sea necesario
+          break;
+      }
+    } catch (error) {
+      console.error('Error al obtener perfil del usuario:', error);
+      // Puedes manejar el error aquí, por ejemplo, mostrando un mensaje de error al usuario.
+    }
+  };
+
   return (
     <div>
       <h1>Formulario de Registro de Usuario</h1>
@@ -86,6 +115,26 @@ const Pagina1 = () => {
           </div>
         )}
       </div>
+
+      {/* Botón para obtener y mostrar el perfil del usuario */}
+      <div>
+        <h2>Obtener Perfil de Usuario</h2>
+        <button type="button" onClick={handleGetPerfilUsuario}>Obtener Perfil de Usuario</button>
+        {perfilUsuario && (
+          <div>
+            <h3>Datos del Perfil de Usuario:</h3>
+            <p>ID: {perfilUsuario.idUsuario}</p>
+            <p>Nombre: {perfilUsuario.nombre}</p>
+            <p>Apellidos: {perfilUsuario.apellidos}</p>
+            <p>Email: {perfilUsuario.email}</p>
+            <p>Role: {perfilUsuario.idRole}</p>
+            {/* Agrega más campos según sea necesario */}
+          </div>
+        )}
+      </div>
+
+      {/* Navegación según la redirección */}
+      {redirect && <Navigate to={redirect} />}
     </div>
   );
 };

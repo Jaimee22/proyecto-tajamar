@@ -17,12 +17,13 @@ const ApiService = {
 
         toast.success('Inicio de sesión exitoso.');
 
-        setTimeout(() => {
-          window.location.reload();
-          window.location.href = '/';
-        }, 1000);
+        // setTimeout(() => {
+        //   window.location.reload();
+        //   window.location.href = '/';
+        // }, 1000);
       } else {
-        // Lógica para manejar el caso de fallo
+        
+        
       }
     } catch (error) {
       console.error('Error al realizar la solicitud de inicio de sesión:', error);
@@ -127,7 +128,29 @@ const ApiService = {
       throw error;
     }
   },
+
+  getPerfilUsuario: async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`${apiUrl}/api/usuarios/perfilusuario`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log('Datos del response (Perfil de Usuario):', response.data);
+
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        console.error('Error al obtener el perfil del usuario:', response.status);
+        throw new Error('Error al obtener el perfil del usuario');
+      }
+    } catch (error) {
+      console.error('Error al obtener el perfil del usuario:', error);
+      throw error;
+    }
+  },
   
 };
-
 export default ApiService;

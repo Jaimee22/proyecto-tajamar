@@ -1,22 +1,48 @@
 import React, { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import './Login.css';
 import { FaLock, FaEnvelope } from 'react-icons/fa';
 import LogoTechRiders from '../../../assets/img/escudo-negro1.png';
-import ApiService from '../../../api/ApiService'; // Importa el servicio ApiService
-import toast, { Toaster } from 'react-hot-toast'; 
+import ApiService from '../../../api/ApiService';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [redirect, setRedirect] = useState(null);
 
   const handleLogin = async () => {
     try {
-      await ApiService.login(email, password); // Utiliza el método login de ApiService
+      await ApiService.login(email, password);
+
+      // Obtener el perfil del usuario después de iniciar sesión
+      const perfilUsuario = await ApiService.getPerfilUsuario();
+
+      // Redirigir según el idRole del usuario
+      switch (perfilUsuario.idRole) {
+        case 1:
+          setRedirect('/pagina-admin');
+          break;
+        case 2:
+          setRedirect('/pagina-profesor-responsable');
+          break;
+        case 3:
+          setRedirect('/pagina-techriders');
+          break;
+        default:
+          // Manejar otros roles o situaciones según sea necesario
+          break;
+      }
     } catch (error) {
-      // Puedes manejar el error aquí si es necesario
       console.error('Error al iniciar sesión:', error);
+      // Puedes manejar el error aquí si es necesario
+      toast.error('Error al iniciar sesión. Email o contraseña incorrectos.');
     }
   };
+
+  if (redirect) {
+    return <Navigate to={redirect} />;
+  }
 
   return (
     <div className="container-principal">
