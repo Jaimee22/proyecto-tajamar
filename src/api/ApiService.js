@@ -30,28 +30,28 @@ const ApiService = {
     }
   },
 
-//   getRoles: async () => {
-//     try {
-//       const token = localStorage.getItem('token');
-//       const response = await axios.get(`${apiUrl}/api/roles`, {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       });
+  getRoles: async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`${apiUrl}/api/roles`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-//       console.log('Datos del response (Roles):', response.data);
+      console.log('Datos del response (Roles):', response.data);
 
-//       if (response.status === 200) {
-//         return response.data;
-//       } else {
-//         console.error('Error al obtener roles:', response.status);
-//         throw new Error('Error al obtener roles');
-//       }
-//     } catch (error) {
-//       console.error('Error al obtener roles:', error);
-//       throw error;
-//     }
-//   },
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        console.error('Error al obtener roles:', response.status);
+        throw new Error('Error al obtener roles');
+      }
+    } catch (error) {
+      console.error('Error al obtener roles:', error);
+      throw error;
+    }
+  },
 
   getProvincias: async () => {
     try {
@@ -103,7 +103,30 @@ const ApiService = {
       console.error('Error al obtener Usuarios:', error);
       throw error;
     }
-  }
+  },
+
+  getUserById: async (id) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`${apiUrl}/api/usuarios/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log('Datos del response (Usuario por ID):', response.data);
+
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        console.error('Error al obtener usuario por ID:', response.status);
+        throw new Error('Error al obtener usuario por ID');
+      }
+    } catch (error) {
+      console.error('Error al obtener usuario por ID:', error);
+      throw error;
+    }
+  },
   
 };
 

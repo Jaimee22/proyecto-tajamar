@@ -11,7 +11,6 @@ import ApiService from '../../../api/ApiService';
 export default class Registro extends Component {
   state = {
     status: false,
-    roles: [],
     provincias: [],
     empresasCentros: []
   };
@@ -25,9 +24,8 @@ export default class Registro extends Component {
   idRole_s = React.createRef();
   idProvincia_s = React.createRef();
   idEmpresaCentro_s = React.createRef();
-  estado = React.createRef();
 
-  insertUsuario = (e) => {
+  insertUsuario = async (e) => {
     e.preventDefault();
     var nom = this.nombre.current.value;
     var apell = this.apellidos.current.value;
@@ -39,7 +37,6 @@ export default class Registro extends Component {
     var idProv = parseInt(this.idProvincia_s.current.value);
     var idEmpCent = parseInt(this.idEmpresaCentro_s.current.value);
     var stado = 1;
-    // var stado = parseInt(this.estado.current.value);
 
     var usuario = {
       nombre: nom,
@@ -53,6 +50,15 @@ export default class Registro extends Component {
       idEmpresaCentro: idEmpCent,
       estado: stado,
     };
+
+    try {
+      const response = await ApiService.insertUser(usuario);
+      console.log('Datos del response (Inserción de Usuario):', response);
+      // Puedes manejar el éxito aquí, por ejemplo, mostrando un mensaje al usuario.
+    } catch (error) {
+      console.error('Error al insertar usuario:', error);
+      // Puedes manejar el error aquí, por ejemplo, mostrando un mensaje de error al usuario.
+    }
 
     this.setState({
       status: true,
@@ -195,18 +201,18 @@ export default class Registro extends Component {
               </div>
             </form>
             <div className="container-login-form-linkedin">
-                  <input
-                    className="login-input"
-                    placeholder="Linkedin"
-                    type="text"
-                    name="nombre"
-                    ref={this.linkedin}
-                  />
-                  <span className="focus-input"></span>
-                  <span id="symbol-linkedin">
-                    <FaLinkedin size={23} />
-                  </span>
-                </div>
+              <input
+                className="login-input"
+                placeholder="Linkedin"
+                type="text"
+                name="nombre"
+                ref={this.linkedin}
+              />
+              <span className="focus-input"></span>
+              <span id="symbol-linkedin">
+                <FaLinkedin size={23} />
+              </span>
+            </div>
             <div className="container-login-form-btn">
               <button type="button" className="login-form-btn" onClick={this.insertUsuario}>
                 Registrarse
@@ -218,4 +224,3 @@ export default class Registro extends Component {
     );
   }
 }
-
