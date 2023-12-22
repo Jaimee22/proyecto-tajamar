@@ -59,29 +59,6 @@ const Navbar = () => {
                 Home
               </NavLink>
             </li>
-            <li className="nav-item dropdown">
-              <NavLink
-                className="nav-link dropdown-toggle"
-                to="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Seguridad
-              </NavLink>
-              <ul className="dropdown-menu">
-                <li>
-                  <NavLink className="dropdown-item" to="/login">
-                    Login
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink className="dropdown-item" to="/registro">
-                    Registro
-                  </NavLink>
-                </li>
-              </ul>
-            </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/centros">
                 Centros
@@ -126,19 +103,22 @@ const Navbar = () => {
                 </li>
               </ul>
             </li>
+          </ul>
+            <ul className="navbar-nav ms-auto">
+
             <li className="nav-item iconos-nav">
               <NavLink className="nav-link" to="/login">
-                <FaUserCircle />
+                <FaUserCircle size={35}/>
               </NavLink>
             </li>
             {token && (
               <li className="nav-item iconos-nav">
                 <NavLink className="nav-link" onClick={handleLogout}>
-                  <TbLogout2 />
+                  <TbLogout2 size={35}/> Cerrar Sesión
                 </NavLink>
               </li>
             )}
-          </ul>
+            </ul>
         </div>
       </div>
     </nav>

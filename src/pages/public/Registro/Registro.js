@@ -38,7 +38,8 @@ export default class Registro extends Component {
     var idRol = parseInt(this.idRole_s.current.value);
     var idProv = parseInt(this.idProvincia_s.current.value);
     var idEmpCent = parseInt(this.idEmpresaCentro_s.current.value);
-    var stado = parseInt(this.estado.current.value);
+    var stado = 1;
+    // var stado = parseInt(this.estado.current.value);
 
     var usuario = {
       nombre: nom,
@@ -53,11 +54,6 @@ export default class Registro extends Component {
       estado: stado,
     };
 
-    // Aquí deberías llamar al servicio para insertar el usuario
-    // Ejemplo:
-    // ApiService.insertUser(usuario);
-
-    // Código para confirmar la inserción (puedes ajustarlo según tu lógica)
     this.setState({
       status: true,
     });
@@ -65,13 +61,10 @@ export default class Registro extends Component {
 
   async componentDidMount() {
     try {
-      // const token = localStorage.getItem('token');
-      // const roles = await ApiService.getRoles();
       const provincias = await ApiService.getProvincias();
       const empresasCentros = await ApiService.getEmpresasCentro();
 
       this.setState({
-        // roles,
         provincias,
         empresasCentros
       });
@@ -81,9 +74,10 @@ export default class Registro extends Component {
   }
 
   render() {
-    const { roles, provincias, empresasCentros } = this.state;
+    const { provincias, empresasCentros } = this.state;
     return (
       <div className="container-principal">
+        <h1 id="title-registrarse">Registrarse</h1>
         <div className="container-login-principal">
           <div className="container-login-mediano">
             <form className="form-flex">
@@ -143,20 +137,6 @@ export default class Registro extends Component {
                     <FaPhoneAlt size={20} />
                   </span>
                 </div>
-
-                <div className="contenedor-login-input">
-                  <input
-                    className="login-input"
-                    placeholder="Linkedin"
-                    type="text"
-                    name="nombre"
-                    ref={this.linkedin}
-                  />
-                  <span className="focus-input"></span>
-                  <span className="symbol-input">
-                    <FaLinkedin size={23} />
-                  </span>
-                </div>
               </div>
 
               <div className="form-login">
@@ -212,21 +192,21 @@ export default class Registro extends Component {
                     <IoBusinessSharp size={23} />
                   </span>
                 </div>
-                {/* <div className="contenedor-login-input">
-                  <input
-                    className="login-input"
-                    placeholder="Estado"
-                    type="number"
-                    name="nombre"
-                    ref={this.estado}
-                  />
-                  <span className="focus-input"></span>
-                  <span className="symbol-input">
-                    <MdRealEstateAgent size={23} />
-                  </span>
-                </div> */}
               </div>
             </form>
+            <div className="container-login-form-linkedin">
+                  <input
+                    className="login-input"
+                    placeholder="Linkedin"
+                    type="text"
+                    name="nombre"
+                    ref={this.linkedin}
+                  />
+                  <span className="focus-input"></span>
+                  <span id="symbol-linkedin">
+                    <FaLinkedin size={23} />
+                  </span>
+                </div>
             <div className="container-login-form-btn">
               <button type="button" className="login-form-btn" onClick={this.insertUsuario}>
                 Registrarse

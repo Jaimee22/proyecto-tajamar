@@ -87,9 +87,24 @@ const ApiService = {
       }
   },
 
-//   insertUser: async () => {
-
-//   }
+  insertUser: async (usuario) => {
+    try {
+      const response = await axios.post(`${apiUrl}/api/usuarios`, usuario);
+      console.log('Datos del response (Usuarios):', response.data);
+  
+      if (response.status === 200) {
+        console.log("Insert hecho correctamente");
+        return response.data;
+      } else {
+        console.error('Error al ejecutar método insert:', response.status);
+        throw new Error('Error');
+      }
+    } catch (error) {
+      console.error('Error al obtener Usuarios:', error);
+      throw error;
+    }
+  }
+  
 };
 
 export default ApiService;
