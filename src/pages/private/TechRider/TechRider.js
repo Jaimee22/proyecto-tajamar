@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { FaSignOutAlt } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import ApiService from '../../../api/ApiService'; // Ajusta la ruta según la estructura de tu proyecto
+import Sidebar from '../../../components/Sidebar/Sidebar';
 import './TechRider.css'
 
 class TechRider extends Component {
@@ -36,23 +37,24 @@ class TechRider extends Component {
     const tieneAcceso = usuario.idRole === 3;
 
     return (
-      <div>
+      <>
 
         {/* Verifica si el usuario tiene acceso al contenido */}
         {tieneAcceso ? (
           // Contenido de la página para el usuario con rol 1
           <>
-            <h1>TechRider</h1>
+            {/* <h1>TechRider</h1> */}
             {/* ... (otro contenido específico para el rol 1) */}
-            <NavLink to="/login" onClick={this.handleLogout} className="nav-link">
+            <Sidebar />
+            {/* <NavLink to="/login" onClick={this.handleLogout} className="nav-link">
               <FaSignOutAlt size={20} /> Cerrar Sesión
-            </NavLink>
+            </NavLink> */}
           </>
         ) : (
           // Mensaje para usuarios que no tienen acceso
           <p>No tienes acceso a esta página.</p>
         )}
-      </div>
+      </>
     );
   }
 }

@@ -5,14 +5,18 @@ import { FaLock, FaEnvelope } from 'react-icons/fa';
 import LogoTechRiders from '../../../assets/img/escudo-negro1.png';
 import ApiService from '../../../api/ApiService';
 import toast, { Toaster } from 'react-hot-toast';
+import Loader from '../../../components/Loader/Loader';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [redirect, setRedirect] = useState(null);
+  const [loading, setLoading] = useState(false); // Nuevo estado para el indicador de carga
 
   const handleLogin = async () => {
     try {
+      setLoading(true); // Establecer el estado de carga a true
+
       await ApiService.login(email, password);
 
       // Obtener el perfil del usuario después de iniciar sesión
@@ -34,9 +38,10 @@ const Login = () => {
           break;
       }
     } catch (error) {
-      console.error('Error al iniciar sesión:', error);
-      // Puedes manejar el error aquí si es necesario
-      toast.error('Error al iniciar sesión. Email o contraseña incorrectos.');
+      // console.error('Error al iniciar sesión:', error);
+     
+    } finally {
+      setLoading(false); // Restablecer el estado de carga a false después de la solicitud
     }
   };
 
@@ -86,8 +91,8 @@ const Login = () => {
             </div>
 
             <div className="container-login-form-btn">
-              <button type="button" className="login-form-btn" onClick={handleLogin}>
-                Iniciar Sesión
+              <button type="button" className="login-form-btn" onClick={handleLogin} disabled={loading}>
+                {loading ? <Loader /> : 'Iniciar Sesión'}
               </button>
             </div>
 
