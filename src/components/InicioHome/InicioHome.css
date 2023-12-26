@@ -1,0 +1,39 @@
+.inicio-home-container {
+  position: relative;
+  padding: 6rem 6rem 6rem 7rem;
+}
+
+.inicio-home-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../assets/img/background-inicio.jpg");
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.38);
+}
+
+.inicio-home-info {
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+
+.inicio-home-skills{
+    margin: 3rem 0 0 0;
+    font-family: 'DM Sans';
+}
+
+#text-home{
+    font-size: 1.3vw;
+}
+
+#title-home{
+    margin: 0 0 3rem 0;
+    font-weight: bold;
+    font-size: 4vw;
+    font-family: 'DM Sans';
+}

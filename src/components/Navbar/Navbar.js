@@ -74,7 +74,7 @@ const Navbar = () => {
                 TechRiders
               </NavLink>
             </li>
-            <li className="nav-item dropdown">
+            {/* <li className="nav-item dropdown">
               <NavLink
                 className="nav-link dropdown-toggle"
                 href="#"
@@ -102,7 +102,7 @@ const Navbar = () => {
                   </NavLink>
                 </li>
               </ul>
-            </li>
+            </li> */}
           </ul>
             <ul className="navbar-nav ms-auto">
 

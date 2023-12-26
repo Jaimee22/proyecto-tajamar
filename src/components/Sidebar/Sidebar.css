@@ -1,0 +1,14 @@
+/* .links-sidebar:hover{
+    color: white !important;
+} */
+a.links-sidebar.nav-link.link-dark:hover {
+    background-color: #707070 !important;
+    color: white !important;
+    cursor: pointer;
+}
+
+#sidebar a.is-active{
+    font-weight: bold;
+    background-color: black;
+    color: white !important;
+}

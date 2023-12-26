@@ -84,13 +84,13 @@ export default class Registro extends Component {
     return (
       <div className="container-principal">
         <h1 id="title-registrarse">Registrarse</h1>
-        <div className="container-login-principal">
-          <div className="container-login-mediano">
+        <div className="container-register-principal">
+          <div className="container-register-mediano">
             <form className="form-flex">
-              <div className="form-login">
-                <div className="contenedor-login-input">
+              <div className="form-register">
+                <div className="contenedor-register-input">
                   <input
-                    className="login-input"
+                    className="register-input"
                     placeholder="Nombre"
                     type="text"
                     name="nombre"
@@ -102,9 +102,9 @@ export default class Registro extends Component {
                   </span>
                 </div>
 
-                <div className="contenedor-login-input">
+                <div className="contenedor-register-input">
                   <input
-                    className="login-input"
+                    className="register-input"
                     placeholder="Apellidos"
                     type="text"
                     name="apellidos"
@@ -116,9 +116,9 @@ export default class Registro extends Component {
                   </span>
                 </div>
 
-                <div className="contenedor-login-input">
+                <div className="contenedor-register-input">
                   <input
-                    className="login-input"
+                    className="register-input"
                     placeholder="Email"
                     type="text"
                     name="email"
@@ -130,9 +130,9 @@ export default class Registro extends Component {
                   </span>
                 </div>
 
-                <div className="contenedor-login-input">
+                <div className="contenedor-register-input">
                   <input
-                    className="login-input"
+                    className="register-input"
                     placeholder="Teléfono"
                     type="text"
                     name="telefono"
@@ -145,10 +145,10 @@ export default class Registro extends Component {
                 </div>
               </div>
 
-              <div className="form-login">
-                <div className="contenedor-login-input">
+              <div className="form-register">
+                <div className="contenedor-register-input">
                   <input
-                    className="login-input"
+                    className="register-input"
                     type="password"
                     name="pass"
                     placeholder="Contraseña"
@@ -159,8 +159,8 @@ export default class Registro extends Component {
                     <FaLock size={20} />
                   </span>
                 </div>
-                <div className="contenedor-login-input">
-                  <select  className="login-input" ref={this.idRole_s}>
+                <div className="contenedor-register-input">
+                  <select  className="register-input" ref={this.idRole_s}>
                     <option value='' disabled selected>Selecciona un rol</option>
                     <option value='2'>PROFESOR / REPRESENTANTE</option>
                     <option value='3'>TECHRIDERS</option>
@@ -170,8 +170,8 @@ export default class Registro extends Component {
                     <TiBusinessCard size={25} />
                   </span>
                 </div>
-                <div className="contenedor-login-input">
-                  <select  className="login-input" ref={this.idProvincia_s}>
+                <div className="contenedor-register-input">
+                  <select  className="register-input" ref={this.idProvincia_s}>
                     <option value='' disabled selected>Selecciona una provincia</option>
                     {provincias.map(provincia => (
                       <option key={provincia.idProvincia} value={provincia.idProvincia}>
@@ -184,8 +184,8 @@ export default class Registro extends Component {
                     <GrMap size={25} />
                   </span>
                 </div>
-                <div className="contenedor-login-input">
-                  <select  className="login-input" ref={this.idEmpresaCentro_s}>
+                <div className="contenedor-register-input">
+                  <select  className="register-input" ref={this.idEmpresaCentro_s}>
                     <option value='' disabled selected>Selecciona una empresa o centro</option>
                     {empresasCentros.map(empresaCentro => (
                       <option key={empresaCentro.idEmpresaCentro} value={empresaCentro.idEmpresaCentro}>
@@ -200,9 +200,9 @@ export default class Registro extends Component {
                 </div>
               </div>
             </form>
-            <div className="container-login-form-linkedin">
+            <div className="container-register-form-linkedin">
               <input
-                className="login-input"
+                className="register-input"
                 placeholder="Linkedin"
                 type="text"
                 name="nombre"
@@ -213,8 +213,8 @@ export default class Registro extends Component {
                 <FaLinkedin size={23} />
               </span>
             </div>
-            <div className="container-login-form-btn">
-              <button type="button" className="login-form-btn" onClick={this.insertUsuario}>
+            <div className="container-register-form-btn">
+              <button type="button" className="register-form-btn" onClick={this.insertUsuario}>
                 Registrarse
               </button>
             </div>

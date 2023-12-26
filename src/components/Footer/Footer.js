@@ -13,7 +13,7 @@ const Footer = () => {
       </div>
 
       <div className='col-md-3 text-center'>
-        <p className="company-text fw-bold">&copy; 2023 FP + Professional Education</p><br/>
+        <p className="company-text fw-bold">&copy; 2024 FP + Professional Education</p><br/>
         <span className='info-footer'><strong className='white'>Dirección:</strong> Calle Pío Felipe 12, 28038,  Madrid </span>
         <span className='info-footer'><strong className='white'>Teléfonos:</strong> 91 757 18 17 / 91 478 34 98</span>
       </div>
