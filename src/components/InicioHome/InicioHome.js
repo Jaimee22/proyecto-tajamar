@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Charlas from '../Charlas/Charlas';
 import './InicioHome.css';
 
 export default class InicioHome extends Component {
@@ -22,7 +23,8 @@ export default class InicioHome extends Component {
                 </div>
             </div>
             <div className='container inicio-home-charlas'>
-                <h1>Charlas</h1>
+                {/* <h1>Charlas</h1> */}
+                <Charlas />
             </div>
         </>
     )

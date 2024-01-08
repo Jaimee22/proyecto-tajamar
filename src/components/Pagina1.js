@@ -1,140 +1,86 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
 import ApiService from '../api/ApiService';
 
 const Pagina1 = () => {
-  const [provincias, setProvincias] = useState([]);
-  const [empresasCentros, setEmpresasCentros] = useState([]);
-  const [formData, setFormData] = useState({
-    nombre: '',
-    apellidos: '',
-    email: '',
-    telefono: '',
-    linkedIn: '',
-    password: '',
-    idRole: 0,
-    idProvincia: 0,
-    idEmpresaCentro: 0,
-    estado: 1,
-  });
-  const [userId, setUserId] = useState('');
-  const [userById, setUserById] = useState(null);
-  const [perfilUsuario, setPerfilUsuario] = useState(null);
-  const [redirect, setRedirect] = useState(null);
+  const [charlasCompletas, setCharlasCompletas] = useState([]);
 
   useEffect(() => {
-    ApiService.getProvincias().then(provinciasData => setProvincias(provinciasData));
-    ApiService.getEmpresasCentro().then(empresasCentrosData => setEmpresasCentros(empresasCentrosData));
-  }, []);
+    const fetchData = async () => {
+      try {
+        const [charlasData, tecnologiasData] = await Promise.all([
+          ApiService.getCharlasCompletas(),
+          ApiService.getTecnologiasCharla(),
+        ]);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevData => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+        const charlasConTecnologias = await Promise.all(
+          charlasData.map(async ({ charla, estado, valoracion }) => {
+            const tecnologias = await Promise.all(
+              tecnologiasData
+                .filter(tecnologia => tecnologia.idCharla === charla.idCharla)
+                .map(async tecnologia => {
+                  const tecnologiaInfo = await ApiService.getTecnologiaName(tecnologia.idTecnologia);
+                  return tecnologiaInfo ? tecnologiaInfo.nombreTecnologia : null;
+                })
+            );
 
-  const handleInsertClick = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await ApiService.insertUser(formData, token);
-      console.log('Datos del response (Inserción de Usuario):', response);
-      // Puedes manejar el éxito aquí, por ejemplo, mostrando un mensaje al usuario.
-    } catch (error) {
-      console.error('Error al insertar usuario:', error);
-      // Puedes manejar el error aquí, por ejemplo, mostrando un mensaje de error al usuario.
-    }
-  };
+            return {
+              charla,
+              estado,
+              valoracion,
+              tecnologias,
+            };
+          })
+        );
 
-  const handleUserIdChange = (e) => {
-    setUserId(e.target.value);
-  };
-
-  const handleSearchUser = async () => {
-    try {
-      const user = await ApiService.getUserById(userId);
-      setUserById(user);
-    } catch (error) {
-      console.error('Error al buscar usuario por ID:', error);
-      // Puedes manejar el error aquí, por ejemplo, mostrando un mensaje de error al usuario.
-    }
-  };
-
-  const handleGetPerfilUsuario = async () => {
-    try {
-      const perfil = await ApiService.getPerfilUsuario();
-      setPerfilUsuario(perfil);
-
-      // Redirigir según el idRole del usuario
-      switch (perfil.idRole) {
-        case 1:
-          setRedirect('/pagina-admin');
-          break;
-        case 2:
-          setRedirect('/pagina-profesor-responsable');
-          break;
-        case 3:
-          setRedirect('/pagina-techriders');
-          break;
-        default:
-          // Manejar otros roles o situaciones según sea necesario
-          break;
+        setCharlasCompletas(charlasConTecnologias);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
       }
-    } catch (error) {
-      console.error('Error al obtener perfil del usuario:', error);
-      // Puedes manejar el error aquí, por ejemplo, mostrando un mensaje de error al usuario.
-    }
-  };
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div>
-      <h1>Formulario de Registro de Usuario</h1>
+      <h2>Charlas Completas con Estado, Valoración y Tecnologías</h2>
+      {charlasCompletas.map(({ charla, estado, valoracion, tecnologias }) => (
+        <div key={charla.idCharla}>
+          <h3>{charla.descripcion}</h3>
+          <p>ID de Charla: {charla.idCharla}</p>
+          <p>Fecha: {charla.fechaCharla}</p>
 
-      {/* Formulario de Inserción de Usuario */}
-      <form>
-        {/* ... (campos existentes) */}
-        <button type="button" onClick={handleInsertClick}>Insertar Usuario</button>
-      </form>
+          {estado && (
+            <div>
+              <h4>Estado</h4>
+              <p>ID de Estado: {estado.idEstadosCharla}</p>
+              <p>Tipo: {estado.tipo}</p>
+            </div>
+          )}
 
-      {/* Formulario de Búsqueda de Usuario por ID */}
-      <div>
-        <h2>Buscar Usuario por ID</h2>
-        <label htmlFor="userId">ID del Usuario:</label>
-        <input type="text" id="userId" name="userId" value={userId} onChange={handleUserIdChange} />
-        <button type="button" onClick={handleSearchUser}>Buscar</button>
-        {userById && (
-          <div>
-            <h3>Datos del Usuario encontrado:</h3>
-            <p>ID: {userById.idUsuario}</p>
-            <p>Nombre: {userById.nombre}</p>
-            <p>Apellidos: {userById.apellidos}</p>
-            <p>Email: {userById.email}</p>
-            <p>Role: {userById.idRole}</p>
-            {/* Agrega más campos según sea necesario */}
-          </div>
-        )}
-      </div>
+          {valoracion && (
+            <div>
+              <h4>Valoración</h4>
+              <p>ID de Valoración: {valoracion.idValoracion}</p>
+              <p>Valoración: {valoracion.valoracion}</p>
+              <p>Comentario: {valoracion.comentario}</p>
+            </div>
+          )}
 
-      {/* Botón para obtener y mostrar el perfil del usuario */}
-      <div>
-        <h2>Obtener Perfil de Usuario</h2>
-        <button type="button" onClick={handleGetPerfilUsuario}>Obtener Perfil de Usuario</button>
-        {perfilUsuario && (
-          <div>
-            <h3>Datos del Perfil de Usuario:</h3>
-            <p>ID: {perfilUsuario.idUsuario}</p>
-            <p>Nombre: {perfilUsuario.nombre}</p>
-            <p>Apellidos: {perfilUsuario.apellidos}</p>
-            <p>Email: {perfilUsuario.email}</p>
-            <p>Role: {perfilUsuario.idRole}</p>
-            {/* Agrega más campos según sea necesario */}
-          </div>
-        )}
-      </div>
-
-      {/* Navegación según la redirección */}
-      {redirect && <Navigate to={redirect} />}
+          {tecnologias.length > 0 && (
+            <div>
+              <h4>Tecnologías</h4>
+              <ul>
+                {tecnologias.map(nombreTecnologia => (
+                  <li key={nombreTecnologia}>{nombreTecnologia}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {/* Agrega más campos según sea necesario */}
+          <h1>________________________________</h1>
+        </div>
+      ))}
     </div>
   );
 };

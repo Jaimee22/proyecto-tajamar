@@ -179,9 +179,208 @@ const ApiService = {
 
 
   //------------------------------------------------------------------------------
+  // TECNOLOGIAS
+  //------------------------------------------------------------------------------
+  // GET todas las tecnologias
+  getTecnologias: async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/api/Tecnologias`);
+      console.log('Datos del response (Tecnologias):', response.data);
+  
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        console.error('Error al obtener tecnologías:', response.status);
+        throw new Error('Error al obtener tecnologías');
+      }
+    } catch (error) {
+      console.error('Error al obtener tecnologías:', error);
+      throw error;
+    }
+  },
+
+
+   // Obtener nombres de tecnologías por IDs
+   getTecnologiaName: async (tecnologiaId) => {
+    try {
+      const tecnologias = await ApiService.getTecnologias();
+      const tecnologia = tecnologias.find(tecnologia => tecnologia.idTecnologia === tecnologiaId);
+  
+      if (tecnologia) {
+        return tecnologia;
+      } else {
+        console.error(`Error al obtener tecnología con ID ${tecnologiaId}`);
+        throw new Error(`Error al obtener tecnología con ID ${tecnologiaId}`);
+      }
+    } catch (error) {
+      console.error('Error al obtener tecnología por ID:', error);
+      throw error;
+    }
+  },
+  
+
+
+  //_________________________________________________________________________________ 
+
+
+  //------------------------------------------------------------------------------
   // CHARLAS
   //------------------------------------------------------------------------------
+
+  // OBTENER TODAS LAS CHARLAS SIN VALORACIONES
+  getCharlas: async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/api/Charlas`);
+      console.log('Datos del response (Charlas):', response.data);
   
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        console.error('Error al obtener charlas:', response.status);
+        throw new Error('Error al obtener charlas');
+      }
+    } catch (error) {
+      console.error('Error al obtener charlas:', error);
+      throw error;
+    }
+  },
+
+  // OBTENER TODAS LAS VALORACIONES
+  getValoracionesCharlas: async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/api/ValoracionesCharlas`);
+      console.log('Datos del response (ValoracionesCharlas):', response.data);
+  
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        console.error('Error al obtener valoraciones de charlas:', response.status);
+        throw new Error('Error al obtener valoraciones de charlas');
+      }
+    } catch (error) {
+      console.error('Error al obtener valoraciones de charlas:', error);
+      throw error;
+    }
+  },
+  
+  // OBTENER LOS ESTADOS DE LAS CHARLAS
+  getEstadosCharlas: async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/api/EstadosCharlas`);
+      console.log('Datos del response (EstadosCharlas):', response.data);
+  
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        console.error('Error al obtener estados de charlas:', response.status);
+        throw new Error('Error al obtener estados de charlas');
+      }
+    } catch (error) {
+      console.error('Error al obtener estados de charlas:', error);
+      throw error;
+    }
+  },
+  
+  // OBTENER LAS CHARLAS CON EL ESTADO
+  getCharlasConEstados: async () => {
+    try {
+      const charlas = await ApiService.getCharlas();
+      const estadosCharlas = await ApiService.getEstadosCharlas();
+  
+      // Enlazar las charlas con sus estados correspondientes
+      const charlasConEstados = charlas.map(charla => {
+        const estado = estadosCharlas.find(estado => estado.idEstadosCharla === charla.idEstadoCharla);
+        return {
+          ...charla,
+          estado: estado || null,
+        };
+      });
+  
+      return charlasConEstados;
+    } catch (error) {
+      console.error('Error al obtener charlas con estados:', error);
+      throw error;
+    }
+  },
+
+  // OBTENER CHARLAS COMPLETAS
+  getCharlasCompletas: async () => {
+    try {
+      const charlas = await ApiService.getCharlas();
+      const estadosCharlas = await ApiService.getEstadosCharlas();
+      const valoracionesCharlas = await ApiService.getValoracionesCharlas();
+      const tecnologiasCharlas = await ApiService.getTecnologiasCharla();
+  
+      // Enlazar las charlas con sus estados, valoraciones y tecnologías correspondientes
+      const charlasCompletas = charlas.map(charla => {
+        const estado = estadosCharlas.find(estado => estado.idEstadosCharla === charla.idEstadoCharla);
+        const valoracion = valoracionesCharlas.find(valoracion => valoracion.idCharla === charla.idCharla);
+        const tecnologias = tecnologiasCharlas
+          .filter(tecnologia => tecnologia.idCharla === charla.idCharla)
+          .map(tecnologia => {
+            const tecnologiaInfo = ApiService.getTecnologiaName(tecnologia.idTecnologia);
+            return tecnologiaInfo.nombreTecnologia;
+          });
+  
+        return {
+          charla,
+          estado: estado || null,
+          valoracion: valoracion || null,
+          tecnologias,
+        };
+      });
+  
+      return charlasCompletas;
+    } catch (error) {
+      console.error('Error al obtener charlas completas:', error);
+      throw error;
+    }
+  },
+  
+  
+
+  // OBTENER LAS CHARLAS CON VALORACIONES 
+  getCharlasConValoraciones: async () => {
+    try {
+      const charlas = await ApiService.getCharlas();
+      const valoracionesCharlas = await ApiService.getValoracionesCharlas();
+  
+      // Enlazar las charlas con sus valoraciones correspondientes
+      const charlasConValoraciones = charlas.map(charla => {
+        const valoracion = valoracionesCharlas.find(valoracion => valoracion.idCharla === charla.idCharla);
+        return {
+          ...charla,
+          valoracion: valoracion || null,
+        };
+      });
+  
+      return charlasConValoraciones;
+    } catch (error) {
+      console.error('Error al obtener charlas con valoraciones:', error);
+      throw error;
+    }
+  },
+
+  // OBTENER TECNOLOGIAS DE LAS CHARLAS
+  getTecnologiasCharla: async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/api/TecnologiasCharlas`);
+      console.log('Datos del response (TecnologiasCharlas):', response.data);
+  
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        console.error('Error al obtener tecnologías de charlas:', response.status);
+        throw new Error('Error al obtener tecnologías de charlas');
+      }
+    } catch (error) {
+      console.error('Error al obtener tecnologías de charlas:', error);
+      throw error;
+    }
+  },
+
+  //_________________________________________________________________________________ 
+
   
 };
 export default ApiService;
