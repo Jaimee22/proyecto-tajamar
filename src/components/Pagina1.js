@@ -1,86 +1,69 @@
-import React, { useState, useEffect } from 'react';
+// En Pagina1.js
+
+import React, { useEffect, useState } from 'react';
 import ApiService from '../api/ApiService';
 
 const Pagina1 = () => {
-  const [charlasCompletas, setCharlasCompletas] = useState([]);
+  const [estadosCharlas, setEstadosCharlas] = useState([]);
+  const [charlas, setCharlas] = useState([]);
+  const [selectedEstado, setSelectedEstado] = useState('');
+  const [noHayDatos, setNoHayDatos] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [charlasData, tecnologiasData] = await Promise.all([
-          ApiService.getCharlasCompletas(),
-          ApiService.getTecnologiasCharla(),
-        ]);
-
-        const charlasConTecnologias = await Promise.all(
-          charlasData.map(async ({ charla, estado, valoracion }) => {
-            const tecnologias = await Promise.all(
-              tecnologiasData
-                .filter(tecnologia => tecnologia.idCharla === charla.idCharla)
-                .map(async tecnologia => {
-                  const tecnologiaInfo = await ApiService.getTecnologiaName(tecnologia.idTecnologia);
-                  return tecnologiaInfo ? tecnologiaInfo.nombreTecnologia : null;
-                })
-            );
-
-            return {
-              charla,
-              estado,
-              valoracion,
-              tecnologias,
-            };
-          })
-        );
-
-        setCharlasCompletas(charlasConTecnologias);
+        const estados = await ApiService.getEstadosCharlas();
+        setEstadosCharlas(estados);
       } catch (error) {
-        console.error('Error al obtener datos:', error);
+        console.error('Error al obtener estados de charlas:', error);
       }
     };
 
     fetchData();
   }, []);
 
+  const handleObtenerCharlasPorEstado = async (estadoId) => {
+    try {
+      const { estado, charlas } = await ApiService.getCharlasPorEstado(estadoId);
+      setCharlas(charlas);
+      setNoHayDatos(charlas.length === 0);
+    } catch (error) {
+      console.error('Error al obtener charlas por estado:', error);
+    }
+  };
+
   return (
     <div>
-      <h2>Charlas Completas con Estado, Valoración y Tecnologías</h2>
-      {charlasCompletas.map(({ charla, estado, valoracion, tecnologias }) => (
-        <div key={charla.idCharla}>
-          <h3>{charla.descripcion}</h3>
-          <p>ID de Charla: {charla.idCharla}</p>
-          <p>Fecha: {charla.fechaCharla}</p>
+      <h1>Página 1</h1>
+      <label htmlFor="estadoSelect">Selecciona un estado:</label>
+      <select
+        id="estadoSelect"
+        value={selectedEstado}
+        onChange={(e) => {
+          setSelectedEstado(e.target.value);
+          handleObtenerCharlasPorEstado(e.target.value);
+        }}
+      >
+        <option value="" disabled>
+          Selecciona un estado
+        </option>
+        {estadosCharlas.map((estado) => (
+          <option key={estado.idEstadosCharla} value={estado.idEstadosCharla}>
+            {estado.tipo}
+          </option>
+        ))}
+      </select>
 
-          {estado && (
-            <div>
-              <h4>Estado</h4>
-              <p>ID de Estado: {estado.idEstadosCharla}</p>
-              <p>Tipo: {estado.tipo}</p>
-            </div>
-          )}
-
-          {valoracion && (
-            <div>
-              <h4>Valoración</h4>
-              <p>ID de Valoración: {valoracion.idValoracion}</p>
-              <p>Valoración: {valoracion.valoracion}</p>
-              <p>Comentario: {valoracion.comentario}</p>
-            </div>
-          )}
-
-          {tecnologias.length > 0 && (
-            <div>
-              <h4>Tecnologías</h4>
-              <ul>
-                {tecnologias.map(nombreTecnologia => (
-                  <li key={nombreTecnologia}>{nombreTecnologia}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-          {/* Agrega más campos según sea necesario */}
-          <h1>________________________________</h1>
-        </div>
-      ))}
+      <h2>Charlas por estado:</h2>
+      {noHayDatos ? (
+        <p>No hay charlas en ese estado.</p>
+      ) : (
+        <ul>
+          {charlas.map((charla) => (
+            <li key={charla.idCharla}>{charla.idCharla} - {charla.descripcion}</li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

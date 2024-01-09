@@ -22,18 +22,18 @@
   z-index: 1;
 }
 
-.inicio-home-skills{
-    margin: 3rem 0 0 0;
-    font-family: 'DM Sans';
+.inicio-home-skills {
+  margin: 3rem 0 0 0;
+  font-family: "DM Sans";
 }
 
-#text-home{
-    font-size: 1.3vw;
+#text-home {
+  font-size: 1.3vw;
 }
 
-#title-home{
-    margin: 0 0 3rem 0;
-    font-weight: bold;
-    font-size: 4vw;
-    font-family: 'DM Sans';
+#title-home {
+  margin: 0 0 3rem 0;
+  font-weight: bold;
+  font-size: 4vw;
+  font-family: "DM Sans";
 }

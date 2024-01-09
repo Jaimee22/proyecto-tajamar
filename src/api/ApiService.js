@@ -90,22 +90,61 @@ const ApiService = {
   //--------------------------------------------------------------------------------- 
   // EMPRESAS - CENTRO
   //---------------------------------------------------------------------------------
-  getEmpresasCentro: async () => {
-    try {
+  // Método para obtener todos los centros y empresas
+    getEmpresasCentro: async () => {
+      try {
+          const response = await axios.get(`${apiUrl}/api/empresascentros`);
+          console.log('Datos del response (EmpresasCentros):', response.data);
+    
+          if (response.status === 200) {
+            return response.data;
+          } else {
+            console.error('Error al obtener empreasas centros:', response.status);
+            throw new Error('Error al obtener provincias');
+          }
+        } catch (error) {
+          console.error('Error al obtener EmpresasCentros:', error);
+          throw error;
+        }
+    },
+
+  // Método para obtener solo los centros/escuelas (idTipoEmpresa = 2)
+    getCentros: async () => {
+      try {
         const response = await axios.get(`${apiUrl}/api/empresascentros`);
-        console.log('Datos del response (EmpresasCentros):', response.data);
-  
+        console.log('Datos del response (Centros):', response.data);
+
         if (response.status === 200) {
-          return response.data;
+          const centros = response.data.filter(item => item.idTipoEmpresa === 2);
+          return centros;
         } else {
-          console.error('Error al obtener empreasas centros:', response.status);
-          throw new Error('Error al obtener provincias');
+          console.error('Error al obtener centros:', response.status);
+          throw new Error('Error al obtener centros');
         }
       } catch (error) {
-        console.error('Error al obtener EmpresasCentros:', error);
+        console.error('Error al obtener Centros:', error);
         throw error;
       }
-  },
+    },
+
+  // Método para obtener solo las empresas (idTipoEmpresa = 1)
+    getEmpresas: async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/api/empresascentros`);
+        console.log('Datos del response (Empresas):', response.data);
+
+        if (response.status === 200) {
+          const empresas = response.data.filter(item => item.idTipoEmpresa === 1);
+          return empresas;
+        } else {
+          console.error('Error al obtener empresas:', response.status);
+          throw new Error('Error al obtener empresas');
+        }
+      } catch (error) {
+        console.error('Error al obtener Empresas:', error);
+        throw error;
+      }
+    },
   //_________________________________________________________________________________ 
   
   
@@ -200,7 +239,7 @@ const ApiService = {
   },
 
 
-   // Obtener nombres de tecnologías por IDs
+   // Obtener nombres de tecnologías segun el ID de la tecnologia
    getTecnologiaName: async (tecnologiaId) => {
     try {
       const tecnologias = await ApiService.getTecnologias();
@@ -218,8 +257,6 @@ const ApiService = {
     }
   },
   
-
-
   //_________________________________________________________________________________ 
 
 
@@ -282,26 +319,26 @@ const ApiService = {
   },
   
   // OBTENER LAS CHARLAS CON EL ESTADO
-  getCharlasConEstados: async () => {
-    try {
-      const charlas = await ApiService.getCharlas();
-      const estadosCharlas = await ApiService.getEstadosCharlas();
+  // getCharlasConEstados: async () => {
+  //   try {
+  //     const charlas = await ApiService.getCharlas();
+  //     const estadosCharlas = await ApiService.getEstadosCharlas();
   
-      // Enlazar las charlas con sus estados correspondientes
-      const charlasConEstados = charlas.map(charla => {
-        const estado = estadosCharlas.find(estado => estado.idEstadosCharla === charla.idEstadoCharla);
-        return {
-          ...charla,
-          estado: estado || null,
-        };
-      });
+  //     // Enlazar las charlas con sus estados correspondientes
+  //     const charlasConEstados = charlas.map(charla => {
+  //       const estado = estadosCharlas.find(estado => estado.idEstadosCharla === charla.idEstadoCharla);
+  //       return {
+  //         ...charla,
+  //         estado: estado || null,
+  //       };
+  //     });
   
-      return charlasConEstados;
-    } catch (error) {
-      console.error('Error al obtener charlas con estados:', error);
-      throw error;
-    }
-  },
+  //     return charlasConEstados;
+  //   } catch (error) {
+  //     console.error('Error al obtener charlas con estados:', error);
+  //     throw error;
+  //   }
+  // },
 
   // OBTENER CHARLAS COMPLETAS
   getCharlasCompletas: async () => {
@@ -340,26 +377,26 @@ const ApiService = {
   
 
   // OBTENER LAS CHARLAS CON VALORACIONES 
-  getCharlasConValoraciones: async () => {
-    try {
-      const charlas = await ApiService.getCharlas();
-      const valoracionesCharlas = await ApiService.getValoracionesCharlas();
+  // getCharlasConValoraciones: async () => {
+  //   try {
+  //     const charlas = await ApiService.getCharlas();
+  //     const valoracionesCharlas = await ApiService.getValoracionesCharlas();
   
-      // Enlazar las charlas con sus valoraciones correspondientes
-      const charlasConValoraciones = charlas.map(charla => {
-        const valoracion = valoracionesCharlas.find(valoracion => valoracion.idCharla === charla.idCharla);
-        return {
-          ...charla,
-          valoracion: valoracion || null,
-        };
-      });
+  //     // Enlazar las charlas con sus valoraciones correspondientes
+  //     const charlasConValoraciones = charlas.map(charla => {
+  //       const valoracion = valoracionesCharlas.find(valoracion => valoracion.idCharla === charla.idCharla);
+  //       return {
+  //         ...charla,
+  //         valoracion: valoracion || null,
+  //       };
+  //     });
   
-      return charlasConValoraciones;
-    } catch (error) {
-      console.error('Error al obtener charlas con valoraciones:', error);
-      throw error;
-    }
-  },
+  //     return charlasConValoraciones;
+  //   } catch (error) {
+  //     console.error('Error al obtener charlas con valoraciones:', error);
+  //     throw error;
+  //   }
+  // },
 
   // OBTENER TECNOLOGIAS DE LAS CHARLAS
   getTecnologiasCharla: async () => {
@@ -378,6 +415,33 @@ const ApiService = {
       throw error;
     }
   },
+
+  
+  
+  getCharlasPorEstado: async (estadoId) => {
+    try {
+      const estadosCharlas = await ApiService.getEstadosCharlas();
+      const charlas = await ApiService.getCharlas();
+
+      const estadoSeleccionado = estadosCharlas.find((estado) => estado.idEstadosCharla === parseInt(estadoId));
+
+      if (!estadoSeleccionado) {
+        throw new Error('Estado no encontrado');
+      }
+
+      const charlasFiltradas = charlas.filter((charla) => charla.idEstadoCharla === estadoSeleccionado.idEstadosCharla);
+
+      return {
+        estado: estadoSeleccionado,
+        charlas: charlasFiltradas,
+      };
+    } catch (error) {
+      console.error('Error al obtener charlas por estado:', error);
+      throw error;
+    }
+  },
+
+
 
   //_________________________________________________________________________________ 
 

@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+main {
+  margin-top: 32px;
+}
+
+.projects {
+  margin: 16px auto;
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: #111827;
+}
+
+@media screen and (min-width: 900px) {
+  .projects {
+    width: 60%;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .projects {
+    width: 45%;
+  }
+}
+
+.projects__header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.projects__heading {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.projects__description {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.projects__project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 0;
+  border-top: 1px solid #6b7280;
+  border-bottom: 1px solid #6b7280;
+}
+
+@media screen and (min-width: 900px) {
+  .projects__project-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+.projects__project {
+  display: flex;
+  gap: 16px;
+  padding: 4px;
+  text-decoration: none;
+  color: black;
+}
+
+.projects__project:hover {
+  background-color: #E9ECEF;
+  border-radius: 8px;
+}
+
+@media screen and (min-width: 900px) {
+  .projects__project {
+    flex-basis: calc(50% - 4px);
+  }
+}
+
+.projects__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  padding: 8px;
+  align-self: start;
+}
+
+.projects__icon--first {
+  background-color: #264653;
+}
+
+.projects__icon--second {
+  background-color: #2a9d8f;
+}
+
+.projects__icon--third {
+  background-color: #8ab17d;
+}
+
+.projects__icon--fourth {
+  background-color: #e9c46a;
+}
+
+.projects__icon--fifth {
+  background-color: #f4a261;
+}
+
+.projects__icon--sixth {
+  background-color: #e76f51;
+}
+
+.projects__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.projects__title {
+  font-size: 16px;
+}
+
+.projects__link {
+  font-size: 16px;
+  text-decoration: none;
+  color: #4f46e5;
+}
+
+.projects__link--bold {
+  font-weight: 500;
+}
+
+
+.custom-icon {
+    width: 32px;
+    height: 32px;
+    color: white; /* Color de fondo del ícono */
+    /* Agrega otros estilos según tus preferencias */
+  }

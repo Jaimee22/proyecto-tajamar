@@ -36,6 +36,8 @@ export default class Router extends Component {
             <Route path='/pagina-techriders' element={<TechRiderPrivate/>}/>
             <Route path='/perfil' element={<Perfil />}/>
             <Route path='/charlas' element={<Charlas />}/>
+            <Route path='/centros' element={<CentroPublic />}/>
+            <Route path='/empresas' element={<EmpresaPublic />}/>
 
             <Route path='/pagina1' element={<Pagina1/>}/>
         </Routes>

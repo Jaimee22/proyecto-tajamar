@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FaSignOutAlt } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
+import AdminPanel from '../../../components/AdminPanel/AdminPanel'
 import ApiService from '../../../api/ApiService'; // Ajusta la ruta según la estructura de tu proyecto
 
 class Admin extends Component {
@@ -42,6 +43,7 @@ class Admin extends Component {
           // Contenido de la página para el usuario con rol 1
           <>
             <h1>Admin</h1>
+            <AdminPanel />
             {/* ... (otro contenido específico para el rol 1) */}
             <NavLink to="/login" onClick={this.handleLogout} className="nav-link">
               <FaSignOutAlt size={20} /> Cerrar Sesión

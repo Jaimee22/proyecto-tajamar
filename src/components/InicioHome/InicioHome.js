@@ -23,7 +23,6 @@ export default class InicioHome extends Component {
                 </div>
             </div>
             <div className='container inicio-home-charlas'>
-                {/* <h1>Charlas</h1> */}
                 <Charlas />
             </div>
         </>
