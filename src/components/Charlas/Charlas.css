@@ -1,0 +1,81 @@
+/* Estilos para pantallas grandes (mayor a 768px, ajusta según tus necesidades) */
+@media (min-width: 769px) {
+  .card-container-principal {
+    display: flex;
+    width: 100%;
+    margin-bottom: 20px; /* Espacio entre las cards */
+  }
+
+  .card-container {
+    display: flex;
+    width: 100%;
+  }
+
+  .card-container-img {
+    width: 30%; /* Ajusta según tus necesidades */
+    margin-right: 20px; /* Espacio entre la imagen y la información de la charla */
+  }
+
+  .card-body {
+    width: 70%; /* Ajusta según tus necesidades */
+  }
+}
+
+/* Estilos para pantallas pequeñas (768px o menos, ajusta según tus necesidades) */
+@media (max-width: 768px) {
+  .card-container-principal {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .card-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-container-img {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .card-body {
+    width: 100%;
+  }
+}
+
+.card-container-principal {
+  margin: 4rem 0 3rem 0;
+}
+
+.card-container {
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.card-container:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-container-img img {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid #ddd;
+}
+
+.card-body {
+  margin: 2rem 0 1rem 2.8rem;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #555;
+}

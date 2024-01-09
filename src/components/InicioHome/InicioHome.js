@@ -22,7 +22,7 @@ export default class InicioHome extends Component {
                     </div>
                 </div>
             </div>
-            <div className='container inicio-home-charlas'>
+            <div className='container'>
                 <Charlas />
             </div>
         </>

@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoTechRidersNavbar from '../../assets/img/logo-navbar-techriders.png';
 import { FaUserCircle } from 'react-icons/fa';
+import { IoMdSettings } from "react-icons/io";
 import { TbLogout2 } from 'react-icons/tb';
 import Swal from 'sweetalert2';
 import './Navbar.css';

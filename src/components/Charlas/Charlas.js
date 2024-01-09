@@ -3,6 +3,7 @@ import ApiService from '../../api/ApiService';
 import { FaStar } from 'react-icons/fa';
 import imagen from "../../assets/img/escudo-negro.png";
 import Loader from "../Loader/Loader"
+import './Charlas.css';
 
 const Charlas = () => {
   const [charlasCompletas, setCharlasCompletas] = useState([]);
@@ -69,6 +70,7 @@ const Charlas = () => {
                               <FaStar key={index} style={{ color: 'gold', marginRight: '2px' }} />
                             ))}
                           </div>
+                          <p>{charlaData.valoracion.comentario}</p>
                         </div>
                       )}
 

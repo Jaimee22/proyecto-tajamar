@@ -70,6 +70,7 @@ main {
   padding: 4px;
   text-decoration: none;
   color: black;
+  transition: 0.4s;
 }
 
 .projects__project:hover {

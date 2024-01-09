@@ -21,7 +21,7 @@ const Login = () => {
 
       // Obtener el perfil del usuario después de iniciar sesión
       const perfilUsuario = await ApiService.getPerfilUsuario();
-
+      
       // Redirigir según el idRole del usuario
       switch (perfilUsuario.idRole) {
         case 1:
