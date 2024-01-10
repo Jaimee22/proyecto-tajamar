@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import ApiService from '../api/ApiService';
+import BotonVolver from './BotonVolver/BotonVolver';
 
 const Pagina1 = () => {
   const [estadosCharlas, setEstadosCharlas] = useState([]);
@@ -34,6 +35,7 @@ const Pagina1 = () => {
 
   return (
     <div>
+      <BotonVolver/>
       <h1>Página 1</h1>
       <label htmlFor="estadoSelect">Selecciona un estado:</label>
       <select

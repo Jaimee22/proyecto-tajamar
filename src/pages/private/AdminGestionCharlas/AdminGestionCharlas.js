@@ -1,55 +1,51 @@
 import React, { Component } from 'react';
-import { FaSignOutAlt } from 'react-icons/fa';
-import { NavLink } from 'react-router-dom';
-import ApiService from '../../../api/ApiService'; // Ajusta la ruta según la estructura de tu proyecto
+import ApiService from '../../../api/ApiService';
+import GestionCharlas from '../../../components/GestionCharlas/GestionCharlas';
+import Loader from '../../../components/Loader/Loader';
+import AccessDenied from '../../../components/AccesDenied/AccessDenied';
+import BotonVolver from '../../../components/BotonVolver/BotonVolver';
 
 class AdminGestionCharlas extends Component {
   state = {
     usuario: {},
+    loading: true, // Nuevo estado para controlar la carga
   };
 
   async componentDidMount() {
     try {
-      // Obtén el perfil del usuario utilizando el método del servicio
       const perfilUsuario = await ApiService.getPerfilUsuario();
-
-      // Actualiza el estado con el perfil del usuario
-      this.setState({ usuario: perfilUsuario });
+      this.setState({ usuario: perfilUsuario, loading: false }); // Actualiza el estado con el perfil del usuario y establece loading a false
     } catch (error) {
       console.error('Error al obtener el perfil del usuario:', error);
+      this.setState({ loading: false }); // Manejar el error y establecer loading a false
     }
   }
 
   handleLogout = () => {
-    // Elimina el token del localStorage
     localStorage.removeItem('token');
-
-    // Redirige a la página de inicio
     window.location.href = '/';
   };
 
   render() {
-    const { usuario } = this.state;
+    const { usuario, loading } = this.state;
 
-    // Verifica si el usuario tiene el rol necesario (en este caso, rol 1)
+    if (loading) {
+      // Muestra un mensaje de carga mientras se obtiene el perfil del usuario
+      return <Loader />;
+    }
+
     const tieneAcceso = usuario.idRole === 1;
 
     return (
       <div>
-
-        {/* Verifica si el usuario tiene acceso al contenido */}
         {tieneAcceso ? (
-          // Contenido de la página para el usuario con rol 1
           <>
-            <h1>AdminGestionCharlas</h1>
-            {/* ... (otro contenido específico para el rol 1) */}
-            <NavLink to="/login" onClick={this.handleLogout} className="nav-link">
-              <FaSignOutAlt size={20} /> Cerrar Sesión
-            </NavLink>
+            {/* <h1>AdminGestionCharlas</h1> */}
+            <BotonVolver/>
+            <GestionCharlas />
           </>
         ) : (
-          // Mensaje para usuarios que no tienen acceso
-          <p>No tienes acceso a esta página.</p>
+          <AccessDenied/>
         )}
       </div>
     );

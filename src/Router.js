@@ -26,6 +26,8 @@ import Pagina1 from './components/Pagina1';
 import Pagina2 from './components/Pagina2';
 import Testeo from './components/Testeo';
 
+import Error404 from './components/Error404/Erorr404'
+
 export default class Router extends Component {
   render() {
     return (
@@ -59,6 +61,7 @@ export default class Router extends Component {
             <Route path='/pagina1' element={<Pagina1/>}/>
             <Route path='/pagina2' element={<Pagina2/>}/>
             <Route path='/testeo' element={<Testeo/>}/>
+            <Route path='/*' element={<Error404/>}/>
             
         </Routes>
       </BrowserRouter>

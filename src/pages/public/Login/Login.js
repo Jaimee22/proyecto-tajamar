@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, NavLink } from 'react-router-dom';
 import './Login.css';
 import { FaLock, FaEnvelope } from 'react-icons/fa';
 import LogoTechRiders from '../../../assets/img/escudo-negro1.png';
@@ -95,12 +95,12 @@ const Login = () => {
                 {loading ? <Loader /> : 'Iniciar Sesión'}
               </button>
             </div>
-
+            <br/>
             <div className="text-center">
-              <a className="registrarse-text" href="/registro">
-                Registrarse
+              <NavLink className="registrarse-text" to="/registro">
+                <h4>Registrarse</h4>
                 <i className="fa fa-long-arrow-right ml-5" aria-hidden="true"></i>
-              </a>
+              </NavLink>
             </div>
           </form>
         </div>

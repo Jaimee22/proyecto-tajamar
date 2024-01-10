@@ -4,21 +4,25 @@ import { NavLink } from 'react-router-dom';
 import ApiService from '../../../api/ApiService'; // Ajusta la ruta según la estructura de tu proyecto
 import Sidebar from '../../../components/Sidebar/Sidebar';
 import './TechRider.css'
+import AccessDenied from '../../../components/AccesDenied/AccessDenied';
+import Loader from '../../../components/Loader/Loader';
 
 class TechRider extends Component {
   state = {
     usuario: {},
+    loading: true
   };
 
   async componentDidMount() {
     try {
       // Obtén el perfil del usuario utilizando el método del servicio
       const perfilUsuario = await ApiService.getPerfilUsuario();
-
+      this.setState({ usuario: perfilUsuario, loading: false });
       // Actualiza el estado con el perfil del usuario
       this.setState({ usuario: perfilUsuario });
     } catch (error) {
       console.error('Error al obtener el perfil del usuario:', error);
+      this.setState({ loading: false });
     }
   }
 
@@ -31,7 +35,11 @@ class TechRider extends Component {
   };
 
   render() {
-    const { usuario } = this.state;
+    const { usuario, loading } = this.state;
+
+    if (loading) {
+      return <Loader />;
+    }
 
     // Verifica si el usuario tiene el rol necesario (en este caso, rol 1)
     const tieneAcceso = usuario.idRole === 3;
@@ -52,7 +60,7 @@ class TechRider extends Component {
           </>
         ) : (
           // Mensaje para usuarios que no tienen acceso
-          <p>No tienes acceso a esta página.</p>
+          <AccessDenied/>
         )}
       </>
     );

@@ -3,6 +3,7 @@ import { FaSignOutAlt } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import ApiService from '../../../api/ApiService'; // Ajusta la ruta según la estructura de tu proyecto
 import './Centro.css'
+import AccessDenied from '../../../components/AccesDenied/AccessDenied';
 
 class Centro extends Component {
   state = {
@@ -50,7 +51,7 @@ class Centro extends Component {
           </>
         ) : (
           // Mensaje para usuarios que no tienen acceso
-          <p>No tienes acceso a esta página.</p>
+          <AccessDenied/>
         )}
       </div>
     );

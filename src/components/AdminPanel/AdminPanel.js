@@ -4,9 +4,8 @@ import { FaUsers, FaSignOutAlt } from "react-icons/fa";
 import { RiSpeakLine } from "react-icons/ri";
 import { PiBuildingsDuotone } from "react-icons/pi";
 import { FaClipboardList } from "react-icons/fa";
-import { GiModernCity } from "react-icons/gi";
 import { BsEnvelopePaper } from "react-icons/bs";
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 class AdminPanel extends Component {
@@ -24,10 +23,9 @@ class AdminPanel extends Component {
             <body>
                 <main>
                     <section className="projects">
-                        {/* <div className="projects__header">
-            <h1 className="projects__heading">Projects</h1>
-            <p className="projects__description">You haven't created a project yet. Get started by selecting our template or start from an empty project.</p>
-          </div> */}
+                        <div className="projects__header">
+                            <h1 className="projects__heading">Panel de Administrador</h1>
+                        </div>
                         <div className="projects__project-list">
                             <Link to="/pagina-admin-gestion-usuarios" class="projects__project">
                                 <div class="projects__icon projects__icon--first">
@@ -36,7 +34,7 @@ class AdminPanel extends Component {
                                 </div>
                                 <div class="projects__body">
                                     <h2 class="projects__title">Gestionar Usuarios</h2>
-                                    <p class="projects__description">Craft organized, itemized inventories or to-do lists effortlessly with this intuitive tool for streamlined task management.</p>
+                                    {/* <p class="projects__description">Craft organized, itemized inventories or to-do lists effortlessly with this intuitive tool for streamlined task management.</p> */}
                                 </div>
                             </Link>
                             <Link to="/pagina-admin-gestion-charlas" class="projects__project">
@@ -46,7 +44,7 @@ class AdminPanel extends Component {
                                 </div>
                                 <div class="projects__body">
                                     <h2 class="projects__title">Gestionar Charlas</h2>
-                                    <p class="projects__description">Plan your days with precision using this feature-rich calendar creator, seamlessly scheduling events and staying organized with ease.</p>
+                                    {/* <p class="projects__description">Plan your days with precision using this feature-rich calendar creator, seamlessly scheduling events and staying organized with ease.</p> */}
                                 </div>
                             </Link>
                             <Link to="/pagina-admin-gestion-centro-empresa" class="projects__project">
@@ -56,7 +54,7 @@ class AdminPanel extends Component {
                                 </div>
                                 <div class="projects__body">
                                     <h2 class="projects__title">Gestionar Centros y Empresas</h2>
-                                    <p class="projects__description">Bring your visual stories to life with this gallery maker, curating stunning collections of images and videos effortlessly for a captivating display.</p>
+                                    {/* <p class="projects__description">Bring your visual stories to life with this gallery maker, curating stunning collections of images and videos effortlessly for a captivating display.</p> */}
                                 </div>
                             </Link>
                             <Link to="/pagina-admin-categorias" class="projects__project">
@@ -66,7 +64,7 @@ class AdminPanel extends Component {
                                 </div>
                                 <div class="projects__body">
                                     <h2 class="projects__title">Categorías (Tecnologías)</h2>
-                                    <p class="projects__description">Foster collaboration and idea-sharing with this dynamic board creator, ideal for project management, brainstorming, and visual collaboration.</p>
+                                    {/* <p class="projects__description">Foster collaboration and idea-sharing with this dynamic board creator, ideal for project management, brainstorming, and visual collaboration.</p> */}
                                 </div>
                             </Link>
                             <Link to="/pagina-admin-solicitudes" class="projects__project">
@@ -76,7 +74,7 @@ class AdminPanel extends Component {
                                 </div>
                                 <div class="projects__body">
                                     <h2 class="projects__title">Solicitudes</h2>
-                                    <p class="projects__description">Harness the power of data with this versatile spreadsheet creator, enabling you to organize, analyze, and visualize information for effective decision-making.</p>
+                                    {/* <p class="projects__description">Harness the power of data with this versatile spreadsheet creator, enabling you to organize, analyze, and visualize information for effective decision-making.</p> */}
                                 </div>
                             </Link>
                             <Link to="/" class="projects__project">
@@ -85,11 +83,14 @@ class AdminPanel extends Component {
                                 </div>
                                 <div class="projects__body">
                                     <h2 class="projects__title">Create a Timeline</h2>
-                                    <p class="projects__description">Chart the course of events with this timeline creator, seamlessly plotting milestones and historical moments for a visually compelling narrative.</p>
+                                    {/* <p class="projects__description">Chart the course of events with this timeline creator, seamlessly plotting milestones and historical moments for a visually compelling narrative.</p> */}
                                 </div>
                             </Link>
                         </div>
                         {/* Coger de la pagina Admin el cerrar sesion y sustituirlo por lo de debajo */}
+                        <div id='divisor'>
+                            <hr />
+                        </div>
                         <div className="projects__footer">
                             <Link to="/login" className='text-logout-footer' onClick={this.handleLogout}>
                                 <FaSignOutAlt size={20} /> Cerrar Sesión

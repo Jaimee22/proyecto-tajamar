@@ -1,0 +1,20 @@
+/* Estilos para AccesoDenegado */
+.acceso-denegado-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 62vh;
+  background-color: #f2dede; /* Color de fondo rojo claro */
+}
+
+.denied-title {
+  color: #d9534f; /* Color de texto rojo oscuro */
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.denied-message {
+  color: #a94442; /* Color de texto rojo más claro */
+  font-size: 1.5rem;
+}

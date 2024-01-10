@@ -151,6 +151,30 @@ const ApiService = {
   //---------------------------------------------------------------------------------  
   // USUARIO
   //---------------------------------------------------------------------------------
+  getUsuarios: async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`${apiUrl}/api/Usuarios`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      console.log('Datos del response (Usuarios):', response.data);
+      
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        console.error('Error al obtener usuarios:', response.status);
+        throw new Error('Error al obtener usuarios');
+      }
+    } catch (error) {
+      console.error('Error al obtener usuarios:', error);
+      throw error;
+    }
+  },
+  
+
   insertUser: async (usuario) => {
     try {
       const response = await axios.post(`${apiUrl}/api/usuarios`, usuario);
@@ -214,6 +238,31 @@ const ApiService = {
       throw error;
     }
   },
+
+  updateUser: async (id, updatedUserData) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.put(`${apiUrl}/api/usuarios/${id}`, updatedUserData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      console.log('Datos del response (Actualizar Usuario):', response.data);
+  
+      if (response.status === 200) {
+        console.log('Usuario actualizado correctamente');
+        return response.data;
+      } else {
+        console.error('Error al actualizar usuario:', response.status);
+        throw new Error('Error al actualizar usuario');
+      }
+    } catch (error) {
+      console.error('Error al actualizar usuario:', error);
+      throw error;
+    }
+  },
+
   //_________________________________________________________________________________ 
 
 
