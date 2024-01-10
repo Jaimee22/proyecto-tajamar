@@ -1,6 +1,6 @@
 import React from 'react';
 import './AdminPanel.css';  // Asegúrate de importar el archivo CSS adecuado con los estilos que proporcionaste
-import { FaUsers } from "react-icons/fa";
+import { FaUsers, FaSignOutAlt } from "react-icons/fa";
 import { RiSpeakLine } from "react-icons/ri";
 import { PiBuildingsDuotone } from "react-icons/pi";
 import { FaClipboardList } from "react-icons/fa";
@@ -80,8 +80,10 @@ const AdminPanel = () => {
                     </div>
                     {/* Coger de la pagina Admin el cerrar sesion y sustituirlo por lo de debajo */}
                     <div className="projects__footer">
-            <Link to="/" className="projects__link projects__link--bold">Or start from an empty project</Link>
-          </div>
+                        <NavLink to="/login" onClick={this.handleLogout} className="nav-link">
+                            <FaSignOutAlt size={20} /> Cerrar Sesión
+                        </NavLink>
+                    </div>
                 </section>
             </main>
         </body>
