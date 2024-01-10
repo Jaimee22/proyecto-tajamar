@@ -45,9 +45,9 @@ class Admin extends Component {
             <h1>Admin</h1>
             <AdminPanel />
             {/* ... (otro contenido específico para el rol 1) */}
-            <NavLink to="/login" onClick={this.handleLogout} className="nav-link">
+            {/* <NavLink to="/login" onClick={this.handleLogout} className="nav-link">
               <FaSignOutAlt size={20} /> Cerrar Sesión
-            </NavLink>
+            </NavLink> */}
           </>
         ) : (
           // Mensaje para usuarios que no tienen acceso
