@@ -10,10 +10,21 @@ import CentroPrivate from './pages/private/Centro/Centro';
 import EmpresaPrivate from './pages/private/Empresa/Empresa';
 import TechRiderPrivate from './pages/private/TechRider/TechRider';
 import Navbar from './components/Navbar/Navbar';
-import Pagina1 from './components/Pagina1';
 import Admin from './pages/private/Admin/Admin';
+import AdminCategorias from './pages/private/AdminCategorias/AdminCategorias';
+import AdminGestionCentroEmpresa from './pages/private/AdminGestionCentroEmpresa/AdminGestionCentroEmpresa';
+import AdminGestionCharlas from './pages/private/AdminGestionCharlas/AdminGestionCharlas';
+import AdminGestionUsuarios from './pages/private/AdminGestionUsuarios/AdminGestionUsuarios';
+import AdminSolicitudes from './pages/private/AdminSolicitudes/AdminSolicitudes';
+
+
 import Perfil from './pages/private/Perfil/Perfil';
 import Charlas from './components/Charlas/Charlas';
+
+
+import Pagina1 from './components/Pagina1';
+import Pagina2 from './components/Pagina2';
+import Testeo from './components/Testeo';
 
 export default class Router extends Component {
   render() {
@@ -32,6 +43,11 @@ export default class Router extends Component {
             <Route path='/empresas-private' element={<EmpresaPrivate/>}/>
             <Route path='/techriders-private' element={<TechRiderPrivate/>}/> */}
             <Route path='/pagina-admin' element={<Admin />}/>
+            <Route path='/pagina-admin-categorias' element={<AdminCategorias />}/>
+            <Route path='/pagina-admin-gestion-centro-empresa' element={<AdminGestionCentroEmpresa />}/>
+            <Route path='/pagina-admin-gestion-charlas' element={<AdminGestionCharlas />}/>
+            <Route path='/pagina-admin-gestion-usuarios' element={<AdminGestionUsuarios />}/>
+            <Route path='/pagina-admin-solicitudes' element={<AdminSolicitudes />}/>
             <Route path='/pagina-profesor-responsable' element={<EmpresaPrivate/>}/>
             <Route path='/pagina-techriders' element={<TechRiderPrivate/>}/>
             <Route path='/perfil' element={<Perfil />}/>
@@ -39,7 +55,11 @@ export default class Router extends Component {
             <Route path='/centros' element={<CentroPublic />}/>
             <Route path='/empresas' element={<EmpresaPublic />}/>
 
+
             <Route path='/pagina1' element={<Pagina1/>}/>
+            <Route path='/pagina2' element={<Pagina2/>}/>
+            <Route path='/testeo' element={<Testeo/>}/>
+            
         </Routes>
       </BrowserRouter>
       
