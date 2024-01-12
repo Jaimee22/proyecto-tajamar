@@ -18,7 +18,7 @@ main {
   flex-direction: column;
   gap: 16px;
   color: #111827;
-  height: 55vh;
+  /* height: 55vh; */
 }
 
 @media screen and (min-width: 900px) {
@@ -117,7 +117,7 @@ main {
 }
 
 .projects__icon--sixth {
-  background-color: #e76f51;
+  background-color: #84abca;
 }
 
 .projects__body {

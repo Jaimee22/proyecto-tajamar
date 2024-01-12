@@ -145,6 +145,40 @@ const ApiService = {
         throw error;
       }
     },
+
+    // Método para insertar Centros
+   // Método para insertar Centros
+postCentros: async (centroData) => {
+  try {
+    // Ajusta el valor del id y idTipoCentro antes de realizar la solicitud
+    const newCentroData = {
+      ...centroData,
+      idEmpresaCentro: 0,
+      idTipoEmpresa: 2, // idTipoCentro = 2
+    };
+
+    const token = localStorage.getItem('token');
+
+    const response = await axios.post(`${apiUrl}/api/empresascentros`, newCentroData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status >= 200 && response.status < 300) {
+      console.log('Centro creado exitosamente:', response.data);
+      return response.data;
+    } else {
+      console.error('Error al crear centro:', response.status);
+      throw new Error('Error al crear centro');
+    }
+  } catch (error) {
+    console.error('Error al crear centro:', error);
+    throw error;
+  }
+},
+
+    
   //_________________________________________________________________________________ 
   
   
@@ -239,10 +273,10 @@ const ApiService = {
     }
   },
 
-  updateUser: async (id, updatedUserData) => {
+  updateUser: async (updatedUserData) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.put(`${apiUrl}/api/usuarios/${id}`, updatedUserData, {
+      const response = await axios.put(`${apiUrl}/api/usuarios`, updatedUserData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

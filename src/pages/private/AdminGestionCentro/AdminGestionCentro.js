@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import ApiService from '../../../api/ApiService';
 import Loader from '../../../components/Loader/Loader';
 import AccessDenied from '../../../components/AccesDenied/AccessDenied';
+import GestionCentros from '../../../components/GestionCentros/GestionCentros';
 
-class AdminGestionCentroEmpresa extends Component {
+class AdminGestionCentro extends Component {
   state = {
     usuario: {},
     loading: true, // Nuevo estado para controlar la carga
@@ -38,7 +39,8 @@ class AdminGestionCentroEmpresa extends Component {
       <div>
         {tieneAcceso ? (
           <>
-            <h1>AdminGestionCentroEmpresa</h1>
+            <h1>AdminGestionCentro</h1>
+            <GestionCentros />
           </>
         ) : (
           <AccessDenied/>
@@ -48,4 +50,4 @@ class AdminGestionCentroEmpresa extends Component {
   }
 }
 
-export default AdminGestionCentroEmpresa;
+export default AdminGestionCentro;

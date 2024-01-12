@@ -12,7 +12,8 @@ import TechRiderPrivate from './pages/private/TechRider/TechRider';
 import Navbar from './components/Navbar/Navbar';
 import Admin from './pages/private/Admin/Admin';
 import AdminCategorias from './pages/private/AdminCategorias/AdminCategorias';
-import AdminGestionCentroEmpresa from './pages/private/AdminGestionCentroEmpresa/AdminGestionCentroEmpresa';
+import AdminGestionCentro from './pages/private/AdminGestionCentro/AdminGestionCentro';
+import AdminGestionEmpresa from './pages/private/AdminGestionEmpresa/AdminGestionEmpresa';
 import AdminGestionCharlas from './pages/private/AdminGestionCharlas/AdminGestionCharlas';
 import AdminGestionUsuarios from './pages/private/AdminGestionUsuarios/AdminGestionUsuarios';
 import AdminSolicitudes from './pages/private/AdminSolicitudes/AdminSolicitudes';
@@ -46,7 +47,8 @@ export default class Router extends Component {
             <Route path='/techriders-private' element={<TechRiderPrivate/>}/> */}
             <Route path='/pagina-admin' element={<Admin />}/>
             <Route path='/pagina-admin-categorias' element={<AdminCategorias />}/>
-            <Route path='/pagina-admin-gestion-centro-empresa' element={<AdminGestionCentroEmpresa />}/>
+            <Route path='/pagina-admin-gestion-centro' element={<AdminGestionCentro />}/>
+            <Route path='/pagina-admin-gestion-empresa' element={<AdminGestionEmpresa />}/>
             <Route path='/pagina-admin-gestion-charlas' element={<AdminGestionCharlas />}/>
             <Route path='/pagina-admin-gestion-usuarios' element={<AdminGestionUsuarios />}/>
             <Route path='/pagina-admin-solicitudes' element={<AdminSolicitudes />}/>
