@@ -31,7 +31,7 @@ const Login = () => {
           setRedirect('/pagina-profesor-responsable');
           break;
         case 3:
-          setRedirect('/pagina-techriders');
+          setRedirect('/pagina-techriders/perfil');
           break;
         default:
           // Manejar otros roles o situaciones según sea necesario

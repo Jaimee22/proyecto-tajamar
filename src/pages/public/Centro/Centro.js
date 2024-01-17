@@ -24,8 +24,8 @@ export default class Centros extends Component {
     return (
       <div className='container-fluid p-0'>
         <div className='banner-container mb-5'>
-          <img src={schoolsImage} alt='Centros' className='w-100 banner-image' />
           <div className='overlay'></div>
+          <img src={schoolsImage} alt='Centros' className='w-100 banner-image' />
           <div className='banner-text text-center text-light'>
             <h1 className='mb-4 font-weight-bold display-4 fw-bold'>Centros Colaboradores</h1>
             <p className='mb-4 font-weight-bold lead fw-bold'>
@@ -40,7 +40,7 @@ export default class Centros extends Component {
 
         <div className='row mt-5'>
           {this.state.centros.map((centro) => (
-            <div key={centro.idEmpresaCentro} className='col-md-6 mb-4'>
+            <div key={centro.idEmpresaCentro} className='col-md-6 mb-4 mx-auto'>
               <div className='card'>
                 <div className='card-body'>
                   <h5 className='card-title'>{centro.nombre}</h5>

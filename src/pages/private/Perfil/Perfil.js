@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Sidebar from '../../../components/Sidebar/Sidebar'
-import PerfilComponent from '../../../components/PerfilComponent/Perfil'
+import PerfilComponent from '../../../components/PerfilComponent/Perfil';
 
 export default class Perfil extends Component {
   render() {

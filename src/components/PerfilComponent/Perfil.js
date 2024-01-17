@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Form, Button, Container, Row, Col, Modal } from "react-bootstrap";
-import { FaEye } from "react-icons/fa";
+import { FaEye, FaEdit } from "react-icons/fa";
 import ApiService from "../../api/ApiService";
 import "./Perfil.css";
 
@@ -26,6 +26,11 @@ export default class Perfil extends Component {
     isEditMode: true,
     showPassword: false,
     showModal: false,
+    modalPassword: {
+      nuevaPassword: "",
+      confirmarNuevaPassword: "",
+    },
+    passwordMismatch: false,
   };
 
   componentDidMount() {
@@ -33,15 +38,6 @@ export default class Perfil extends Component {
     this.loadProvincias();
     this.loadEmpresasCentro();
   }
-
-  // async loadUserProfile() {
-  //   try {
-  //     const userProfile = await ApiService.getPerfilUsuario();
-  //     this.setState({ usuario: userProfile });
-  //   } catch (error) {
-  //     console.error("Error al cargar el perfil del usuario:", error);
-  //   }
-  // }
 
   async loadUserProfile() {
     try {
@@ -76,12 +72,7 @@ export default class Perfil extends Component {
 
   handleSaveClick = async () => {
     try {
-      const { usuario, nuevaPassword, confirmarNuevaPassword } = this.state;
-
-      if (nuevaPassword !== confirmarNuevaPassword) {
-        console.error("Las contraseñas no coinciden.");
-        return;
-      }
+      const { usuario, nuevaPassword } = this.state;
 
       if (nuevaPassword !== "") {
         usuario.password = nuevaPassword;
@@ -98,21 +89,23 @@ export default class Perfil extends Component {
 
   handleInputChange = (e) => {
     const { name, value } = e.target;
-    this.setState((prevState) => ({
-      usuario: {
-        ...prevState.usuario,
-        [name]: value,
-      },
-    }));
+    if (name === "nuevaPassword" || name === "confirmarNuevaPassword") {
+      this.setState((prevState) => ({
+        modalPassword: {
+          ...prevState.modalPassword,
+          [name]: value,
+        },
+        passwordMismatch: false,
+      }));
+    } else {
+      this.setState((prevState) => ({
+        usuario: {
+          ...prevState.usuario,
+          [name]: value,
+        },
+      }));
+    }
   };
-
-  // handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   this.setState({
-  //     ...this.state,
-  //     [name]: value,
-  //   });
-  // };
 
   togglePasswordVisibility = () => {
     this.setState((prevState) => ({ showPassword: !prevState.showPassword }));
@@ -123,15 +116,23 @@ export default class Perfil extends Component {
   };
 
   closeModal = () => {
-    this.setState({ showModal: false });
+    this.setState({
+      showModal: false,
+      passwordMismatch: false,
+      modalPassword: {
+        nuevaPassword: "",
+        confirmarNuevaPassword: "",
+      },
+    });
   };
 
   handleModalSave = async () => {
     try {
-      const { nuevaPassword, confirmarNuevaPassword, usuario } = this.state;
+      const { nuevaPassword, confirmarNuevaPassword } = this.state.modalPassword;
+      const { usuario } = this.state;
 
       if (nuevaPassword !== confirmarNuevaPassword) {
-        console.error("Las contraseñas no coinciden.");
+        this.setState({ passwordMismatch: true });
         return;
       }
 
@@ -151,10 +152,11 @@ export default class Perfil extends Component {
     const {
       usuario,
       nuevaPassword,
-      confirmarNuevaPassword,
       isEditMode,
       showPassword,
       showModal,
+      modalPassword,
+      passwordMismatch,
       provincias,
       empresasCentros,
     } = this.state;
@@ -218,8 +220,10 @@ export default class Perfil extends Component {
                   <Form.Control
                     type={showPassword ? "text" : "password"}
                     name="nuevaPassword"
+                    // value={modalPassword.nuevaPassword}
                     value={usuario.password}
                     onChange={this.handleInputChange}
+                    disabled
                   />
                   <div className="input-group-append">
                     <Button
@@ -237,11 +241,11 @@ export default class Perfil extends Component {
               </Form.Group>
             </Col>
             <Col md={4}>
-              <h4>Falta meter los 2 select de empresas/centros y provincias</h4>
+              <p>Falta meter los 2 select de empresas/centros y provincias</p>
             </Col>
           </Row>
-          <Button onClick={this.handleSaveClick} variant="outline-primary">
-            Modificar Perfil
+          <Button onClick={this.handleSaveClick} variant="primary">
+            Modificar Perfil <FaEdit />
           </Button>
         </Form>
 
@@ -252,21 +256,48 @@ export default class Perfil extends Component {
           <Modal.Body>
             <Form.Group controlId="formNuevaPasswordModal">
               <Form.Label>Nueva Contraseña:</Form.Label>
-              <Form.Control
-                type="password"
-                name="nuevaPassword"
-                value={nuevaPassword}
-                onChange={this.handleInputChange}
-              />
+              <div className="input-group">
+                <Form.Control
+                  type={showPassword ? "text" : "password"}
+                  name="nuevaPassword"
+                  value={modalPassword.nuevaPassword}
+                  onChange={this.handleInputChange}
+                />
+                <div className="input-group-append">
+                  <Button
+                    variant="link"
+                    className="password-toggle"
+                    onClick={this.togglePasswordVisibility}
+                  >
+                    <FaEye />
+                  </Button>
+                </div>
+              </div>
             </Form.Group>
             <Form.Group controlId="formConfirmarNuevaPasswordModal">
               <Form.Label>Confirmar Nueva Contraseña:</Form.Label>
-              <Form.Control
-                type="password"
-                name="confirmarNuevaPassword"
-                value={confirmarNuevaPassword}
-                onChange={this.handleInputChange}
-              />
+              <div className="input-group">
+                <Form.Control
+                  type={showPassword ? "text" : "password"}
+                  name="confirmarNuevaPassword"
+                  value={modalPassword.confirmarNuevaPassword}
+                  onChange={this.handleInputChange}
+                />
+                <div className="input-group-append">
+                  <Button
+                    variant="link"
+                    className="password-toggle"
+                    onClick={this.togglePasswordVisibility}
+                  >
+                    <FaEye />
+                  </Button>
+                </div>
+              </div>
+              {passwordMismatch && (
+                <small className="text-danger">
+                  Las contraseñas no coinciden.
+                </small>
+              )}
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>

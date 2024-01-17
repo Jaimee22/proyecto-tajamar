@@ -5,6 +5,7 @@
 .banner-image {
   width: 100%;
   height: auto;
+  opacity: 0.7;
 }
 
 .overlay {
@@ -14,7 +15,6 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 0;
 }
 
 .banner-text {
@@ -26,6 +26,9 @@
   text-align: center;
   width: 100%;
   z-index: 1;
+  background: rgba(0, 0, 0, 0.5); /* Añadido para el fondo semitransparente del texto */
+  padding: 20px; /* Ajusta según sea necesario */
+  box-shadow: none; /* Eliminado para quitar la sombra */
 }
 
 .banner-text h1,

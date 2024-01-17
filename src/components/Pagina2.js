@@ -34,3 +34,4 @@ const Pagina2 = () => {
 };
 
 export default Pagina2;
+

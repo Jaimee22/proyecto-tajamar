@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import CalendarioCharlas from '../CalendarioCharlas/CalendarioCharlas';
 import Charlas from '../Charlas/Charlas';
 import './InicioHome.css';
 
@@ -23,6 +24,7 @@ export default class InicioHome extends Component {
                 </div>
             </div>
             <div className='container'>
+                <CalendarioCharlas />
                 <Charlas />
             </div>
         </>
