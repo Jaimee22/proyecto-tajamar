@@ -7,6 +7,8 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Button, Modal } from 'react-bootstrap';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import './CalendarioCharlas.css';
+import { MdPlace } from "react-icons/md";
+import { RiSpeakFill } from "react-icons/ri";
 
 const CalendarioCharlas = () => {
   const localizer = momentLocalizer(moment);
@@ -17,11 +19,11 @@ const CalendarioCharlas = () => {
   useEffect(() => {
     const obtenerDatosDeAPI = async () => {
       try {
-        const respuesta = await fetch('https://apitechriders.azurewebsites.net/api/Charlas');
+        const respuesta = await fetch('https://apitechriders.azurewebsites.net/api/QueryTools/CharlasViewAll');
         const datos = await respuesta.json();
 
         const eventosCharlas = datos.map((charla) => ({
-          title: charla.descripcion,
+          title: charla.descripcionCharla,
           start: new Date(charla.fechaCharla),
           end: new Date(charla.fechaCharla),
           charlaInfo: charla,
@@ -68,9 +70,9 @@ const CalendarioCharlas = () => {
         <Modal.Body>
           {charlaSeleccionada && (
             <div>
-              <p>ID de Charla: {charlaSeleccionada.idCharla}</p>
-              <p>Descripción: {charlaSeleccionada.descripcion}</p>
-              <p>Turno: {charlaSeleccionada.turno}</p>
+              {/* <p>ID de Charla: {charlaSeleccionada.idCharla}</p> */}
+              <div className='caracteristicas-charlas-modal'><RiSpeakFill className='iconos-charlas-modal'/><b>Descripción: &nbsp;</b> {charlaSeleccionada.descripcionCharla}</div>
+              <div className='caracteristicas-charlas-modal'><MdPlace className='iconos-charlas-modal'/><b>Lugar: &nbsp;</b> {charlaSeleccionada.provincia}</div>
             </div>
           )}
         </Modal.Body>

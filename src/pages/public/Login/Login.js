@@ -4,7 +4,7 @@ import './Login.css';
 import { FaLock, FaEnvelope } from 'react-icons/fa';
 import LogoTechRiders from '../../../assets/img/escudo-negro1.png';
 import ApiService from '../../../api/ApiService';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import Loader from '../../../components/Loader/Loader';
 
 const Login = () => {
@@ -31,7 +31,7 @@ const Login = () => {
           setRedirect('/pagina-profesor-responsable');
           break;
         case 3:
-          setRedirect('/pagina-techriders/perfil');
+          setRedirect('/pagina-techriders');
           break;
         default:
           // Manejar otros roles o situaciones según sea necesario

@@ -53,3 +53,16 @@ span.rbc-toolbar-label::first-letter {
 .rbc-header::first-letter{
     text-transform: uppercase;
 }
+
+
+.caracteristicas-charlas-modal{
+    font-size: 18px;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    /* text-align: center; */
+}
+
+.iconos-charlas-modal{
+    margin-right: 0.5rem;
+}

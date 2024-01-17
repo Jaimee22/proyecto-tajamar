@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Toaster } from "react-hot-toast";
 import { Form, Button, Container, Row, Col, Modal } from "react-bootstrap";
 import { FaEye, FaEdit } from "react-icons/fa";
 import ApiService from "../../api/ApiService";
@@ -21,6 +22,8 @@ export default class Perfil extends Component {
     },
     provincias: [],
     empresasCentros: [],
+    selectedProvincia: 0,
+    selectedEmpresaCentro: 0,
     nuevaPassword: "",
     confirmarNuevaPassword: "",
     isEditMode: true,
@@ -44,8 +47,8 @@ export default class Perfil extends Component {
       const userProfile = await ApiService.getPerfilUsuario();
       this.setState({
         usuario: userProfile,
-        idProvincia: userProfile.idProvincia,
-        idEmpresaCentro: userProfile.idEmpresaCentro,
+        selectedProvincia: userProfile.idProvincia,
+        selectedEmpresaCentro: userProfile.idEmpresaCentro,
       });
     } catch (error) {
       console.error("Error al cargar el perfil del usuario:", error);
@@ -70,13 +73,27 @@ export default class Perfil extends Component {
     }
   }
 
-  handleSaveClick = async () => {
+  handleSaveClick = async (e) => {
+    e.preventDefault();
     try {
-      const { usuario, nuevaPassword } = this.state;
+      const {
+        usuario,
+        nuevaPassword,
+        selectedProvincia,
+        selectedEmpresaCentro,
+      } = this.state;
+
+      console.log("selectedProvincia", selectedProvincia);
+      console.log("selectedEmpresaCentro", selectedEmpresaCentro);
 
       if (nuevaPassword !== "") {
         usuario.password = nuevaPassword;
       }
+
+      usuario.idProvincia = selectedProvincia;
+      usuario.idEmpresaCentro = selectedEmpresaCentro;
+
+      console.log("usuario", usuario);
 
       await ApiService.updateUser(usuario);
       await this.loadUserProfile();
@@ -88,6 +105,7 @@ export default class Perfil extends Component {
   };
 
   handleInputChange = (e) => {
+    // e.preventDefault();
     const { name, value } = e.target;
     if (name === "nuevaPassword" || name === "confirmarNuevaPassword") {
       this.setState((prevState) => ({
@@ -103,6 +121,12 @@ export default class Perfil extends Component {
           ...prevState.usuario,
           [name]: value,
         },
+        ...(name === "idProvincia" && {
+          selectedProvincia: parseInt(value, 10),
+        }),
+        ...(name === "idEmpresaCentro" && {
+          selectedEmpresaCentro: parseInt(value, 10),
+        }),
       }));
     }
   };
@@ -128,7 +152,8 @@ export default class Perfil extends Component {
 
   handleModalSave = async () => {
     try {
-      const { nuevaPassword, confirmarNuevaPassword } = this.state.modalPassword;
+      const { nuevaPassword, confirmarNuevaPassword } =
+        this.state.modalPassword;
       const { usuario } = this.state;
 
       if (nuevaPassword !== confirmarNuevaPassword) {
@@ -159,71 +184,150 @@ export default class Perfil extends Component {
       passwordMismatch,
       provincias,
       empresasCentros,
+      selectedProvincia,
+      selectedEmpresaCentro,
     } = this.state;
 
     return (
-      <Container>
-        <h1>Perfil</h1>
-        <Form>
-          <Row>
-            <Col md={4}>
-              <Form.Group controlId="formNombre">
-                <Form.Label>Nombre:</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="nombre"
-                  value={usuario.nombre}
-                  onChange={this.handleInputChange}
-                />
-              </Form.Group>
-              <Form.Group controlId="formApellidos">
-                <Form.Label>Apellidos:</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="apellidos"
-                  value={usuario.apellidos}
-                  onChange={this.handleInputChange}
-                />
-              </Form.Group>
-              <Form.Group controlId="formEmail">
-                <Form.Label>Email:</Form.Label>
-                <Form.Control
-                  type="email"
-                  name="email"
-                  value={usuario.email}
-                  onChange={this.handleInputChange}
-                />
-              </Form.Group>
-            </Col>
-            <Col md={4}>
-              <Form.Group controlId="formTelefono">
-                <Form.Label>Teléfono:</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="telefono"
-                  value={usuario.telefono}
-                  onChange={this.handleInputChange}
-                />
-              </Form.Group>
-              <Form.Group controlId="formLinkedIn">
-                <Form.Label>LinkedIn:</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="linkedIn"
-                  value={usuario.linkedIn}
-                  onChange={this.handleInputChange}
-                />
-              </Form.Group>
-              <Form.Group controlId="formNuevaPassword">
-                <Form.Label>Contraseña Actual:</Form.Label>
+      <div>
+        <Container className="profile-container">
+          <h1 className="profile-title">Perfil</h1>
+          <Form className="profile-form">
+            <Row>
+              <Col md={4}>
+                <Form.Group controlId="formNombre">
+                  <Form.Label>Nombre:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="nombre"
+                    value={usuario.nombre}
+                    onChange={this.handleInputChange}
+                  />
+                </Form.Group>
+                <Form.Group controlId="formApellidos">
+                  <Form.Label>Apellidos:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="apellidos"
+                    value={usuario.apellidos}
+                    onChange={this.handleInputChange}
+                  />
+                </Form.Group>
+                <Form.Group controlId="formEmail">
+                  <Form.Label>Email:</Form.Label>
+                  <Form.Control
+                    type="email"
+                    name="email"
+                    value={usuario.email}
+                    onChange={this.handleInputChange}
+                  />
+                </Form.Group>
+              </Col>
+              <Col md={4}>
+                <Form.Group controlId="formTelefono">
+                  <Form.Label>Teléfono:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="telefono"
+                    value={usuario.telefono}
+                    onChange={this.handleInputChange}
+                  />
+                </Form.Group>
+                <Form.Group controlId="formLinkedIn">
+                  <Form.Label>LinkedIn:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="linkedIn"
+                    value={usuario.linkedIn}
+                    onChange={this.handleInputChange}
+                  />
+                </Form.Group>
+                <Form.Group controlId="formNuevaPassword">
+                  <Form.Label>Contraseña Actual:</Form.Label>
+                  <div className="input-group">
+                    <Form.Control
+                      type={showPassword ? "text" : "password"}
+                      name="nuevaPassword"
+                      value={usuario.password}
+                      onChange={this.handleInputChange}
+                      disabled
+                    />
+                    <div className="input-group-append">
+                      <Button
+                        variant="link"
+                        className="password-toggle"
+                        onClick={this.togglePasswordVisibility}
+                      >
+                        <FaEye />
+                      </Button>
+                    </div>
+                  </div>
+                  <Button variant="link" onClick={this.openModal}>
+                    Cambiar contraseña
+                  </Button>
+                </Form.Group>
+              </Col>
+              <Col md={4}>
+                <Form.Group controlId="formEmpresaCentro">
+                  <Form.Label>Empresa/Centro:</Form.Label>
+                  <Form.Control
+                    as="select"
+                    name="idEmpresaCentro"
+                    value={selectedEmpresaCentro}
+                    onChange={this.handleInputChange}
+                  >
+                    {empresasCentros.map((empresaCentro) => (
+                      <option
+                        key={empresaCentro.idEmpresaCentro}
+                        value={empresaCentro.idEmpresaCentro}
+                      >
+                        {empresaCentro.nombre}
+                      </option>
+                    ))}
+                  </Form.Control>
+                </Form.Group>
+                <Form.Group controlId="formProvincia">
+                  <Form.Label>Provincia:</Form.Label>
+                  <Form.Control
+                    as="select"
+                    name="idProvincia"
+                    value={selectedProvincia}
+                    onChange={this.handleInputChange}
+                  >
+                    {provincias.map((provincia) => (
+                      <option
+                        key={provincia.idProvincia}
+                        value={provincia.idProvincia}
+                      >
+                        {provincia.nombreProvincia}
+                      </option>
+                    ))}
+                  </Form.Control>
+                </Form.Group>
+              </Col>
+            </Row>
+            <button onClick={this.handleSaveClick} className="edit-button">
+              Editar <FaEdit />
+            </button>
+          </Form>
+
+          <Modal
+            show={showModal}
+            onHide={this.closeModal}
+            className="password-modal"
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Cambiar Contraseña</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form.Group controlId="formNuevaPasswordModal">
+                <Form.Label>Nueva Contraseña:</Form.Label>
                 <div className="input-group">
                   <Form.Control
                     type={showPassword ? "text" : "password"}
                     name="nuevaPassword"
-                    // value={modalPassword.nuevaPassword}
-                    value={usuario.password}
+                    value={modalPassword.nuevaPassword}
                     onChange={this.handleInputChange}
-                    disabled
                   />
                   <div className="input-group-append">
                     <Button
@@ -235,81 +339,45 @@ export default class Perfil extends Component {
                     </Button>
                   </div>
                 </div>
-                <Button variant="link" onClick={this.openModal}>
-                  Cambiar contraseña
-                </Button>
               </Form.Group>
-            </Col>
-            <Col md={4}>
-              <p>Falta meter los 2 select de empresas/centros y provincias</p>
-            </Col>
-          </Row>
-          <Button onClick={this.handleSaveClick} variant="primary">
-            Modificar Perfil <FaEdit />
-          </Button>
-        </Form>
-
-        <Modal show={showModal} onHide={this.closeModal}>
-          <Modal.Header closeButton>
-            <Modal.Title>Cambiar Contraseña</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form.Group controlId="formNuevaPasswordModal">
-              <Form.Label>Nueva Contraseña:</Form.Label>
-              <div className="input-group">
-                <Form.Control
-                  type={showPassword ? "text" : "password"}
-                  name="nuevaPassword"
-                  value={modalPassword.nuevaPassword}
-                  onChange={this.handleInputChange}
-                />
-                <div className="input-group-append">
-                  <Button
-                    variant="link"
-                    className="password-toggle"
-                    onClick={this.togglePasswordVisibility}
-                  >
-                    <FaEye />
-                  </Button>
+              <Form.Group controlId="formConfirmarNuevaPasswordModal">
+                <Form.Label>Confirmar Nueva Contraseña:</Form.Label>
+                <div className="input-group">
+                  <Form.Control
+                    type={showPassword ? "text" : "password"}
+                    name="confirmarNuevaPassword"
+                    value={modalPassword.confirmarNuevaPassword}
+                    onChange={this.handleInputChange}
+                  />
+                  <div className="input-group-append">
+                    <Button
+                      variant="link"
+                      className="password-toggle"
+                      onClick={this.togglePasswordVisibility}
+                    >
+                      <FaEye />
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            </Form.Group>
-            <Form.Group controlId="formConfirmarNuevaPasswordModal">
-              <Form.Label>Confirmar Nueva Contraseña:</Form.Label>
-              <div className="input-group">
-                <Form.Control
-                  type={showPassword ? "text" : "password"}
-                  name="confirmarNuevaPassword"
-                  value={modalPassword.confirmarNuevaPassword}
-                  onChange={this.handleInputChange}
-                />
-                <div className="input-group-append">
-                  <Button
-                    variant="link"
-                    className="password-toggle"
-                    onClick={this.togglePasswordVisibility}
-                  >
-                    <FaEye />
-                  </Button>
-                </div>
-              </div>
-              {passwordMismatch && (
-                <small className="text-danger">
-                  Las contraseñas no coinciden.
-                </small>
-              )}
-            </Form.Group>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="danger" onClick={this.closeModal}>
-              Cancelar
-            </Button>
-            <Button variant="success" onClick={this.handleModalSave}>
-              Guardar
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </Container>
+                {passwordMismatch && (
+                  <small className="text-danger">
+                    Las contraseñas no coinciden.
+                  </small>
+                )}
+              </Form.Group>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="danger" onClick={this.closeModal}>
+                Cancelar
+              </Button>
+              <Button variant="success" onClick={this.handleModalSave}>
+                Guardar
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </Container>
+        {/* <Toaster /> */}
+      </div>
     );
   }
 }

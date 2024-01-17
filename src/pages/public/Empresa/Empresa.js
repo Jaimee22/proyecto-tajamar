@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ApiService from '../../../api/ApiService';
 import schoolsImage from '../../../assets/img/banner-centros.jpg';
-import './Empresa.css';
+// import './Empresa.css';
 
 export default class Empresa extends Component {
   constructor(props) {
