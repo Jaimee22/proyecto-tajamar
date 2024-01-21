@@ -735,5 +735,92 @@
 
 
 
+import React, { useEffect, useState } from 'react';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 
-  
+const Testeo = () => {
+  const [tecnologia, setTecnologia] = useState(null);
+  const [openDialog, setOpenDialog] = useState(false);
+
+  useEffect(() => {
+    // Puedes obtener la tecnología que deseas probar al cargar el componente
+    // (puedes cambiar esto según tus necesidades)
+    const tecnologiaEjemplo = {
+      idTecnologia: 16,
+      nombreTecnologia: 'Bootstrapa',
+      idTipoTecnologia: 2, // Debe ser un valor existente en tu lista de tipos de tecnología
+    };
+    setTecnologia(tecnologiaEjemplo);
+  }, []);
+
+  const updateTecnologia = async (tecnologiaData) => {
+    try {
+      const token = localStorage.getItem('token');
+
+      // Asegúrate de ajustar la URL según tu implementación
+      const response = await fetch(`https://apitechriders.azurewebsites.net/api/Tecnologias/${tecnologiaData.idTecnologia}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, // Agrega el token de autorización
+        },
+        body: JSON.stringify({
+          nombreTecnologia: tecnologiaData.nombreTecnologia,
+          idTipoTecnologia: tecnologiaData.idTipoTecnologia,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error al actualizar la tecnología: ${response.statusText}`);
+      }
+
+      console.log('Tecnología actualizada exitosamente');
+    } catch (error) {
+      console.error('Error al actualizar la tecnología:', error);
+    }
+  };
+
+  const handleUpdateTecnologia = async () => {
+    try {
+      await updateTecnologia(tecnologia);
+    } catch (error) {
+      console.error('Error al actualizar la tecnología:', error);
+    } finally {
+      setOpenDialog(false);
+    }
+  };
+
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
+  return (
+    <div>
+      <Button onClick={handleOpenDialog}>Probar Actualización de Tecnología</Button>
+
+      <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>Actualizar Tecnología de Prueba</DialogTitle>
+        <DialogContent>
+          {/* Mostrar detalles de la tecnología de prueba (puedes adaptar esto según tu estructura de datos) */}
+          {tecnologia && (
+            <div>
+              <div>ID Tecnología: {tecnologia.idTecnologia}</div>
+              <div>Nombre Tecnología: {tecnologia.nombreTecnologia}</div>
+              <div>ID Tipo Tecnología: {tecnologia.idTipoTecnologia}</div>
+            </div>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog}>Cancelar</Button>
+          <Button onClick={handleUpdateTecnologia}>Actualizar Tecnología</Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+};
+
+export default Testeo;

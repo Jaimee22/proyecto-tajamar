@@ -19,7 +19,7 @@ const StandardSidebar = () => {
     };
 
     return (
-        <div id='sidebar' className="d-flex flex-column flex-shrink-0 p-3 bg-light" style={{ width: '280px' }}>
+        <div id='sidebar' className="d-flex flex-column flex-shrink-0 p-3 bg-light" style={{ width: '15rem', height: 'auto' }}>
             <Link to="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
                 <GoHome size={24} />
                 <span className="fs-4 ms-2">TechRider</span>
@@ -81,25 +81,20 @@ const ResponsiveSidebar = () => {
                 <span className="visually-hidden">TechRider</span>
             </Link>
             <ul className="nav nav-pills nav-flush flex-column mb-auto text-center">
-                <li className="nav-item">
-                    <Link to="#" className="links-sidebar nav-link active py-3 border-bottom" aria-current="page" data-bs-toggle="tooltip" data-bs-placement="right">
-                        <GoHome size={22} />
-                    </Link>
+                <li className="nav-item" title='Editar perfil'>
+                    <NavLink className={({ isActive }) => { return isActive ? 'is-active links-sidebar nav-link link-dark' : 'links-sidebar nav-link link-dark' }} to='/perfil'>
+                        <FaUserEdit size={18} />
+                    </NavLink>
                 </li>
                 <li>
-                    <Link to="#" className="links-sidebar nav-link py-3 border-bottom" data-bs-toggle="tooltip" data-bs-placement="right">
-                        <RiSpeakLine size={22} />
-                    </Link>
+                    <NavLink className={({ isActive }) => { return isActive ? 'is-active links-sidebar nav-link link-dark' : 'links-sidebar nav-link link-dark' }} to='/charlas-solicitadas'>
+                        <RiSpeakLine size={18} />
+                    </NavLink>
                 </li>
                 <li>
-                    <Link to="#" className="links-sidebar nav-link py-3 border-bottom" data-bs-toggle="tooltip" data-bs-placement="right">
-                        <RiSpeakLine size={22} />
-                    </Link>
-                </li>
-                <li>
-                    <Link to="#" className="links-sidebar nav-link py-3 border-bottom" data-bs-toggle="tooltip" data-bs-placement="right">
-                        <RiSpeakLine size={22} />
-                    </Link>
+                    <NavLink className={({ isActive }) => { return isActive ? 'is-active links-sidebar nav-link link-dark' : 'links-sidebar nav-link link-dark' }} to='/charlas-realizadas'>
+                        <BsArchive size={18} />
+                    </NavLink>
                 </li>
             </ul>
             <hr />

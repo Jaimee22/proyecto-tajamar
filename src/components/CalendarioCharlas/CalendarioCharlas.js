@@ -9,6 +9,7 @@ import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import './CalendarioCharlas.css';
 import { MdPlace } from "react-icons/md";
 import { RiSpeakFill } from "react-icons/ri";
+import { SiGoogleclassroom } from "react-icons/si";
 
 const CalendarioCharlas = () => {
   const localizer = momentLocalizer(moment);
@@ -73,6 +74,8 @@ const CalendarioCharlas = () => {
               {/* <p>ID de Charla: {charlaSeleccionada.idCharla}</p> */}
               <div className='caracteristicas-charlas-modal'><RiSpeakFill className='iconos-charlas-modal'/><b>Descripción: &nbsp;</b> {charlaSeleccionada.descripcionCharla}</div>
               <div className='caracteristicas-charlas-modal'><MdPlace className='iconos-charlas-modal'/><b>Lugar: &nbsp;</b> {charlaSeleccionada.provincia}</div>
+              <div className='caracteristicas-charlas-modal'><SiGoogleclassroom className='iconos-charlas-modal'/><b>Curso: &nbsp;</b> {charlaSeleccionada.nombreCurso}</div>
+              {/* <div className='caracteristicas-charlas-modal'><MdPlace className='iconos-charlas-modal'/><b>techRider: &nbsp;</b> {charlaSeleccionada.techRider}</div> */}
             </div>
           )}
         </Modal.Body>

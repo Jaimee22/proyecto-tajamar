@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ApiService from '../../../api/ApiService';
-import schoolsImage from '../../../assets/img/banner-centros.jpg';
-// import './Centro.css';
+import './Centro.css';
 
 export default class Centros extends Component {
   constructor(props) {
@@ -22,42 +21,35 @@ export default class Centros extends Component {
 
   render() {
     return (
-      <div className='container-fluid p-0'>
-        <div className='banner-container mb-5'>
-          <img src={schoolsImage} alt='Centros' className='w-100 banner-image' />
-          <div className='overlay'></div>
-          <div className='banner-text text-center text-light'>
-            <h1 className='mb-4 font-weight-bold display-4 fw-bold'>Centros Colaboradores</h1>
-            <p className='mb-4 font-weight-bold lead fw-bold'>
-              Bienvenido a TechRiders, tu socio en educación. Trabajamos con los siguientes centros educativos para ofrecer experiencias educativas innovadoras y de alta calidad.
-            </p>
-            <button className='btn btn-dark btn-add-center btn-lg rounded-0 fw-bold'>
-              Añadir Centro
-              <span className='ms-2'>&#10132;</span>
-            </button>
+      <>
+        <div className='inicio-home-container'>
+          <div className='inicio-home-info'>
+            <h1 id='title-home'>CENTROS</h1>
+            <h3 id='text-home'>
+              Bienvenido a TechRiders.
+              <br/>Colaboramos con los siguientes centros para ofrecer soluciones innovadoras y de alta calidad.
+            </h3>
           </div>
         </div>
 
         <div className='container mt-5'>
-          <div className='row'>
+          <div className='card-container'>
             {this.state.centros.map((centro) => (
-              <div key={centro.idCentro} className='col-md-6 mb-4'>
-                <div className='card'>
-                  <div className='card-body'>
-                    <h5 className='card-title'>{centro.nombre}</h5>
-                    <p className='card-text'>
-                      <strong>Dirección:</strong> {centro.direccion}
-                    </p>
-                    <p className='card-text'>
-                      <strong>Teléfono:</strong> {centro.telefono}
-                    </p>
-                  </div>
+              <div key={centro.idCentro} className='card'>
+                <div className='card-body'>
+                  <h5 className='card-title'>{centro.nombre}</h5>
+                  <p className='card-text'>
+                    <strong>Dirección:</strong> {centro.direccion}
+                  </p>
+                  <p className='card-text'>
+                    <strong>Teléfono:</strong> {centro.telefono}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }

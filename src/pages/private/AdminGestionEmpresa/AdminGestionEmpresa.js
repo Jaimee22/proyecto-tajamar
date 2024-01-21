@@ -3,6 +3,7 @@ import ApiService from '../../../api/ApiService';
 import Loader from '../../../components/Loader/Loader';
 import AccessDenied from '../../../components/AccesDenied/AccessDenied';
 import GestionEmpresas from '../../../components/GestionEmpresas/GestionEmpresas';
+import BotonVolver from '../../../components/BotonVolver/BotonVolver';
 
 class AdminGestionEmpresa extends Component {
   state = {
@@ -39,7 +40,7 @@ class AdminGestionEmpresa extends Component {
       <div>
         {tieneAcceso ? (
           <>
-            <h1>AdminGestionEmpresa</h1>
+            <BotonVolver />
             <GestionEmpresas />
           </>
         ) : (

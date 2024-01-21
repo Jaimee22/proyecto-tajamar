@@ -156,23 +156,23 @@
 // import { MRT_Localization_ES } from 'material-react-table/locales/es';
 // import ApiService from '../api/ApiService';
 
-// function useGetCentros() {
+// function useGetEmpresas() {
 //   return useQuery({
-//     queryKey: ['centros'],
+//     queryKey: ['Empresas'],
 //     queryFn: async () => {
 //       try {
-//         const centros = await ApiService.getCentros();
-//         return centros;
+//         const Empresas = await ApiService.getEmpresas();
+//         return Empresas;
 //       } catch (error) {
-//         console.error('Error fetching centros:', error);
-//         throw new Error('Error fetching centros');
+//         console.error('Error fetching Empresas:', error);
+//         throw new Error('Error fetching Empresas');
 //       }
 //     },
 //     refetchOnWindowFocus: false,
 //   });
 // }
 
-// const GestionCentrosTable = () => {
+// const GestionEmpresasTable = () => {
 //   const [editingCentro, setEditingCentro] = useState(null);
 //   const [creatingCentro, setCreatingCentro] = useState(false);
 //   const [newCentroData, setNewCentroData] = useState({
@@ -187,7 +187,7 @@
 //   });
 //   const [openModal, setOpenModal] = useState(false);
 
-//   const { data: centros = [], isError: isLoadingCentrosError, isFetching: isFetchingCentros, isLoading: isLoadingCentros, refetch: refetchCentros } = useGetCentros();
+//   const { data: Empresas = [], isError: isLoadingEmpresasError, isFetching: isFetchingEmpresas, isLoading: isLoadingEmpresas, refetch: refetchEmpresas } = useGetEmpresas();
 
 //   const handleEditCentro = (centro) => {
 //     console.log('Editando centro:', centro);
@@ -221,7 +221,7 @@
 //         return;
 //       }
 
-//       await ApiService.putCentros(editingCentro.idEmpresaCentro, newCentroData);
+//       await ApiService.putEmpresas(editingCentro.idEmpresaCentro, newCentroData);
 //       setEditingCentro(null);
 //       setNewCentroData({
 //         nombre: '',
@@ -234,7 +234,7 @@
 //         idTipoCentro: 2,
 //       });
 //       setOpenModal(false);
-//       await refetchCentros();
+//       await refetchEmpresas();
 //     } catch (error) {
 //       console.error('Error al guardar la edición del centro:', error);
 //       if (error.response) {
@@ -253,7 +253,7 @@
 //       try {
 //         await ApiService.deleteCentro(centro.idEmpresaCentro);
 //         console.log('Centro eliminado:', centro);
-//         refetchCentros();
+//         refetchEmpresas();
 //       } catch (error) {
 //         console.error('Error al eliminar el centro:', error);
 //       }
@@ -266,10 +266,10 @@
 
 //   const handleSaveCreateCentroForm = async () => {
 //     try {
-//       await ApiService.postCentros(newCentroData);
+//       await ApiService.postEmpresas(newCentroData);
 //       console.log('Nuevo Centro creado:', newCentroData);
 //       setCreatingCentro(false);
-//       refetchCentros();
+//       refetchEmpresas();
 //     } catch (error) {
 //       console.error('Error al crear el centro:', error);
 //     }
@@ -356,11 +356,11 @@
 //     <>
 //       <MaterialReactTable
 //         columns={columns}
-//         data={centros}
+//         data={Empresas}
 //         state={{
-//           isLoading: isLoadingCentros,
-//           showAlertBanner: isLoadingCentrosError,
-//           showProgressBars: isFetchingCentros,
+//           isLoading: isLoadingEmpresas,
+//           showAlertBanner: isLoadingEmpresasError,
+//           showProgressBars: isFetchingEmpresas,
 //         }}
 //         localization={MRT_Localization_ES}
 //         renderTopToolbarCustomActions={({ table }) => (
@@ -410,7 +410,7 @@
 
 //   return (
 //     <QueryClientProvider client={queryClient}>
-//       <GestionCentrosTable />
+//       <GestionEmpresasTable />
 //     </QueryClientProvider>
 //   );
 // }
@@ -475,7 +475,7 @@
 
 //   const handleActualizarCentro = async () => {
 //     try {
-//       await ApiService.putCentros(centroDataActualizado);
+//       await ApiService.putEmpresas(centroDataActualizado);
 //       console.log('Centro actualizado exitosamente.');
 //     } catch (error) {
 //       console.error('Error al actualizar centro:', error);
@@ -515,18 +515,114 @@
 
 
 
+// import React, { useEffect, useState } from 'react';
+// import Service from '../api/ApiService';
+// import { MaterialReactTable } from 'material-react-table';
+// import { MRT_Localization_ES } from 'material-react-table/locales/es';
 
+// const GestionEmpresasTable = () => {
+//   const [Empresas, setEmpresas] = useState([]);
 
+//   useEffect(() => {
+//     const fetchEmpresasData = async () => {
+//       try {
+//         const EmpresasData = await Service.getEmpresas();
+//         const empresasWithProvincias = await addProvinciasToEmpresas(EmpresasData);
+//         setEmpresas(empresasWithProvincias);
+//       } catch (error) {
+//         console.error('Error al obtener la lista de Empresas:', error);
+//       }
+//     };
 
+//     fetchEmpresasData();
+//   }, []);
 
+//   const addProvinciasToEmpresas = async (empresas) => {
+//     const empresasWithProvincias = await Promise.all(
+//       empresas.map(async (empresa) => {
+//         try {
+//           const provincia = await Service.getProvinciaPorId(empresa.idProvincia);
+//           return {
+//             ...empresa,
+//             nombreProvincia: provincia.nombreProvincia,
+//           };
+//         } catch (error) {
+//           console.error(`Error al obtener la provincia para la empresa ${empresa.idEmpresaCentro}:`, error);
+//           return empresa;
+//         }
+//       })
+//     );
+//     return empresasWithProvincias;
+//   };
 
+//   const columns = [
+//     {
+//       accessorKey: 'idEmpresaCentro',
+//       header: 'Centro ID',
+//       size: 100,
+//     },
+//     {
+//       accessorKey: 'nombre',
+//       header: 'Nombre del Centro',
+//     },
+//     {
+//       accessorKey: 'direccion',
+//       header: 'Dirección',
+//     },
+//     {
+//       accessorKey: 'telefono',
+//       header: 'Teléfono',
+//     },
+//     {
+//       accessorKey: 'personaContacto',
+//       header: 'Persona Contacto',
+//     },
+//     {
+//       accessorKey: 'cif',
+//       header: 'CIF',
+//     },
+//     {
+//       accessorKey: 'idTipoEmpresa',
+//       header: 'Id Tipo Centro',
+//     },
+//     {
+//       accessorKey: 'nombreProvincia',
+//       header: 'Provincia',
+//     },
+//     {
+//       accessorKey: 'razonSocial',
+//       header: 'Razón Social',
+//     },
+//   ];
 
+//   return (
+//     <>
+//       <MaterialReactTable
+//         columns={columns}
+//         data={Empresas}
+//         state={{
+//           showAlertBanner: false,
+//         }}
+//         initialState={{
+//           columnVisibility: {
+//             'idEmpresaCentro': false,
+//             'razonSocial': false,
+//           },
+//         }}
+//         enableFullScreenToggle={false}
+//         localization={MRT_Localization_ES}
+//         paginationDisplayMode={'pages'}
+//       />
+//     </>
+//   );
+// };
 
+// export default GestionEmpresasTable;
 
-
-
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import Service from '../api/ApiService';
+import { MaterialReactTable } from 'material-react-table';
+import { MRT_Localization_ES } from 'material-react-table/locales/es';
 import {
   Button,
   Dialog,
@@ -534,21 +630,14 @@ import {
   DialogContent,
   DialogActions,
   TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   IconButton,
   Tooltip,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
-import { MaterialReactTable } from 'material-react-table';
-import { MRT_Localization_ES } from 'material-react-table/locales/es';
 
-const GestionCentrosTable = () => {
-  const [centros, setCentros] = useState([]);
+const GestionEmpresasTable = () => {
+  const [Empresas, setEmpresas] = useState([]);
   const [selectedCentro, setSelectedCentro] = useState(null);
   const [formData, setFormData] = useState({
     nombre: '',
@@ -556,57 +645,104 @@ const GestionCentrosTable = () => {
     telefono: '',
     personaContacto: '',
     cif: '',
-    idProvincia: 0,
+    idProvincia: '',
     razonSocial: '',
-    idTipoEmpresa: 2,
+    idTipoEmpresa: 1,
   });
-  const [openModal, setOpenModal] = useState(false);
+  const [openCreateModal, setOpenCreateModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
   const [reloadCounter, setReloadCounter] = useState(0); // Estado para forzar la recarga
 
   useEffect(() => {
-    const fetchCentrosData = async () => {
+    const fetchEmpresasData = async () => {
       try {
-        const centrosData = await Service.getCentros();
-        setCentros(centrosData);
+        const EmpresasData = await Service.getEmpresas();
+        const empresasWithProvincias = await addProvinciasToEmpresas(EmpresasData);
+        setEmpresas(empresasWithProvincias);
       } catch (error) {
-        console.error('Error al obtener la lista de centros:', error);
+        console.error('Error al obtener la lista de Empresas:', error);
       }
     };
 
-    fetchCentrosData();
+    fetchEmpresasData();
   }, [reloadCounter]); // Agrega reloadCounter como dependencia para forzar la recarga
 
-  const handleShowDetails = (centro) => {
+  const addProvinciasToEmpresas = async (empresas) => {
+    const empresasWithProvincias = await Promise.all(
+      empresas.map(async (empresa) => {
+        try {
+          const provincia = await Service.getProvinciaPorId(empresa.idProvincia);
+          return {
+            ...empresa,
+            idProvincia: provincia.nombreProvincia,
+          };
+        } catch (error) {
+          console.error(`Error al obtener la provincia para la empresa ${empresa.idEmpresaCentro}:`, error);
+          return empresa;
+        }
+      })
+    );
+    return empresasWithProvincias;
+  };
+
+  const handleShowDetails = async (centro) => {
     setSelectedCentro(centro.idEmpresaCentro);
-    setFormData({ ...centro });
+
+    try {
+      const provincia = await Service.getProvinciaPorId(centro.idProvincia);
+      setFormData({
+        ...centro,
+        idProvincia: provincia.idProvincia, // Utilizar el ID de la provincia
+      });
+    } catch (error) {
+      console.error(`Error al obtener la provincia para la empresa ${centro.idEmpresaCentro}:`, error);
+      setFormData({ ...centro }); // Mantener el valor original en caso de error
+    }
+
+    setOpenEditModal(true);
   };
 
   const handleUpdateCentro = async () => {
     try {
       await Service.putCentros(formData);
       console.log('Centro actualizado exitosamente');
-      setOpenModal(false);
+      setOpenEditModal(false);
       setReloadCounter((prevCounter) => prevCounter + 1); // Incrementa el contador para recargar
     } catch (error) {
       console.error('Error al actualizar el centro:', error);
     }
   };
 
-  const handleOpenModal = (centro) => {
+  const handleOpenCreateModal = () => {
+    setFormData({
+      nombre: '',
+      direccion: '',
+      telefono: '',
+      personaContacto: '',
+      cif: '',
+      idProvincia: '',
+      razonSocial: '',
+      idTipoEmpresa: 1,
+    });
+    setOpenCreateModal(true);
+  };
+
+  const handleOpenEditModal = (centro) => {
     setSelectedCentro(centro.idEmpresaCentro);
     setFormData({ ...centro });
-    setOpenModal(true);
+    setOpenEditModal(true);
   };
 
   const handleCloseModal = () => {
-    setOpenModal(false);
+    setOpenCreateModal(false);
+    setOpenEditModal(false);
   };
 
   const handleCreateCentro = async () => {
     try {
-      await Service.postCentros(formData);
+      await Service.postEmpresas(formData);
       console.log('Centro creado exitosamente');
-      setOpenModal(false);
+      setOpenCreateModal(false);
       setReloadCounter((prevCounter) => prevCounter + 1); // Incrementa el contador para recargar
     } catch (error) {
       console.error('Error al crear el centro:', error);
@@ -619,7 +755,7 @@ const GestionCentrosTable = () => {
       try {
         await Service.deleteCentro(centroId);
         console.log('Centro eliminado exitosamente');
-        setOpenModal(false);
+        setOpenEditModal(false);
         setReloadCounter((prevCounter) => prevCounter + 1); // Incrementa el contador para recargar
       } catch (error) {
         console.error('Error al eliminar el centro:', error);
@@ -631,7 +767,7 @@ const GestionCentrosTable = () => {
 
   const renderEditButton = (centro) => (
     <Tooltip title="Editar">
-      <IconButton onClick={() => handleOpenModal(centro)}>
+      <IconButton onClick={() => handleOpenEditModal(centro)}>
         <EditIcon />
       </IconButton>
     </Tooltip>
@@ -639,17 +775,17 @@ const GestionCentrosTable = () => {
 
   const renderDeleteButton = (centro) => (
     <Tooltip title="Eliminar">
-      <IconButton onClick={() => handleDeleteCentro(centro)}>
+      <IconButton onClick={() => handleDeleteCentro(centro.idEmpresaCentro)} color="error">
         <DeleteIcon />
       </IconButton>
     </Tooltip>
   );
 
   const renderCreateButton = () => (
-    <Tooltip title="Crear Centro">
-      <IconButton onClick={() => setOpenModal(true)}>
-        <AddIcon />
-      </IconButton>
+    <Tooltip title="Crear Nuevo Centro">
+      <Button variant="contained" onClick={handleOpenCreateModal}>
+        Crear Nuevo Centro
+      </Button>
     </Tooltip>
   );
 
@@ -672,12 +808,24 @@ const GestionCentrosTable = () => {
       header: 'Teléfono',
     },
     {
-      accessorKey: 'estado',
-      header: 'Estado',
+      accessorKey: 'personaContacto',
+      header: 'Persona Contacto',
     },
     {
-      accessorKey: 'idTipoCentro',
+      accessorKey: 'cif',
+      header: 'CIF',
+    },
+    {
+      accessorKey: 'idTipoEmpresa',
       header: 'Id Tipo Centro',
+    },
+    {
+      accessorKey: 'idProvincia',
+      header: 'Provincia',
+    },
+    {
+      accessorKey: 'razonSocial',
+      header: 'Razón Social',
     },
     {
       accessorKey: 'actions',
@@ -685,108 +833,60 @@ const GestionCentrosTable = () => {
       Cell: ({ row }) => (
         <>
           {renderEditButton(row.original)}
-          {/* {renderDeleteButton(row.original.idEmpresaCentro)} */}
+          {renderDeleteButton(row.original.idEmpresaCentro)}
         </>
       ),
     },
-    {
-        accessorKey: 'eliminar',
-        header: 'Acciones',
-        Cell: ({ row }) => (
-          <>
-            {/* {renderEditButton(row.original)} */}
-            {renderDeleteButton(row.original.idEmpresaCentro)}
-          </>
-        ),
-      },
   ];
 
   return (
     <>
       <MaterialReactTable
         columns={columns}
-        data={centros}
+        data={Empresas}
         state={{
           showAlertBanner: false, // Puedes manejar esto según tus necesidades
         }}
+        initialState={{
+          columnVisibility: {
+            'idEmpresaCentro': false,
+            'razonSocial': false,
+          },
+        }}
+        enableFullScreenToggle={false}
         localization={MRT_Localization_ES}
         renderTopToolbarCustomActions={({ table }) => renderCreateButton()}
+        paginationDisplayMode={'pages'}
       />
 
-      <Dialog open={openModal} onClose={handleCloseModal}>
-        <DialogTitle>{selectedCentro ? 'Editar Centro' : 'Crear Centro'}</DialogTitle>
+      {/* Modal para Crear Centro */}
+      <Dialog open={openCreateModal} onClose={handleCloseModal}>
+        <DialogTitle>Crear Centro</DialogTitle>
         <DialogContent>
-          <TextField
-            label="Nombre"
-            variant="outlined"
-            fullWidth
-            style={{ marginBottom: 16 }}
-            value={formData.nombre}
-            onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
-          />
-          <TextField
-            label="Dirección"
-            variant="outlined"
-            fullWidth
-            style={{ marginBottom: 16 }}
-            value={formData.direccion}
-            onChange={(e) => setFormData({ ...formData, direccion: e.target.value })}
-          />
-          <TextField
-            label="Teléfono"
-            variant="outlined"
-            fullWidth
-            style={{ marginBottom: 16 }}
-            value={formData.telefono}
-            onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
-          />
-          <TextField
-            label="Persona de Contacto"
-            variant="outlined"
-            fullWidth
-            style={{ marginBottom: 16 }}
-            value={formData.personaContacto}
-            onChange={(e) => setFormData({ ...formData, personaContacto: e.target.value })}
-          />
-          <TextField
-            label="CIF"
-            variant="outlined"
-            fullWidth
-            style={{ marginBottom: 16 }}
-            value={formData.cif}
-            onChange={(e) => setFormData({ ...formData, cif: e.target.value })}
-          />
-          <TextField
-            label="ID Provincia"
-            variant="outlined"
-            fullWidth
-            style={{ marginBottom: 16 }}
-            value={formData.idProvincia}
-            onChange={(e) => setFormData({ ...formData, idProvincia: parseInt(e.target.value) })}
-          />
-          <TextField
-            label="Razón Social"
-            variant="outlined"
-            fullWidth
-            style={{ marginBottom: 16 }}
-            value={formData.razonSocial}
-            onChange={(e) => setFormData({ ...formData, razonSocial: e.target.value })}
-          />
-          <TextField
-            label="ID Tipo Empresa"
-            variant="outlined"
-            fullWidth
-            style={{ marginBottom: 16 }}
-            value={formData.idTipoEmpresa}
-            onChange={(e) => setFormData({ ...formData, idTipoEmpresa: parseInt(e.target.value) })}
-          />
+          {/* ... (campos del formulario) */}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseModal} color="secondary">
             Cancelar
           </Button>
-          <Button onClick={selectedCentro ? handleUpdateCentro : handleCreateCentro} color="primary">
-            {selectedCentro ? 'Guardar' : 'Crear'}
+          <Button onClick={handleCreateCentro} color="primary">
+            Crear
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Modal para Editar Centro */}
+      <Dialog open={openEditModal} onClose={handleCloseModal}>
+        <DialogTitle>Editar Centro</DialogTitle>
+        <DialogContent>
+          {/* ... (campos del formulario) */}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseModal} color="secondary">
+            Cancelar
+          </Button>
+          <Button onClick={handleUpdateCentro} color="primary">
+            Guardar
           </Button>
         </DialogActions>
       </Dialog>
@@ -794,4 +894,5 @@ const GestionCentrosTable = () => {
   );
 };
 
-export default GestionCentrosTable;
+export default GestionEmpresasTable;
+

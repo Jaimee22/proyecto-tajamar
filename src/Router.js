@@ -21,6 +21,8 @@ import AdminSolicitudes from './pages/private/AdminSolicitudes/AdminSolicitudes'
 
 import Perfil from './pages/private/Perfil/Perfil';
 import Charlas from './components/Charlas/Charlas';
+import CharlasActivas from './pages/private/CharlasActivas/CharlasActivas';
+import CharlasRealizadas from './pages/private/CharlasRealizadas/CharlasRealizadas';
 
 
 import Pagina1 from './components/Pagina1';
@@ -56,6 +58,8 @@ export default class Router extends Component {
             <Route path='/pagina-techriders' element={<TechRiderPrivate/>}/>
             <Route path='/perfil' element={<Perfil />}/>
             <Route path='/charlas' element={<Charlas />}/>
+            <Route path='/charlas-solicitadas' element={<CharlasActivas />}/>
+            <Route path='/charlas-realizadas' element={<CharlasRealizadas />}/>
             <Route path='/centros' element={<CentroPublic />}/>
             <Route path='/empresas' element={<EmpresaPublic />}/>
 

@@ -176,8 +176,6 @@ export default class Perfil extends Component {
   render() {
     const {
       usuario,
-      nuevaPassword,
-      isEditMode,
       showPassword,
       showModal,
       modalPassword,
@@ -189,7 +187,7 @@ export default class Perfil extends Component {
     } = this.state;
 
     return (
-      <div>
+      <div id='profile-center'>
         <Container className="profile-container">
           <h1 className="profile-title">Perfil</h1>
           <Form className="profile-form">
@@ -376,7 +374,7 @@ export default class Perfil extends Component {
             </Modal.Footer>
           </Modal>
         </Container>
-        {/* <Toaster /> */}
+        <Toaster />
       </div>
     );
   }

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ApiService from '../../../api/ApiService';
 import Loader from '../../../components/Loader/Loader';
 import AccessDenied from '../../../components/AccesDenied/AccessDenied';
+import BotonVolver from '../../../components/BotonVolver/BotonVolver';
+
 
 class AdminSolicitudes extends Component {
   state = {
@@ -39,6 +41,7 @@ class AdminSolicitudes extends Component {
         {tieneAcceso ? (
           <>
             <h1>AdminSolicitudes</h1>
+            <BotonVolver />
           </>
         ) : (
           <AccessDenied/>

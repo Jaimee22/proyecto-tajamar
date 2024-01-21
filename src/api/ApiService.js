@@ -84,6 +84,30 @@ const ApiService = {
       throw error;
     }
   },
+
+
+  getProvinciaPorId: async (idProvincia) => {
+    try {
+      const response = await axios.get(`${apiUrl}/api/provincias/${idProvincia}`);
+      console.log(`Datos del response (Provincia ${idProvincia}):`, response.data);
+
+      if (response.status === 200) {
+        const provinciaData = response.data;
+        return {
+          idProvincia: provinciaData.idProvincia,
+          nombreProvincia: provinciaData.nombreProvincia,
+        };
+      } else {
+        console.error(`Error al obtener la provincia ${idProvincia}:`, response.status);
+        throw new Error(`Error al obtener la provincia ${idProvincia}`);
+      }
+    } catch (error) {
+      console.error(`Error al obtener la provincia ${idProvincia}:`, error);
+      throw error;
+    }
+  },
+
+
   //_________________________________________________________________________________ 
 
 
@@ -146,7 +170,37 @@ const ApiService = {
     }
   },
 
-  // Método para insertar Centros
+  // Método para insertar Empresas
+  postEmpresas: async (empresaData) => {
+    try {
+      // Ajusta el valor del id y idTipoEmpresa antes de realizar la solicitud
+      const newEmpresaData = {
+        ...empresaData,
+        idEmpresaCentro: 0,
+        idTipoEmpresa: 1, // idTipoCentro = 1
+      };
+
+      const token = localStorage.getItem('token');
+
+      const response = await axios.post(`${apiUrl}/api/empresascentros`, newEmpresaData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.status >= 200 && response.status < 300) {
+        console.log('Empresa creada exitosamente:', response.data);
+        return response.data;
+      } else {
+        console.error('Error al crear empresa:', response.status);
+        throw new Error('Error al crear empresa');
+      }
+    } catch (error) {
+      console.error('Error al crear empresa:', error);
+      throw error;
+    }
+  },
+
   // Método para insertar Centros
   postCentros: async (centroData) => {
     try {
@@ -204,33 +258,32 @@ const ApiService = {
 
 
   // Método para actualizar Centros
-// Método para actualizar Centros
-putCentros: async (centroData) => {
-  try {
-    const token = localStorage.getItem('token');
-    const response = await axios.put(`${apiUrl}/api/EmpresasCentros`, centroData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
+  putCentros: async (centroData) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.put(`${apiUrl}/api/EmpresasCentros`, centroData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
 
-    if (response.status >= 200 && response.status < 300) {
-      console.log('Centro actualizado exitosamente:', response.data);
-      return response.data;
-    } else {
-      console.error('Error al actualizar centro:', response.status);
-      throw new Error('Error al actualizar centro');
+      if (response.status >= 200 && response.status < 300) {
+        console.log('Centro actualizado exitosamente:', response.data);
+        return response.data;
+      } else {
+        console.error('Error al actualizar centro:', response.status);
+        throw new Error('Error al actualizar centro');
+      }
+    } catch (error) {
+      console.error('Error al actualizar centro:', error);
+      throw error;
     }
-  } catch (error) {
-    console.error('Error al actualizar centro:', error);
-    throw error;
-  }
-},
+  },
 
 
 
-  
+
 
 
 
@@ -581,6 +634,32 @@ putCentros: async (centroData) => {
   },
 
 
+  //------------------------------------------------------------------------------
+  // QUERY TOOLS
+  //------------------------------------------------------------------------------
+
+  getCharlasByTechrider: async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`${apiUrl}/api/QueryTools/CharlasTechRider`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      console.log('Datos del response (Charlas TechRider):', response.data);
+  
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        console.error('Error al obtener las charlas por TechRider:', response.status);
+        throw new Error('Error al obtener las charlas por TechRider');
+      }
+    } catch (error) {
+      console.error('Error al obtener las charlas por TechRider:', error);
+      throw error;
+    }
+  }
 
   //_________________________________________________________________________________ 
 

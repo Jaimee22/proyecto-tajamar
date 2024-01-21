@@ -1,5 +1,5 @@
 .profile-container {
-  padding: 1rem;
+  /* padding: 1rem; */
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -28,7 +28,6 @@
   font-size: 18px;
   color: #007bff;
   font-family: inherit;
-  font-weight: 800;
   cursor: pointer;
   position: relative;
   border: none;
@@ -58,14 +57,14 @@
   left: 50%;
   position: absolute;
   width: 0%;
-  height: 2px;
+  height: 3px;
   background-color: #007bff;
   transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
   transition-duration: 400ms;
   transition-property: width, left;
 }
 
-.centrar {
+#centrar {
   display: flex;
   align-items: center;
   justify-content: center;
