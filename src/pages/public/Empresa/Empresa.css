@@ -9,6 +9,22 @@
     font-size: 4vw;
     font-family: "DM Sans";
   }
+  .inicio-home-container3::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../../../assets/img/banner-empresas.jpeg");
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.38);
+  }
+  .inicio-home-container3 {
+    position: relative;
+    padding: 6rem 6rem 6rem 7rem;
+  }
   
   @media (max-width: 767px) {
     #title-home {

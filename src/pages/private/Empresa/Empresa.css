@@ -1,0 +1,39 @@
+.d-flex {
+  display: flex;
+}
+
+.info-bienvenida {
+  padding: 40px;
+  margin: auto;
+  text-align: center;
+  max-width: 600px;
+}
+
+.bienvenida {
+  font-size: 36px;
+  color: #007bff;
+  margin-bottom: 20px;
+}
+
+.descripcion-bienvenida {
+  font-size: 20px;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+.fa-sign-out-alt {
+  margin-left: 10px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.info-bienvenida {
+  animation: fadeIn 1s ease-in-out;
+}

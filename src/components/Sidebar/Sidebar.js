@@ -36,7 +36,7 @@ const StandardSidebar = () => {
                 <li>
                     <NavLink className={({ isActive }) => { return isActive ? 'is-active links-sidebar nav-link link-dark' : 'links-sidebar nav-link link-dark' }} to='/charlas-solicitadas'>
                         <RiSpeakLine size={18} />
-                        <span className="ms-2">Charlas ¿Activas?</span>
+                        <span className="ms-2">Charlas Activas</span>
                     </NavLink>
                 </li>
                 <li>

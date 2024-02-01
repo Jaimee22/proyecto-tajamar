@@ -1,16 +1,30 @@
-import React, { Component } from 'react';
-import { FaSignOutAlt } from 'react-icons/fa';
-import { NavLink } from 'react-router-dom';
-import ApiService from '../../../api/ApiService'; // Ajusta la ruta según la estructura de tu proyecto
-import './Empresa.css'
-import AccessDenied from '../../../components/AccesDenied/AccessDenied';
-import Loader from '../../../components/Loader/Loader';
-import SidebarProfesor from '../../../components/SidebarProfesor/SidebarProfesor'
+import React, { Component } from "react";
+import { FaCog } from 'react-icons/fa';
+import ApiService from "../../../api/ApiService";
+import "./Empresa.css";
+import AccessDenied from "../../../components/AccesDenied/AccessDenied";
+import Loader from "../../../components/Loader/Loader";
+import SidebarProfesor from "../../../components/SidebarProfesor/SidebarProfesor";
 
 class Empresa extends Component {
   state = {
     usuario: {},
-    loading: true
+    loading: true,
+  };
+
+  async componentDidMount() {
+    try {
+      const perfilUsuario = await ApiService.getPerfilUsuario();
+      this.setState({ usuario: perfilUsuario, loading: false });
+    } catch (error) {
+      console.error("Error al obtener el perfil del usuario:", error);
+      this.setState({ loading: false });
+    }
+  }
+
+  handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/";
   };
 
   async componentDidMount() {
@@ -19,50 +33,50 @@ class Empresa extends Component {
       const perfilUsuario = await ApiService.getPerfilUsuario();
       this.setState({ usuario: perfilUsuario, loading: false });
       // Actualiza el estado con el perfil del usuario
-      this.setState({ usuario: perfilUsuario});
+      this.setState({ usuario: perfilUsuario });
     } catch (error) {
-      console.error('Error al obtener el perfil del usuario:', error);
-      this.setState({loading: false});
+      console.error("Error al obtener el perfil del usuario:", error);
+      this.setState({ loading: false });
     }
   }
 
   handleLogout = () => {
     // Elimina el token del localStorage
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
 
     // Redirige a la página de inicio
-    window.location.href = '/';
+    window.location.href = "/";
   };
 
   render() {
     const { usuario, loading } = this.state;
 
-    if(loading){
-      return <Loader/>;
+    if (loading) {
+      return <Loader />;
     }
 
     // Verifica si el usuario tiene el rol necesario (en este caso, rol 1)
     const tieneAcceso = usuario.idRole === 2;
 
-
     return (
-      <div>
-
-        {/* Verifica si el usuario tiene acceso al contenido */}
+      <>
         {tieneAcceso ? (
-          // Contenido de la página para el usuario con rol 1
-          <>
+          <div className="d-flex">
             <SidebarProfesor />
-            {/* <h1>Empresa</h1>
-            <NavLink to="/login" onClick={this.handleLogout} className="nav-link">
-              <FaSignOutAlt size={20} /> Cerrar Sesión
-            </NavLink> */}
-          </>
+            <div className="info-bienvenida">
+              <h1 className="bienvenida">
+                <FaCog /> ¡Bienvenido <br />
+                profesor {usuario.nombre}! <FaCog />
+              </h1>
+              <p className="descripcion-bienvenida">
+                Aquí puedes gestionar tu perfil, charlas y más.
+              </p>
+            </div>
+          </div>
         ) : (
-          // Mensaje para usuarios que no tienen acceso
-          <AccessDenied/>
+          <AccessDenied />
         )}
-      </div>
+      </>
     );
   }
 }

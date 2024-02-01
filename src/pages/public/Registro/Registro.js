@@ -7,6 +7,7 @@ import { MdRealEstateAgent } from 'react-icons/md';
 import { IoBusinessSharp } from "react-icons/io5";
 import { GrMap } from "react-icons/gr";
 import ApiService from '../../../api/ApiService';
+import { Navigate, NavLink } from 'react-router-dom';
 
 export default class Registro extends Component {
   state = {
@@ -78,9 +79,14 @@ export default class Registro extends Component {
       console.error('Error al obtener datos:', error);
     }
   }
+ 
 
   render() {
-    const { provincias, empresasCentros } = this.state;
+    const { status, provincias, empresasCentros } = this.state;
+    // Si el estado 'status' es verdadero, redirigir a la página de inicio de sesión
+    if (status) {
+      return <Navigate to="/login" />;
+    }
     return (
       <div className="container-principal">
         <h1 id="title-registrarse">Registrarse</h1>

@@ -10,6 +10,7 @@ import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import './GestionCharlas.css'
 import { Toaster } from 'react-hot-toast';
 import toast from 'react-hot-toast';
+import Swal from 'sweetalert2';
 
 
 const GestionCharlas = () => {
@@ -18,7 +19,7 @@ const GestionCharlas = () => {
   const [formData, setFormData] = useState({
     descripcionCharla: '',
     fechaCharla: '',
-    
+
   });
   const [selectedCharlaId, setSelectedCharlaId] = useState(null);
   const [openCreateModal, setOpenCreateModal] = useState(false);
@@ -28,9 +29,10 @@ const GestionCharlas = () => {
   const [estadosCharla, setEstadosCharla] = useState([]);
   const [techRiders, setTechRiders] = useState([]);
   const [cursos, setCursos] = useState([]);
-  const [selectedTurno, setSelectedTurno] = useState(''); 
-  const [selectedModalidad, setSelectedModalidad] = useState(''); 
-  const [editingCharlaData, setEditingCharlaData] = useState(null);
+  const [selectedTurno, setSelectedTurno] = useState('');
+  const [selectedModalidad, setSelectedModalidad] = useState('');
+  const [editingCharlaData, setEditingCharlaData] = useState({});
+
 
 
   useEffect(() => {
@@ -47,8 +49,8 @@ const GestionCharlas = () => {
         setEstadosCharla(estadosCharlaData);
         setTechRiders(techRidersData);
         setCursos(cursos);
-        setSelectedTurno(''); 
-        setSelectedModalidad(''); 
+        setSelectedTurno('');
+        setSelectedModalidad('');
 
       } catch (error) {
         console.error('Error al obtener datos:', error);
@@ -114,12 +116,12 @@ const GestionCharlas = () => {
   };
 
   const formatDate = (dateString) => {
-    if (!dateString) return ''; 
+    if (!dateString) return '';
 
     try {
       const date = new Date(dateString);
       if (isNaN(date.getTime())) {
-        return ''; 
+        return '';
       }
 
       const day = date.getDate().toString().padStart(2, '0');
@@ -129,11 +131,11 @@ const GestionCharlas = () => {
       return `${day}/${month}/${year}`;
     } catch (error) {
       console.error('Error al formatear la fecha:', error);
-      return ''; 
+      return '';
     }
   };
 
-  
+
   const createCharla = async (charlaData) => {
     try {
       const token = localStorage.getItem('token');
@@ -216,14 +218,14 @@ const GestionCharlas = () => {
       observaciones: '',
       idTechRider: '',
       fechaSolicitud: formattedDate,
-      turno: '', 
+      turno: '',
       modalidad: '',
       acreditacionLinkedIn: '',
       idCurso: '',
     });
 
     setSelectedProvincia('');
-    setSelectedTurno(''); 
+    setSelectedTurno('');
     setSelectedModalidad('');
     setOpenCreateModal(true);
   };
@@ -232,10 +234,10 @@ const GestionCharlas = () => {
     try {
       await createCharla({ ...formData, idProvincia: selectedProvincia, turno: selectedTurno, modalidad: selectedModalidad });
       console.log('Charla creada exitosamente');
-      
+
       // Muestra el toast después de crear la charla
       toast.success('Se ha creado la charla de forma correcta', { duration: 5000 });
-  
+
       setOpenCreateModal(false);
     } catch (error) {
       console.error('Error al crear la charla:', error);
@@ -243,26 +245,48 @@ const GestionCharlas = () => {
   };
 
 
+  const handleOpenEditModal = async (idCharla) => {
+    try {
+      const token = localStorage.getItem('token');
 
-  const handleOpenEditModal = (charla) => {
-    setEditingCharlaData({
-      idCharla: charla.idCharla,
-      descripcionCharla: charla.descripcionCharla,
-      fechaCharla: charla.fechaCharla,
-      idEstadoCharla: charla.idEstadoCharla,
-      observaciones: charla.observaciones,
-      idTechRider: charla.idTechRider,
-      fechaSolicitud: charla.fechaSolicitud,
-      turno: charla.turno,
-      modalidad: charla.modalidad,
-      acreditacionLinkedIn: charla.acreditacionLinkedIn,
-      idCurso: charla.idCurso,
-      idProvincia: charla.idProvincia,
-      // Agrega más campos según sea necesario
-    });
-    setOpenEditModal(true);
+      // Hacer una solicitud para obtener los detalles de la charla específica
+      const response = await fetch(`https://apitechriders.azurewebsites.net/api/Charlas/${idCharla}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error al obtener detalles de la charla: ${response.statusText}`);
+      }
+
+      const charlaDetails = await response.json();
+
+      // Actualizar el estado con los detalles de la charla
+      setEditingCharlaData({
+        idCharla: charlaDetails.idCharla,
+        descripcionCharla: charlaDetails.descripcion,
+        fechaCharla: charlaDetails.fechaCharla,
+        idEstadoCharla: charlaDetails.idEstadoCharla,
+        observaciones: charlaDetails.observaciones,
+        idTechRider: charlaDetails.idTechRider,
+        fechaSolicitud: charlaDetails.fechaSolicitud,
+        turno: charlaDetails.turno,
+        modalidad: charlaDetails.modalidad,
+        acreditacionLinkedIn: charlaDetails.acreditacionLinkedIn,
+        idCurso: charlaDetails.idCurso,
+        idProvincia: charlaDetails.idProvincia,
+        // Agrega más campos según sea necesario
+      });
+
+      setOpenEditModal(true);
+    } catch (error) {
+      console.error('Error al abrir el modal de edición:', error);
+    }
   };
-  
+
+
+
 
   const handleCloseModal = () => {
     setSelectedCharlaId(null);
@@ -279,23 +303,72 @@ const GestionCharlas = () => {
 
   const handleEditCharla = (charla) => {
     // setEditingCharla(charla);
-    
+
   };
+
   const handleUpdateCharla = async () => {
     try {
-      await updateCharla(editingCharlaData);
-      console.log('Charla actualizada exitosamente');
+      const token = localStorage.getItem('token');
+
+      // Agrega el contenido del cuerpo de la solicitud
+      const charlaData = {
+        idCharla: editingCharlaData.idCharla,
+        descripcion: editingCharlaData.descripcionCharla,
+        idEstadoCharla: editingCharlaData.idEstadoCharla,
+        fechaCharla: editingCharlaData.fechaCharla,
+        observaciones: editingCharlaData.observaciones,
+        idTechRider: editingCharlaData.idTechRider,
+        fechaSolicitud: editingCharlaData.fechaSolicitud,
+        turno: editingCharlaData.turno,
+        modalidad: editingCharlaData.modalidad,
+        acreditacionLinkedIn: editingCharlaData.acreditacionLinkedIn,
+        idCurso: editingCharlaData.idCurso,
+        idProvincia: editingCharlaData.idProvincia,
+      };
+
+      const response = await fetch(`https://apitechriders.azurewebsites.net/api/Charlas`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(charlaData), // Convierte el objeto a JSON
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error al actualizar la charla: ${response.statusText}`);
+      }
+
+      // Realiza las acciones necesarias después de la actualización
+      setReloadCounter((prevCounter) => prevCounter + 1);
+
+      // Cierra el modal de edición después de actualizar y realizar otras acciones si es necesario
       setOpenEditModal(false);
-      setEditingCharlaData(null); // Limpiar los datos de la charla después de la actualización
     } catch (error) {
       console.error('Error al actualizar la charla:', error);
     }
   };
 
-  const handleDeleteCharla = async (charlaId) => {
-    if (charlaId !== null) {
-      await deleteCharla(charlaId);
-      console.log('Charla eliminada exitosamente');
+
+  const handleDeleteCharla = async (charla) => {
+    if (charla && charla.idCharla !== null) {
+      // Mostrar mensaje de confirmación
+      const result = await Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'Esta acción no se puede revertir. ¿Quieres continuar?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+      });
+  
+      if (result.isConfirmed) {
+        await deleteCharla(charla.idCharla);
+        console.log('Charla eliminada exitosamente');
+        Swal.fire('Eliminado', 'La charla ha sido eliminada correctamente.', 'success');
+      }
     } else {
       console.error('No se ha seleccionado ninguna charla para eliminar.');
     }
@@ -374,7 +447,13 @@ const GestionCharlas = () => {
           color = '#5c0010';
           backgroundColor = '#e4717a';
           borderRadius = '10px'; // ajusta el valor según sea necesario
-        } else {
+        }
+        else if (estadoCharla === 'PENDIENTE') {
+          color = 'black';
+          backgroundColor = '#C8C8C8';
+          borderRadius = '10px'; // ajusta el valor según sea necesario
+        }
+        else {
           color = 'black';
           backgroundColor = 'white';
           borderRadius = '4px'; // ajusta el valor según sea necesario
@@ -438,16 +517,17 @@ const GestionCharlas = () => {
       Cell: ({ row }) => (
         <div style={{ display: 'flex', gap: '1rem' }}>
           <Tooltip title="Editar">
-            <IconButton  onClick={handleOpenEditModal}>
+            <IconButton onClick={() => handleOpenEditModal(row.original.idCharla)}>
               <EditIcon />
             </IconButton>
           </Tooltip>
           <Tooltip title="Eliminar">
-            <IconButton color="error" onClick={() => handleDeleteCharla(row.original)}>
+            <IconButton color="error" onClick={() => handleDeleteCharla(row.original.idCharla)}>
               <DeleteIcon />
             </IconButton>
           </Tooltip>
         </div>
+
       ),
     }
   ];
@@ -758,7 +838,7 @@ const GestionCharlas = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseModal}>Cancelar</Button>
-          <Button onClick={handleUpdateCharla}>Actualizar Charla</Button>
+          <Button onClick={handleUpdateCharla}>Actualizar</Button>
         </DialogActions>
       </Dialog>
       <Toaster position="top-right" />

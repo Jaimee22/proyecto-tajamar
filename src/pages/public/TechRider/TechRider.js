@@ -25,12 +25,12 @@ export default class TechRider extends Component {
   render() {
     return (
       <>
-      <div className='inicio-home-container'>
+      <div className='inicio-home-container4'>
           <div className='inicio-home-info'>
             <h1 id='title-home'>TECHRIDERS</h1>
             <h3 id='text-home'>
               Bienvenido a TechRiders.
-              <br />Colaboramos con los siguientes TechRiders.
+              <br />Estos son los Tech Riders que se encargan de dar las charlas.
             </h3>
             <NavLink className="btn btn-dark" to="/login">
                 <h4>Registrar Tech Rider</h4>
@@ -57,11 +57,13 @@ export default class TechRider extends Component {
                     </p>
                     <p className='card-text'>
                       {/* probarlo con un <a/> */}
+                      <a href={techrider.linkedIn} target="_blank" rel="noopener noreferrer">
                       <CiLinkedin
-                        size={50}
-                        onClick={() => window.open(techrider.linkedIn, "_blank")}
+                        size={50}                        
                         style={{ cursor: "pointer" }}
                       />
+                      </a>
+                     
                     </p>
                   </div>
                 </div>

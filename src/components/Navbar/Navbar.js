@@ -35,6 +35,7 @@ const Navbar = () => {
     });
   }
   
+  
 
   return (
     <nav className="navbar navbar-expand-lg bg-dark sticky-top" data-bs-theme="dark">

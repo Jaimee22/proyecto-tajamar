@@ -24,12 +24,12 @@ export default class Centros extends Component {
   render() {
     return (
       <>
-        <div className='inicio-home-container'>
+        <div className='inicio-home-container2'>
           <div className='inicio-home-info'>
             <h1 id='title-home'>CENTROS</h1>
             <h3 id='text-home'>
               Bienvenido a TechRiders.
-              <br />Colaboramos con los siguientes centros para ofrecer soluciones innovadoras y de alta calidad.
+              <br />Colaboramos con los siguientes centros para ofrecer charlas innovadoras y de alta calidad.
             </h3>           
             <NavLink className="btn btn-dark" to="/login">
                 <h4>Registrar Centro</h4>

@@ -1,0 +1,16 @@
+.inicio-home-container4::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../../../assets/img/banner-techriders.jpeg");
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.38);
+  }
+  .inicio-home-container4 {
+    position: relative;
+    padding: 6rem 6rem 6rem 7rem;
+  }

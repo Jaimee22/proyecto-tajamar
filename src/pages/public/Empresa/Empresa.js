@@ -24,12 +24,12 @@ export default class Empresa extends Component {
   render() {
     return (
       <>
-      <div className='inicio-home-container'>
+      <div className='inicio-home-container3'>
           <div className='inicio-home-info'>
             <h1 id='title-home'>EMPRESAS</h1>
             <h3 id='text-home'>
               Bienvenido a TechRiders.
-              <br />Colaboramos con las siguientes Empresas para ofrecer soluciones innovadoras y de alta calidad.
+              <br />Colaboramos con las siguientes empresas para ofrecer charlas innovadoras y de alta calidad.
             </h3>
             <NavLink className="btn btn-dark" to="/login">
                 <h4>Registrar Empresa</h4>
