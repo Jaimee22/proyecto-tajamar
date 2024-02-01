@@ -1,0 +1,30 @@
+/* Mantén tus estilos existentes aquí */
+#text-home {
+    font-size: 1.3vw;
+  }
+  
+  #title-home {
+    margin: 0 0 3rem 0;
+    font-weight: bold;
+    font-size: 4vw;
+    font-family: "DM Sans";
+  }
+  
+  @media (max-width: 767px) {
+    #title-home {
+      font-size: 6vw;
+    }
+  
+    #text-home {
+      font-size: 2vw;
+    }
+  
+    .inicio-home-info {
+      padding: 20px;
+    }
+  
+    .btn {
+      font-size: 2vw;
+    }
+  }
+  

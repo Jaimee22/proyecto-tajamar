@@ -112,8 +112,25 @@ const ApiService = {
 
 
   //--------------------------------------------------------------------------------- 
-  // EMPRESAS - CENTRO
+  // EMPRESAS - CENTRO --TECHRIDERS
   //---------------------------------------------------------------------------------
+  //--------------------------METODO COGER TECHRIDERS ACTIVOS----------------------------------------
+  getTechRidersActivos: async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/api/querytools/todostechridersactivos`);
+      console.log('Datos del response (TechRiders):', response.data);
+
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        console.error('Error al obtener TechRiders:', response.status);
+        throw new Error('Error al obtener ?');
+      }
+    } catch (error) {
+      console.error('Error al obtener TechRiders:', error);
+      throw error;
+    }
+  },
   // Método para obtener todos los centros y empresas
   getEmpresasCentro: async () => {
     try {
@@ -638,10 +655,10 @@ const ApiService = {
   // QUERY TOOLS
   //------------------------------------------------------------------------------
 
-  getCharlasByTechrider: async () => {
+  getCharlasByTechrider: async (idUsuario) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`${apiUrl}/api/QueryTools/CharlasTechRider`, {
+      const response = await axios.get(`${apiUrl}/api/QueryTools/CharlasTechRider/${idUsuario}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -662,6 +679,9 @@ const ApiService = {
   }
 
   //_________________________________________________________________________________ 
+
+  
+
 
 
 };

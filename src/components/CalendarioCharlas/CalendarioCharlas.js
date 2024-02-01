@@ -52,7 +52,7 @@ const CalendarioCharlas = () => {
         events={eventos}
         startAccessor="start"
         endAccessor="end"
-        views={{ month: true, week: false }}
+        views={{ month: true, day: true, week: false }}
         onSelectEvent={manejarSeleccionDeCharla}
         messages={{
           next: <FaArrowRight size={15} />,
@@ -61,6 +61,9 @@ const CalendarioCharlas = () => {
           month: 'Mes',
           week: 'Semana',
           day: 'Día',
+          showMore: function showMore(total) {
+            return '+' + total + ' más';
+          }
         }}
       />
 

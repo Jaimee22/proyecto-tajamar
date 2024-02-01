@@ -6,6 +6,8 @@ import Registro from './pages/public/Registro/Registro';
 import CentroPublic from './pages/public/Centro/Centro';
 import EmpresaPublic from './pages/public/Empresa/Empresa';
 import TechRiderPublic from './pages/public/TechRider/TechRider';
+import RegistroCentro from './pages/public/RegistroCentro/RegistroCentro';
+import RegistroEmpresa from './pages/public/RegistroEmpresa/RegistroEmpresa';
 import CentroPrivate from './pages/private/Centro/Centro';
 import EmpresaPrivate from './pages/private/Empresa/Empresa';
 import TechRiderPrivate from './pages/private/TechRider/TechRider';
@@ -23,6 +25,7 @@ import Perfil from './pages/private/Perfil/Perfil';
 import Charlas from './components/Charlas/Charlas';
 import CharlasActivas from './pages/private/CharlasActivas/CharlasActivas';
 import CharlasRealizadas from './pages/private/CharlasRealizadas/CharlasRealizadas';
+import NuevaCharla from './pages/private/NuevaCharla/NuevaCharla'
 
 
 import Pagina1 from './components/Pagina1';
@@ -41,6 +44,8 @@ export default class Router extends Component {
             <Route path='/' element={<Home/>}/>
             <Route path='/login' element={<Login/>}/>
             <Route path='/registro' element={<Registro/>}/>
+            <Route path='/registro-centro' element={<RegistroCentro/>}/>
+            <Route path='/registro-empresa' element={<RegistroEmpresa/>}/>
             {/* <Route path='/centros' element={<CentroPublic/>}/>
             <Route path='/empresas' element={<EmpresaPublic/>}/>
             <Route path='/techriders' element={<TechRiderPublic/>}/> */}
@@ -60,8 +65,10 @@ export default class Router extends Component {
             <Route path='/charlas' element={<Charlas />}/>
             <Route path='/charlas-solicitadas' element={<CharlasActivas />}/>
             <Route path='/charlas-realizadas' element={<CharlasRealizadas />}/>
+            <Route path='/nueva-charla' element={<NuevaCharla />}/>
             <Route path='/centros' element={<CentroPublic />}/>
             <Route path='/empresas' element={<EmpresaPublic />}/>
+            <Route path='/techriders' element={<TechRiderPublic />}/>
 
 
             <Route path='/pagina1' element={<Pagina1/>}/>

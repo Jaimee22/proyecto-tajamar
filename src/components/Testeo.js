@@ -734,92 +734,115 @@
 
 
 
-
 import React, { useEffect, useState } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { MaterialReactTable } from 'material-react-table';
+import { MRT_Localization_ES } from 'material-react-table/locales/es';
+
 
 const Testeo = () => {
-  const [tecnologia, setTecnologia] = useState(null);
-  const [openDialog, setOpenDialog] = useState(false);
+  const [charlas, setCharlas] = useState([]);
+  const [reloadCounter, setReloadCounter] = useState(0);
 
   useEffect(() => {
-    // Puedes obtener la tecnología que deseas probar al cargar el componente
-    // (puedes cambiar esto según tus necesidades)
-    const tecnologiaEjemplo = {
-      idTecnologia: 16,
-      nombreTecnologia: 'Bootstrapa',
-      idTipoTecnologia: 2, // Debe ser un valor existente en tu lista de tipos de tecnología
-    };
-    setTecnologia(tecnologiaEjemplo);
-  }, []);
-
-  const updateTecnologia = async (tecnologiaData) => {
-    try {
-      const token = localStorage.getItem('token');
-
-      // Asegúrate de ajustar la URL según tu implementación
-      const response = await fetch(`https://apitechriders.azurewebsites.net/api/Tecnologias/${tecnologiaData.idTecnologia}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // Agrega el token de autorización
-        },
-        body: JSON.stringify({
-          nombreTecnologia: tecnologiaData.nombreTecnologia,
-          idTipoTecnologia: tecnologiaData.idTipoTecnologia,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error al actualizar la tecnología: ${response.statusText}`);
+    const fetchData = async () => {
+      try {
+        const charlasData = await getCharlas();
+        setCharlas(charlasData);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
       }
+    };
 
-      console.log('Tecnología actualizada exitosamente');
-    } catch (error) {
-      console.error('Error al actualizar la tecnología:', error);
-    }
-  };
+    fetchData();
+  }, [reloadCounter]);
 
-  const handleUpdateTecnologia = async () => {
+  const getCharlas = async () => {
     try {
-      await updateTecnologia(tecnologia);
+      const response = await fetch('https://apitechriders.azurewebsites.net/api/QueryTools/CharlasViewAll');
+      const data = await response.json();
+      return data;
     } catch (error) {
-      console.error('Error al actualizar la tecnología:', error);
-    } finally {
-      setOpenDialog(false);
+      console.error('Error al obtener charlas:', error);
+      return [];
     }
   };
 
-  const handleOpenDialog = () => {
-    setOpenDialog(true);
-  };
-
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-  };
+  const columns = [
+    {
+      accessorKey: 'idCharla',
+      header: 'ID Charla',
+    },
+    {
+      accessorKey: 'descripcionCharla',
+      header: 'Descripción Charla',
+    },
+    {
+      accessorKey: 'fechaCharla',
+      header: 'Fecha Charla',
+    },
+    {
+      accessorKey: 'estadoCharla',
+      header: 'Estado Charla',
+    },
+    {
+      accessorKey: 'provincia',
+      header: 'Provincia',
+    },
+    {
+      accessorKey: 'nombreCurso',
+      header: 'Nombre Curso',
+    },
+    {
+      accessorKey: 'observacionesCharla',
+      header: 'Observaciones Charla',
+    },
+    {
+      accessorKey: 'fechaSolicitudCharla',
+      header: 'Fecha Solicitud Charla',
+    },
+    {
+      accessorKey: 'modalidad',
+      header: 'Modalidad',
+    },
+    {
+      accessorKey: 'techRider',
+      header: 'Tech Rider',
+    },
+    {
+      accessorKey: 'email',
+      header: 'Email',
+    },
+    {
+      accessorKey: 'telefono',
+      header: 'Teléfono',
+    },
+    {
+      accessorKey: 'tipoRole',
+      header: 'Tipo Role',
+    },
+    {
+      accessorKey: 'valoracion',
+      header: 'Valoración',
+    },
+    {
+      accessorKey: 'comentarioValoracion',
+      header: 'Comentario Valoración',
+    },
+  ];
 
   return (
-    <div>
-      <Button onClick={handleOpenDialog}>Probar Actualización de Tecnología</Button>
-
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>Actualizar Tecnología de Prueba</DialogTitle>
-        <DialogContent>
-          {/* Mostrar detalles de la tecnología de prueba (puedes adaptar esto según tu estructura de datos) */}
-          {tecnologia && (
-            <div>
-              <div>ID Tecnología: {tecnologia.idTecnologia}</div>
-              <div>Nombre Tecnología: {tecnologia.nombreTecnologia}</div>
-              <div>ID Tipo Tecnología: {tecnologia.idTipoTecnologia}</div>
-            </div>
-          )}
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog}>Cancelar</Button>
-          <Button onClick={handleUpdateTecnologia}>Actualizar Tecnología</Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+    <MaterialReactTable
+      columns={columns}
+      data={charlas}
+      localization={MRT_Localization_ES}
+      initialState={{
+        columnVisibility: {
+          'idCharla': false,
+        },
+      }}
+      enableFullScreenToggle={false}
+      paginationDisplayMode={'pages'}
+    />
   );
 };
 

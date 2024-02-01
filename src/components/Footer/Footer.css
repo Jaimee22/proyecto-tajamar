@@ -1,45 +1,45 @@
-body{
+body {
   display: flex;
   flex-direction: column;
 }
 
 .custom-footer {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem;
-    border-top: 1px solid #fff;
-    background-color: black;
-    color: #fff;
-  }
-  
-  .logo {
-    margin-right: 1rem;
-    text-decoration: none;
-    color: #fff;
-    z-index: 20;
-  }
-  
-  .company-text {
-    margin-bottom: 0;
-    margin-top: 0;
-    color: #adb5bd;
-  }
-  
-  .nav {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .icon-link {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-top: 1px solid #fff;
+  background-color: black;
+  color: #fff;
+}
+
+.logo {
+  margin-right: 1rem;
+  text-decoration: none;
+  color: #fff;
+  z-index: 20;
+}
+
+.company-text {
+  margin-bottom: 0;
+  margin-top: 0;
+  color: #adb5bd;
+}
+
+.nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.icon-link {
   color: #fff;
   text-decoration: none;
-  transition: color 0.3s ease; 
+  transition: color 0.3s ease;
 }
 
 .icon-link:hover {
@@ -47,18 +47,16 @@ body{
   cursor: pointer;
 }
 
-  
-  .icon-link svg {
-    fill: currentColor;
-    vertical-align: middle;
-    margin-right: 10px; 
-  }
+.icon-link svg {
+  fill: currentColor;
+  vertical-align: middle;
+  margin-right: 10px;
+}
 
-  .info-footer{
-    color: gray;
-  }
+.info-footer {
+  color: gray;
+}
 
-  .white{
-    color: white;
-  }
-  
+.white {
+  color: white;
+}

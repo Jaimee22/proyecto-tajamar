@@ -1,0 +1,17 @@
+/* TituloAdminPanel.css */
+.titulo-admin-panel {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    /* justify-content: center; */
+    align-items: center;
+    color: #fff;
+    /* font-size: 40px !important; */
+    text-shadow: 2px 2px 5px black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+h1.titulo-texto{
+    font-size: 6vh;
+}

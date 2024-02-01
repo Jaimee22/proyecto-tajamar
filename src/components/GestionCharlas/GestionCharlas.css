@@ -1,0 +1,11 @@
+.modalcrearcharlas-admin {
+        width: 30rem;
+        max-width: 50rem;
+  }
+
+  @media (max-width: 550px) {
+    .modalcrearcharlas-admin {
+        width: 20rem;
+        max-width: 50rem;
+    }
+  }

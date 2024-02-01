@@ -4,6 +4,7 @@ import GestionCharlas from '../../../components/GestionCharlas/GestionCharlas';
 import Loader from '../../../components/Loader/Loader';
 import AccessDenied from '../../../components/AccesDenied/AccessDenied';
 import BotonVolver from '../../../components/BotonVolver/BotonVolver';
+import TituloAdminPanel from '../../../components/TituloAdminPanel/TituloAdminPanel';
 
 class AdminGestionCharlas extends Component {
   state = {
@@ -40,8 +41,7 @@ class AdminGestionCharlas extends Component {
       <div>
         {tieneAcceso ? (
           <>
-            {/* <h1>AdminGestionCharlas</h1> */}
-            <BotonVolver/>
+            <TituloAdminPanel texto="Gestionar Charlas" color="#264653" />
             <GestionCharlas />
           </>
         ) : (

@@ -6,7 +6,7 @@ import { FaSignOutAlt } from 'react-icons/fa';
 import { FaUserEdit } from "react-icons/fa";
 import { BsArchive } from "react-icons/bs";
 import { IoMdAddCircleOutline } from "react-icons/io";
-import './Sidebar.css'
+import './SidebarProfesor.css'
 
 
 const StandardSidebar = () => {
@@ -23,7 +23,7 @@ const StandardSidebar = () => {
         <div id='sidebar' className="d-flex flex-column flex-shrink-0 p-3 bg-light" style={{ width: '15rem', height: 'auto' }}>
             <Link to="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
                 <GoHome size={24} />
-                <span className="fs-4 ms-2">TechRider</span>
+                <span className="fs-4 ms-2">Profesor</span>
             </Link>
             <hr />
             <ul id="sidebar" className="nav nav-pills flex-column mb-auto">
@@ -116,7 +116,7 @@ const ResponsiveSidebar = () => {
 };
 
 
-const Sidebar = () => {
+const SidebarProfesor = () => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const breakpoint = 768;
 
@@ -132,4 +132,4 @@ const Sidebar = () => {
     return <div>{windowWidth >= breakpoint ? <StandardSidebar /> : <ResponsiveSidebar />}</div>;
 };
 
-export default Sidebar;
+export default SidebarProfesor;

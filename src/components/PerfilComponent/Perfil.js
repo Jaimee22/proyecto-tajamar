@@ -305,7 +305,7 @@ export default class Perfil extends Component {
               </Col>
             </Row>
             <button onClick={this.handleSaveClick} className="edit-button">
-              Editar <FaEdit />
+              Guardar <FaEdit />
             </button>
           </Form>
 

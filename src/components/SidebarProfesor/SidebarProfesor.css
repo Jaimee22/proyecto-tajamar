@@ -12,7 +12,3 @@ a.links-sidebar.nav-link.link-dark:hover {
     background-color: black;
     color: white !important;
 }
-
-#sidebar{
-    height: 55vh;
-}

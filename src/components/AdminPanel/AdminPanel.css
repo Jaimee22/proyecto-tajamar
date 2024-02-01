@@ -18,7 +18,7 @@ main {
   flex-direction: column;
   gap: 16px;
   color: #111827;
-  margin-bottom: 4rem;
+  margin-bottom: 25vh;
 }
 
 @media screen and (min-width: 900px) {

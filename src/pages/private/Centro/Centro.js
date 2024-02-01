@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import ApiService from '../../../api/ApiService'; // Ajusta la ruta según la estructura de tu proyecto
 import './Centro.css'
 import AccessDenied from '../../../components/AccesDenied/AccessDenied';
+import SidebarProfesor from '../../../components/SidebarProfesor/SidebarProfesor'
 
 class Centro extends Component {
   state = {
@@ -43,11 +44,11 @@ class Centro extends Component {
         {tieneAcceso ? (
           // Contenido de la página para el usuario con rol 1
           <>
-            <h1>Centro</h1>
-            {/* ... (otro contenido específico para el rol 1) */}
+            <SidebarProfesor/>
+            {/* <h1>Centro</h1>
             <NavLink to="/login" onClick={this.handleLogout} className="nav-link">
               <FaSignOutAlt size={20} /> Cerrar Sesión
-            </NavLink>
+            </NavLink> */}
           </>
         ) : (
           // Mensaje para usuarios que no tienen acceso

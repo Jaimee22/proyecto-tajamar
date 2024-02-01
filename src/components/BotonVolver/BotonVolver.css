@@ -29,9 +29,9 @@
     width: 140px;
     border-radius: 50px;
     transition-duration: 0.3s;
-    /* background-color: ; */
-    background: -webkit-linear-gradient(270deg, #415a77,#0d1b2a);
-    background: linear-gradient(270deg, #415a77,#0d1b2a);
+    background-color: black;
+    /* background: -webkit-linear-gradient(270deg, #415a77,#0d1b2a); */
+    /* background: linear-gradient(270deg, #415a77,#0d1b2a); */
     align-items: center;
   }
   

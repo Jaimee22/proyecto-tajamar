@@ -1,0 +1,60 @@
+.container-charlas-activas {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 0 0 1rem;
+}
+
+.charlas-titulo {
+  font-size: 36px;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.charlas-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100vw;
+}
+
+.charlas-card {
+  flex: 1; 
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  margin-bottom: 20px;
+  max-width: 20rem; 
+}
+
+.charlas-card:hover {
+  transform: translateY(-5px);
+}
+
+.charlas-info {
+  padding: 20px;
+}
+
+.charlas-titulo-item {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.charlas-fecha,
+.charlas-estado {
+  font-size: 16px;
+  color: #777;
+  margin-bottom: 5px;
+}
+
+.sin-charlas-icon {
+  color: #338fff;
+}
+
+.sin-charlas p {
+  font-size: 18px;
+  color: #555;
+}

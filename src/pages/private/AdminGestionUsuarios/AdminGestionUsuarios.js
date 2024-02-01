@@ -4,6 +4,7 @@ import Loader from '../../../components/Loader/Loader';
 import AccessDenied from '../../../components/AccesDenied/AccessDenied';
 import GestionUsuarios from '../../../components/GestionUsuarios/GestionUsuarios';
 import BotonVolver from '../../../components/BotonVolver/BotonVolver';
+import TituloAdminPanel from '../../../components/TituloAdminPanel/TituloAdminPanel';
 
 class AdminGestionUsuarios extends Component {
   state = {
@@ -40,7 +41,7 @@ class AdminGestionUsuarios extends Component {
       <div>
         {tieneAcceso ? (
           <>
-            <BotonVolver/>
+            <TituloAdminPanel texto="Gestionar Usuarios" color="#2a9d8f" />
             <GestionUsuarios/>
           </>
         ) : (

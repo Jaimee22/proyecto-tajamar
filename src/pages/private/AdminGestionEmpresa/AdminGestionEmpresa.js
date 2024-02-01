@@ -4,6 +4,7 @@ import Loader from '../../../components/Loader/Loader';
 import AccessDenied from '../../../components/AccesDenied/AccessDenied';
 import GestionEmpresas from '../../../components/GestionEmpresas/GestionEmpresas';
 import BotonVolver from '../../../components/BotonVolver/BotonVolver';
+import TituloAdminPanel from '../../../components/TituloAdminPanel/TituloAdminPanel';
 
 class AdminGestionEmpresa extends Component {
   state = {
@@ -40,7 +41,7 @@ class AdminGestionEmpresa extends Component {
       <div>
         {tieneAcceso ? (
           <>
-            <BotonVolver />
+            <TituloAdminPanel texto="Gestionar Empresas" color="#add99e" />
             <GestionEmpresas />
           </>
         ) : (

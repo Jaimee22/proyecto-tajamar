@@ -5,7 +5,7 @@ import ApiService from '../../../api/ApiService'; // Ajusta la ruta según la es
 import './Empresa.css'
 import AccessDenied from '../../../components/AccesDenied/AccessDenied';
 import Loader from '../../../components/Loader/Loader';
-import Sidebar from '../../../components/Sidebar/Sidebar';
+import SidebarProfesor from '../../../components/SidebarProfesor/SidebarProfesor'
 
 class Empresa extends Component {
   state = {
@@ -52,7 +52,7 @@ class Empresa extends Component {
         {tieneAcceso ? (
           // Contenido de la página para el usuario con rol 1
           <>
-            <Sidebar />
+            <SidebarProfesor />
             {/* <h1>Empresa</h1>
             <NavLink to="/login" onClick={this.handleLogout} className="nav-link">
               <FaSignOutAlt size={20} /> Cerrar Sesión

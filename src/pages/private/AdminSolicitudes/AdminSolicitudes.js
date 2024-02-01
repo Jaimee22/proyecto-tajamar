@@ -3,6 +3,7 @@ import ApiService from '../../../api/ApiService';
 import Loader from '../../../components/Loader/Loader';
 import AccessDenied from '../../../components/AccesDenied/AccessDenied';
 import BotonVolver from '../../../components/BotonVolver/BotonVolver';
+import TituloAdminPanel from '../../../components/TituloAdminPanel/TituloAdminPanel';
 
 
 class AdminSolicitudes extends Component {
@@ -40,8 +41,9 @@ class AdminSolicitudes extends Component {
       <div>
         {tieneAcceso ? (
           <>
-            <h1>AdminSolicitudes</h1>
-            <BotonVolver />
+            {/* <h1>AdminSolicitudes</h1> */}
+            <TituloAdminPanel texto="Gestionar Solicitudes" color="#f4a261" />
+            {/* <BotonVolver /> */}
           </>
         ) : (
           <AccessDenied/>

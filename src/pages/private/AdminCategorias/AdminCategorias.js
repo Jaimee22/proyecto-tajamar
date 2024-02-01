@@ -4,6 +4,7 @@ import Loader from '../../../components/Loader/Loader';
 import AccessDenied from '../../../components/AccesDenied/AccessDenied';
 import BotonVolver from '../../../components/BotonVolver/BotonVolver';
 import Categorias from '../../../components/Categorias/Categorias';
+import TituloAdminPanel from '../../../components/TituloAdminPanel/TituloAdminPanel';
 
 class AdminCategorias extends Component {
   state = {
@@ -40,7 +41,7 @@ class AdminCategorias extends Component {
       <div>
         {tieneAcceso ? (
           <>
-            <BotonVolver />
+            <TituloAdminPanel texto="Categorías" color="#f7d379" />
             <Categorias />
           </>
         ) : (

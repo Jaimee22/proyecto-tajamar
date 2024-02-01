@@ -4,6 +4,7 @@ import Loader from '../../../components/Loader/Loader';
 import AccessDenied from '../../../components/AccesDenied/AccessDenied';
 import GestionCentros from '../../../components/GestionCentros/GestionCentros';
 import BotonVolver from '../../../components/BotonVolver/BotonVolver';
+import TituloAdminPanel from '../../../components/TituloAdminPanel/TituloAdminPanel';
 
 class AdminGestionCentro extends Component {
   state = {
@@ -40,7 +41,7 @@ class AdminGestionCentro extends Component {
       <div>
         {tieneAcceso ? (
           <>
-            <BotonVolver />
+            <TituloAdminPanel texto="Gestionar Centros" color="#84abca" />
             <GestionCentros />
           </>
         ) : (
