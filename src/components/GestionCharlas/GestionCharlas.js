@@ -522,7 +522,7 @@ const GestionCharlas = () => {
             </IconButton>
           </Tooltip>
           <Tooltip title="Eliminar">
-            <IconButton color="error" onClick={() => handleDeleteCharla(row.original.idCharla)}>
+            <IconButton color="error" onClick={() => console.log(handleDeleteCharla(row.original.idCharla))}>
               <DeleteIcon />
             </IconButton>
           </Tooltip>
