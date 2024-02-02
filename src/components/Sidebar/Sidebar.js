@@ -48,7 +48,7 @@ const StandardSidebar = () => {
                 <li>
                     <NavLink className={({ isActive }) => { return isActive ? 'is-active links-sidebar nav-link link-dark' : 'links-sidebar nav-link link-dark' }} to='/nueva-charla'>
                         <IoMdAddCircleOutline size={18} />
-                        <span className="ms-2">Nueva Charla</span>
+                        <span className="ms-2">Solicita Charla</span>
                     </NavLink>
                 </li>
             </ul>
