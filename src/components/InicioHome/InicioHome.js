@@ -24,8 +24,11 @@ export default class InicioHome extends Component {
                 </div>
             </div>
             <div className='container'>
+                <br></br>
                 <CalendarioCharlas />
-                <Charlas />
+                <br>
+                </br>
+                {/* <Charlas /> */}
             </div>
         </>
     )

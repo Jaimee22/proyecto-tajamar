@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Toaster } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 import { Form, Button, Container, Row, Col, Modal } from "react-bootstrap";
 import { FaEye, FaEdit } from "react-icons/fa";
 import ApiService from "../../api/ApiService";
@@ -99,6 +99,7 @@ export default class Perfil extends Component {
       await this.loadUserProfile();
 
       this.setState({ isEditMode: false });
+      toast.success('Se ha editado el perfil de forma correcta', { duration: 5000 });
     } catch (error) {
       console.error("Error al guardar el perfil del usuario:", error);
     }
@@ -168,6 +169,7 @@ export default class Perfil extends Component {
       }
 
       this.closeModal();
+      toast.success('Se ha actualizado la contraseña', { duration: 5000 });
     } catch (error) {
       console.error("Error al guardar la nueva contraseña:", error);
     }

@@ -33,7 +33,8 @@ const GestionCharlas = () => {
   const [selectedTurno, setSelectedTurno] = useState('');
   const [selectedModalidad, setSelectedModalidad] = useState('');
   const [editingCharlaData, setEditingCharlaData] = useState({});
-
+  const [selectedProvinciaEdit, setSelectedProvinciaEdit] = useState('');
+  const [selectedTechRiderEdit, setSelectedTechRiderEdit] = useState('');
 
 
   useEffect(() => {
