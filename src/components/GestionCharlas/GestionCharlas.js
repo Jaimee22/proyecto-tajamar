@@ -370,6 +370,8 @@ const GestionCharlas = () => {
         await deleteCharla(charla.idCharla);
         console.log('Charla eliminada exitosamente');
         Swal.fire('Eliminado', 'La charla ha sido eliminada correctamente.', 'success');
+        setReloadCounter((prevCounter) => prevCounter + 1);
+
       }
     } else {
       console.error('No se ha seleccionado ninguna charla para eliminar.');
