@@ -30,7 +30,7 @@ const Footer = () => {
           </a>
         </li>
         <li className="ms-3">
-          <a className="icon-link" href="https://es.linkedin.com/showcase/tech-tajamar-fp-professional-education/?trk=public_post_reshare_feed-actor-name">
+          <a className="icon-link" href="https://www.canva.com/design/DAF7npwWdIo/N3gEx6JulLps8DyEBU2U9Q/view?utm_content=DAF7npwWdIo&utm_campaign=designshare&utm_medium=link&utm_source=editor#1">
             <FaLinkedin size={30} />
           </a>
         </li>
