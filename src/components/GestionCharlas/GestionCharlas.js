@@ -9,6 +9,7 @@ import { FaStar } from 'react-icons/fa';
 import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import './GestionCharlas.css'
 import { Toaster } from 'react-hot-toast';
+import axios from 'axios';
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
 
@@ -187,18 +188,17 @@ const GestionCharlas = () => {
   const deleteCharla = async (charlaId) => {
     try {
       const token = localStorage.getItem('token');
-
-      const response = await fetch(`https://apitechriders.azurewebsites.net/api/Charlas/${charlaId}`, {
-        method: 'DELETE',
+  
+      const response = await axios.delete(`https://apitechriders.azurewebsites.net/api/Charlas/${charlaId}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
       });
-
-      if (!response.ok) {
+  
+      if (response.status !== 200) {
         throw new Error(`Error al eliminar la charla: ${response.statusText}`);
       }
-
+  
       setReloadCounter((prevCounter) => prevCounter + 1);
       console.log('Charla eliminada exitosamente');
     } catch (error) {
@@ -352,8 +352,8 @@ const GestionCharlas = () => {
   };
 
 
-  const handleDeleteCharla = async (charla) => {
-    if (charla && charla.idCharla !== null) {
+  const handleDeleteCharla = async (idCharla) => {
+    if (idCharla !== null) {
       // Mostrar mensaje de confirmación
       const result = await Swal.fire({
         title: '¿Estás seguro?',
@@ -367,16 +367,16 @@ const GestionCharlas = () => {
       });
   
       if (result.isConfirmed) {
-        await deleteCharla(charla.idCharla);
+        await deleteCharla(idCharla);
         console.log('Charla eliminada exitosamente');
         Swal.fire('Eliminado', 'La charla ha sido eliminada correctamente.', 'success');
         setReloadCounter((prevCounter) => prevCounter + 1);
-
       }
     } else {
       console.error('No se ha seleccionado ninguna charla para eliminar.');
     }
   };
+  
 
   const renderCreateButton = () => (
     <Tooltip title="Crear Nueva Charla">
@@ -526,10 +526,11 @@ const GestionCharlas = () => {
             </IconButton>
           </Tooltip>
           <Tooltip title="Eliminar">
-            <IconButton color="error" onClick={() => console.log(handleDeleteCharla(row.original.idCharla))}>
+            <IconButton color="error" onClick={() => handleDeleteCharla(row.original.idCharla)}>
               <DeleteIcon />
             </IconButton>
-          </Tooltip>
+        </Tooltip>
+
         </div>
 
       ),
