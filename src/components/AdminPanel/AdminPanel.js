@@ -6,6 +6,7 @@ import { PiBuildingsDuotone } from "react-icons/pi";
 import { FaClipboardList } from "react-icons/fa";
 import { BsEnvelopePaper } from "react-icons/bs";
 import { Link } from 'react-router-dom';
+import { CgProfile } from "react-icons/cg";
 
 
 class AdminPanel extends Component {
@@ -29,7 +30,7 @@ class AdminPanel extends Component {
                         <div className="projects__project-list">
                             <Link to="/pagina-admin-solicitudes" class="projects__project">
                                 <div class="projects__icon projects__icon--fifth">
-                                    <BsEnvelopePaper className='custom-icon' />
+                                    <CgProfile className='custom-icon' />
                                     {/* <svg width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5z" /><path d="M14 2v6h6M8 13h2m-2 4h2m4-4h2m-2 4h2" /></g></svg> */}
                                 </div>
                                 <div class="projects__body">
