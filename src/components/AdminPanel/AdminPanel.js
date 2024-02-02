@@ -33,7 +33,7 @@ class AdminPanel extends Component {
                                     {/* <svg width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5z" /><path d="M14 2v6h6M8 13h2m-2 4h2m4-4h2m-2 4h2" /></g></svg> */}
                                 </div>
                                 <div class="projects__body">
-                                    <h2 class="projects__title">Solicitudes</h2>
+                                    <h2 class="projects__title">Editar Perfil</h2>
                                     {/* <p class="projects__description">Harness the power of data with this versatile spreadsheet creator, enabling you to organize, analyze, and visualize information for effective decision-making.</p> */}
                                 </div>
                             </Link>
@@ -87,6 +87,14 @@ class AdminPanel extends Component {
                                     {/* <p class="projects__description">Chart the course of events with this timeline creator, seamlessly plotting milestones and historical moments for a visually compelling narrative.</p> */}
                                 </div>
                             </Link>
+                            {/* <Link to="/pagina-admin-gestion-centro" class="projects__project">
+                                <div class="projects__icon projects__icon--sixth">
+                                    <FaSchool className='custom-icon' />
+                                </div>
+                                <div class="projects__body">
+                                    <h2 class="projects__title">Editar Perfil</h2>
+                                </div>
+                            </Link> */}
                         </div>
                         {/* Coger de la pagina Admin el cerrar sesion y sustituirlo por lo de debajo */}
                         <div id='divisor'>

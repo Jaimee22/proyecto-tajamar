@@ -27,6 +27,10 @@ function useGetUsuarios() {
 
 function GestionUsuariosTable() {
   const [editingUsuario, setEditingUsuario] = useState(null);
+  const [openCreateModal, setOpenCreateModal] = useState(false);
+  const [formData, setFormData] = useState({
+    // ... (campos necesarios para la creación de usuarios)
+  });
 
   const columns = [
     {
@@ -100,12 +104,35 @@ function GestionUsuariosTable() {
     setEditingUsuario(null);
   };
 
+  const renderCreateButton = () => (
+    <Tooltip title="Crear Nuevo Usuario">
+      <Button variant="contained" onClick={handleCreateUsuario}>
+        Crear Nuevo Usuario
+      </Button>
+    </Tooltip>
+  );
+
   const handleDeleteUsuario = (usuario) => {
     if (window.confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
       console.log('Usuario Eliminado:', usuario);
       // Implementa la lógica para eliminar el usuario aquí
       // Ejemplo: await ApiService.deleteUsuario(usuario.idUsuario);
     }
+  };
+
+  const handleCreateUsuario = () => {
+    setOpenCreateModal(true);
+  };
+
+  const handleCloseCreateModal = () => {
+    setOpenCreateModal(false);
+  };
+
+  const handleSaveCreateUsuario = async () => {
+    console.log('Guardar creación:', formData);
+    // Implementa la lógica para guardar la creación aquí
+    // Por ejemplo: await ApiService.createUsuario(formData);
+    setOpenCreateModal(false);
   };
 
   const table = useMaterialReactTable({
@@ -121,7 +148,13 @@ function GestionUsuariosTable() {
 
   return (
     <>
-      <MaterialReactTable table={table} />
+      <MaterialReactTable
+        columns={columns}
+        data={usuarios}
+        localization={MRT_Localization_ES}
+        renderTopToolbarCustomActions={({ table }) => renderCreateButton()}
+        // ... (otras configuraciones de la tabla)
+      />
       {editingUsuario && (
         <Dialog open={!!editingUsuario} onClose={handleCancelEdit}>
           <DialogTitle>Editar Usuario</DialogTitle>

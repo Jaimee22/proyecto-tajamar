@@ -344,6 +344,8 @@ const GestionCharlas = () => {
 
       // Cierra el modal de edición después de actualizar y realizar otras acciones si es necesario
       setOpenEditModal(false);
+      toast.success('Se ha editado la charla de forma correcta', { duration: 5000 });
+
     } catch (error) {
       console.error('Error al actualizar la charla:', error);
     }
@@ -734,7 +736,7 @@ const GestionCharlas = () => {
 
       <Dialog open={openEditModal} onClose={handleCloseModal}>
         <DialogTitle>Editar Charla</DialogTitle>
-        <DialogContent>
+        <DialogContent className='modalcrearcharlas-admin'>
           <div className="d-flex flex-column align-items-center mb-3">
             <label className="mb-2">Descripción Charla:</label>
             <input

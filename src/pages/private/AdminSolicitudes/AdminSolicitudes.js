@@ -4,7 +4,7 @@ import Loader from '../../../components/Loader/Loader';
 import AccessDenied from '../../../components/AccesDenied/AccessDenied';
 import BotonVolver from '../../../components/BotonVolver/BotonVolver';
 import TituloAdminPanel from '../../../components/TituloAdminPanel/TituloAdminPanel';
-
+import Perfil from '../../../components/PerfilComponent/Perfil';
 
 class AdminSolicitudes extends Component {
   state = {
@@ -42,8 +42,9 @@ class AdminSolicitudes extends Component {
         {tieneAcceso ? (
           <>
             {/* <h1>AdminSolicitudes</h1> */}
-            <TituloAdminPanel texto="Gestionar Solicitudes" color="#f4a261" />
+            <TituloAdminPanel texto="" color="#f4a261" />
             {/* <BotonVolver /> */}
+            <Perfil />
           </>
         ) : (
           <AccessDenied/>
