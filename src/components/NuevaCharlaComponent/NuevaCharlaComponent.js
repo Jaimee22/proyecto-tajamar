@@ -114,7 +114,7 @@ class NuevaCharlaComponent extends Component {
         idProvincia: this.state.idProvincia,
       };
 
-      const response = await fetch('https://apitechriders.azurewebsites.net/api/charlas', {
+      const response = await fetch('https://apitechriders.azurewebsites.net/api/Charlas', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -122,6 +122,9 @@ class NuevaCharlaComponent extends Component {
         },
         body: JSON.stringify(charlaData),
       });
+
+      const responseData = await response.json();
+      console.log(responseData);
 
       if (!response.ok) {
         throw new Error(`Error al crear la charla: ${response.statusText}`);

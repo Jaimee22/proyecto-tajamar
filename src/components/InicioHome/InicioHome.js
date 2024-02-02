@@ -28,7 +28,7 @@ export default class InicioHome extends Component {
                 <CalendarioCharlas />
                 <br>
                 </br>
-                {/* <Charlas /> */}
+                <Charlas />
             </div>
         </>
     )
